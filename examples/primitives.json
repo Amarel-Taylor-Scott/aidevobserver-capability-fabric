@@ -1,0 +1,18 @@
+[
+  {
+    "primitive_id": "candidate.csv.profile_columns.v0",
+    "label": "csv.profile_columns",
+    "input_contract": "CsvArtifact",
+    "output_contract": "ColumnProfileSet",
+    "trust": "candidate",
+    "serves_truth": false
+  },
+  {
+    "primitive_id": "candidate.agent.detect_retry_loop.v0",
+    "label": "observer.detect_retry_loop",
+    "input_contract": "SessionEventSet",
+    "output_contract": "AgentLoopFindingSet",
+    "trust": "candidate",
+    "serves_truth": false
+  }
+]
