@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from aidevobserver_fabric import fabric, hybrid, primitive_factory, registry, social_ingest, source_surfaces
+from aidevobserver_fabric import fabric, hybrid, openwebui, primitive_factory, registry, social_ingest, source_surfaces
 
 
 class FabricTests(unittest.TestCase):
@@ -192,6 +192,46 @@ class FabricTests(unittest.TestCase):
                 con.close()
             self.assertEqual(result["results"][0]["primitive_id"], "candidate.social.facebook_rapidapi_fetch_posts.v0")
             self.assertEqual(result["candidate_bundle"]["template_role"], "ingest_social_posts")
+
+    def test_openwebui_plan_is_redacted(self) -> None:
+        config = openwebui.OpenWebUIConfig()
+        plan = openwebui.redacted_plan(config, mode="direct")
+        self.assertFalse(plan["serves_truth"])
+        self.assertTrue(plan["candidate_only"])
+        self.assertEqual(plan["headers"]["Authorization"], "<redacted>")
+        self.assertEqual(plan["endpoint"], "/api/chat/completions")
+        cdp_plan = openwebui.redacted_plan(config, mode="cdp")
+        self.assertEqual(cdp_plan["headers"]["Authorization"], "<browser-context>")
+
+    def test_openwebui_payload_and_response_normalization(self) -> None:
+        payload = openwebui.chat_payload("hello", "gemma-4-coding", system="be terse")
+        self.assertEqual(payload["model"], "gemma-4-coding")
+        self.assertFalse(payload["stream"])
+        self.assertEqual(payload["messages"][0]["role"], "system")
+        self.assertEqual(payload["messages"][1]["content"], "hello")
+        normalized = openwebui.normalize_chat_response(
+            {
+                "id": "chatcmpl-test",
+                "model": "gemma-4-coding",
+                "choices": [
+                    {
+                        "message": {
+                            "role": "assistant",
+                            "content": "ok",
+                        },
+                        "finish_reason": "stop",
+                    }
+                ],
+                "usage": {
+                    "prompt_tokens": 3,
+                    "completion_tokens": 1,
+                    "total_tokens": 4,
+                },
+            }
+        )
+        self.assertEqual(normalized["assistant_content"], "ok")
+        self.assertEqual(normalized["model"], "gemma-4-coding")
+        self.assertFalse(normalized["serves_truth"])
 
     def test_primitive_factory_snapshot_is_candidate_only(self) -> None:
         snapshot = primitive_factory.factory_snapshot()

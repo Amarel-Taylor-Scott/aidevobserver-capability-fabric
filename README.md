@@ -26,6 +26,7 @@ private workspace inventory, transcripts, credentials, or local paths.
 - Candidate-only source-surface catalog for AI startups, repos, newsletters,
   benchmarks, launch trackers, and communities.
 - Candidate-only RapidAPI social post ingestion for Facebook source pages.
+- Candidate-only Open WebUI wrapper for direct-token or browser-context LLM calls.
 - Evolutionary primitive factory views: genomes, mutations, crossovers,
   benchmark estimates, lineage, and fitness recommendations.
 - Optional local HTTP server.
@@ -87,6 +88,19 @@ aidevobserver-fabric rapidapi-key-status \
 ```
 
 See [`docs/rapidapi-facebook-ingest.md`](docs/rapidapi-facebook-ingest.md).
+
+Plan or run a candidate-only Open WebUI chat request:
+
+```bash
+aidevobserver-fabric openwebui-plan --mode cdp
+aidevobserver-fabric openwebui-chat \
+  --mode cdp \
+  --prompt "Print exactly: AIDevObserver Open WebUI smoke test OK" \
+  --out generated/openwebui_smoke_result.json
+```
+
+Use `--mode direct` with `OPENWEBUI_TOKEN` when a stable bearer token is
+available. See [`docs/openwebui-wrapper.md`](docs/openwebui-wrapper.md).
 
 Inspect the candidate-only primitive lifecycle factory:
 

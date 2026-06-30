@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, primitive_factory, registry, social_ingest, source_surfaces
+from . import fabric, hybrid, openwebui, primitive_factory, registry, social_ingest, source_surfaces
 
 
 def default_db(path: str | None) -> Path:
@@ -187,6 +187,45 @@ def cmd_rapidapi_scrape(args: argparse.Namespace) -> int:
     return 0
 
 
+def _openwebui_config(args: argparse.Namespace) -> openwebui.OpenWebUIConfig:
+    return openwebui.OpenWebUIConfig(
+        base_url=args.base_url,
+        endpoint=args.endpoint,
+        model=args.model,
+        token_env=args.token_env,
+        cdp_url=args.cdp_url,
+    )
+
+
+def cmd_openwebui_plan(args: argparse.Namespace) -> int:
+    print(fabric.canonical_json(openwebui.redacted_plan(_openwebui_config(args), mode=args.mode)), end="")
+    return 0
+
+
+def cmd_openwebui_chat(args: argparse.Namespace) -> int:
+    config = _openwebui_config(args)
+    if args.mode == "direct":
+        result = openwebui.direct_chat(
+            config,
+            args.prompt,
+            timeout=args.timeout,
+            system=args.system,
+        )
+    else:
+        result = openwebui.cdp_chat(
+            config,
+            args.prompt,
+            timeout=args.timeout,
+            system=args.system,
+        )
+    rendered = fabric.canonical_json(result)
+    if args.out:
+        Path(args.out).write_text(rendered, encoding="utf-8")
+    else:
+        print(rendered, end="")
+    return 0
+
+
 def cmd_discover(args: argparse.Namespace) -> int:
     data = fabric.build_fabric(default_db(args.db))
     print(fabric.canonical_json({"query": args.query, "results": fabric.discover_services(data, args.query)}), end="")
@@ -317,6 +356,28 @@ def build_parser() -> argparse.ArgumentParser:
     rapidapi_scrape.add_argument("--dry-run", action="store_true")
     rapidapi_scrape.add_argument("--include-comments", action="store_true", help="also fetch post comments when supported")
     rapidapi_scrape.set_defaults(func=cmd_rapidapi_scrape)
+
+    openwebui_plan = sub.add_parser("openwebui-plan", help="print a redacted Open WebUI chat request plan")
+    openwebui_plan.add_argument("--base-url", default=openwebui.DEFAULT_BASE_URL)
+    openwebui_plan.add_argument("--endpoint", default=openwebui.DEFAULT_ENDPOINT)
+    openwebui_plan.add_argument("--model", default=openwebui.DEFAULT_MODEL)
+    openwebui_plan.add_argument("--token-env", default=openwebui.DEFAULT_TOKEN_ENV)
+    openwebui_plan.add_argument("--cdp-url", default=openwebui.DEFAULT_CDP_URL)
+    openwebui_plan.add_argument("--mode", choices=("direct", "cdp"), default="direct")
+    openwebui_plan.set_defaults(func=cmd_openwebui_plan)
+
+    openwebui_chat = sub.add_parser("openwebui-chat", help="send one candidate-only Open WebUI chat request")
+    openwebui_chat.add_argument("--prompt", required=True)
+    openwebui_chat.add_argument("--system")
+    openwebui_chat.add_argument("--base-url", default=openwebui.DEFAULT_BASE_URL)
+    openwebui_chat.add_argument("--endpoint", default=openwebui.DEFAULT_ENDPOINT)
+    openwebui_chat.add_argument("--model", default=openwebui.DEFAULT_MODEL)
+    openwebui_chat.add_argument("--token-env", default=openwebui.DEFAULT_TOKEN_ENV)
+    openwebui_chat.add_argument("--cdp-url", default=openwebui.DEFAULT_CDP_URL)
+    openwebui_chat.add_argument("--mode", choices=("direct", "cdp"), default="direct")
+    openwebui_chat.add_argument("--timeout", type=float, default=120.0)
+    openwebui_chat.add_argument("--out", help="write normalized result JSON to this path")
+    openwebui_chat.set_defaults(func=cmd_openwebui_chat)
 
     discover = sub.add_parser("discover", help="search services")
     discover.add_argument("--db", help="SQLite DB path")
