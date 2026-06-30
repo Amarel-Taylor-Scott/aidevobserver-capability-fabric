@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -102,6 +103,34 @@ class FabricTests(unittest.TestCase):
         self.assertIn("count=3", plan.url)
         self.assertEqual(plan.headers["X-RapidAPI-Key"], "<redacted>")
         self.assertFalse(plan.serves_truth)
+
+    def test_rapidapi_provider_validation_and_key_status_are_redacted(self) -> None:
+        provider = social_ingest.RapidApiProviderSpec(
+            provider_id="test.provider",
+            name="Test Provider",
+            host="example.p.rapidapi.com",
+            path="/posts",
+            key_env="TEST_RAPIDAPI_KEY",
+        )
+        validation = social_ingest.validate_provider_spec(provider)
+        self.assertTrue(validation["valid"])
+        self.assertEqual(validation["errors"], [])
+        os.environ["TEST_RAPIDAPI_KEY"] = "secret-value"
+        try:
+            status = social_ingest.rapidapi_key_status(provider)
+        finally:
+            os.environ.pop("TEST_RAPIDAPI_KEY", None)
+        self.assertTrue(status["present"])
+        self.assertEqual(status["value"], "<redacted>")
+        self.assertEqual(status["length"], len("secret-value"))
+
+    def test_social_source_selection(self) -> None:
+        sources = social_ingest.load_social_sources()
+        selected = social_ingest.select_source(sources, 1)
+        self.assertEqual(len(selected), 1)
+        self.assertEqual(selected[0].source_id, "facebook.aidev_repo")
+        with self.assertRaises(IndexError):
+            social_ingest.select_source(sources, 999)
 
     def test_social_post_normalization_common_shapes(self) -> None:
         payload = {

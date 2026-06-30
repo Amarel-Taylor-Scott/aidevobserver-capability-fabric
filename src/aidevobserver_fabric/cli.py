@@ -84,6 +84,7 @@ def cmd_social_sources(args: argparse.Namespace) -> int:
 def cmd_rapidapi_plan(args: argparse.Namespace) -> int:
     provider = social_ingest.load_provider_spec(Path(args.provider_config))
     sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    sources = social_ingest.select_source(sources, args.source_index)
     data = {
         "boundary": "candidate_request_plan",
         "serves_truth": False,
@@ -94,9 +95,58 @@ def cmd_rapidapi_plan(args: argparse.Namespace) -> int:
     return 0
 
 
-def cmd_rapidapi_scrape(args: argparse.Namespace) -> int:
+def cmd_rapidapi_validate(args: argparse.Namespace) -> int:
+    provider = social_ingest.load_provider_spec(Path(args.provider_config))
+    print(fabric.canonical_json(social_ingest.validate_provider_spec(provider)), end="")
+    return 0
+
+
+def cmd_rapidapi_key_status(args: argparse.Namespace) -> int:
+    provider = social_ingest.load_provider_spec(Path(args.provider_config))
+    print(fabric.canonical_json(social_ingest.rapidapi_key_status(provider, args.key_env)), end="")
+    return 0
+
+
+def cmd_rapidapi_normalize_fixture(args: argparse.Namespace) -> int:
     provider = social_ingest.load_provider_spec(Path(args.provider_config))
     sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    source = social_ingest.select_source(sources, args.source_index)[0]
+    data = social_ingest.normalize_fixture(provider, source, Path(args.fixture))
+    print(fabric.canonical_json(data), end="")
+    return 0
+
+
+def cmd_rapidapi_live_test(args: argparse.Namespace) -> int:
+    provider = social_ingest.load_provider_spec(Path(args.provider_config))
+    validation = social_ingest.validate_provider_spec(provider)
+    if not validation["valid"]:
+        print(fabric.canonical_json({"error": "invalid_provider_config", "validation": validation}), end="")
+        return 1
+    key_status = social_ingest.rapidapi_key_status(provider, args.key_env)
+    if not key_status["present"]:
+        print(fabric.canonical_json({"error": "missing_key", "key_status": key_status}), end="")
+        return 1
+    sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    source = social_ingest.select_source(sources, args.source_index)[0]
+    data = social_ingest.live_smoke_test(
+        provider,
+        source,
+        limit=args.limit,
+        key_env=args.key_env,
+        timeout=args.timeout,
+    )
+    print(fabric.canonical_json(data), end="")
+    return 0
+
+
+def cmd_rapidapi_scrape(args: argparse.Namespace) -> int:
+    provider = social_ingest.load_provider_spec(Path(args.provider_config))
+    validation = social_ingest.validate_provider_spec(provider)
+    if not validation["valid"]:
+        print(fabric.canonical_json({"error": "invalid_provider_config", "validation": validation}), end="")
+        return 1
+    sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    sources = social_ingest.select_source(sources, args.source_index)
     if args.dry_run:
         data = {
             "boundary": "candidate_request_plan",
@@ -200,12 +250,39 @@ def build_parser() -> argparse.ArgumentParser:
     rapidapi_plan = sub.add_parser("rapidapi-plan", help="print redacted RapidAPI request plans")
     rapidapi_plan.add_argument("--provider-config", required=True)
     rapidapi_plan.add_argument("--sources", help="JSON source list")
+    rapidapi_plan.add_argument("--source-index", type=int)
     rapidapi_plan.add_argument("--limit", type=int)
     rapidapi_plan.set_defaults(func=cmd_rapidapi_plan)
+
+    rapidapi_validate = sub.add_parser("rapidapi-validate", help="validate a RapidAPI provider config")
+    rapidapi_validate.add_argument("--provider-config", required=True)
+    rapidapi_validate.set_defaults(func=cmd_rapidapi_validate)
+
+    rapidapi_key_status = sub.add_parser("rapidapi-key-status", help="check RapidAPI key presence without printing it")
+    rapidapi_key_status.add_argument("--provider-config", required=True)
+    rapidapi_key_status.add_argument("--key-env", help="environment variable containing the RapidAPI key")
+    rapidapi_key_status.set_defaults(func=cmd_rapidapi_key_status)
+
+    rapidapi_fixture = sub.add_parser("rapidapi-normalize-fixture", help="normalize a saved provider JSON fixture")
+    rapidapi_fixture.add_argument("--provider-config", required=True)
+    rapidapi_fixture.add_argument("--sources", help="JSON source list")
+    rapidapi_fixture.add_argument("--source-index", type=int, default=0)
+    rapidapi_fixture.add_argument("--fixture", required=True)
+    rapidapi_fixture.set_defaults(func=cmd_rapidapi_normalize_fixture)
+
+    rapidapi_live = sub.add_parser("rapidapi-live-test", help="run a one-source RapidAPI smoke test without printing raw posts")
+    rapidapi_live.add_argument("--provider-config", required=True)
+    rapidapi_live.add_argument("--sources", help="JSON source list")
+    rapidapi_live.add_argument("--source-index", type=int, default=0)
+    rapidapi_live.add_argument("--limit", type=int, default=1)
+    rapidapi_live.add_argument("--key-env", help="environment variable containing the RapidAPI key")
+    rapidapi_live.add_argument("--timeout", type=float, default=30.0)
+    rapidapi_live.set_defaults(func=cmd_rapidapi_live_test)
 
     rapidapi_scrape = sub.add_parser("rapidapi-scrape", help="scrape social sources through a RapidAPI provider")
     rapidapi_scrape.add_argument("--provider-config", required=True)
     rapidapi_scrape.add_argument("--sources", help="JSON source list")
+    rapidapi_scrape.add_argument("--source-index", type=int)
     rapidapi_scrape.add_argument("--limit", type=int)
     rapidapi_scrape.add_argument("--key-env", help="environment variable containing the RapidAPI key")
     rapidapi_scrape.add_argument("--timeout", type=float, default=30.0)

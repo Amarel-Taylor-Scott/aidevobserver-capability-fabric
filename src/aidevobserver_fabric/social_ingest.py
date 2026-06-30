@@ -137,6 +137,54 @@ def load_provider_spec(path: Path) -> RapidApiProviderSpec:
     return RapidApiProviderSpec.from_dict(json.loads(path.read_text(encoding="utf-8")))
 
 
+def validate_provider_spec(provider: RapidApiProviderSpec) -> dict[str, Any]:
+    errors: list[str] = []
+    warnings: list[str] = []
+
+    if not provider.provider_id:
+        errors.append("provider_id is required")
+    if not provider.name:
+        errors.append("name is required")
+    if not provider.host:
+        errors.append("host is required")
+    if provider.host.startswith(("http://", "https://")):
+        errors.append("host should be a host name only, not a URL")
+    if "replace-with" in provider.host or "replace-with" in provider.path:
+        warnings.append("provider config still contains example placeholder values")
+    if not provider.path:
+        errors.append("path is required")
+    if provider.method not in {"GET"}:
+        errors.append("only GET RapidAPI providers are supported by this runtime")
+    if provider.base_url and not provider.base_url.startswith("https://"):
+        errors.append("base_url must start with https://")
+    if not provider.url_param:
+        errors.append("url_param is required")
+    if provider.key_env != provider.key_env.strip():
+        errors.append("key_env must not contain leading or trailing spaces")
+    if not provider.candidate_only:
+        errors.append("provider specs must remain candidate_only=true")
+
+    return {
+        "provider_id": provider.provider_id,
+        "valid": not errors,
+        "errors": errors,
+        "warnings": warnings,
+        "serves_truth": False,
+    }
+
+
+def rapidapi_key_status(provider: RapidApiProviderSpec, key_env: str | None = None) -> dict[str, Any]:
+    env_name = key_env or provider.key_env
+    value = os.environ.get(env_name)
+    return {
+        "key_env": env_name,
+        "present": bool(value),
+        "length": len(value) if value else 0,
+        "value": "<redacted>" if value else None,
+        "serves_truth": False,
+    }
+
+
 def compact_sources(sources: Iterable[SocialSource]) -> str:
     lines = [
         "AIDevObserver social sources",
@@ -204,6 +252,18 @@ def request_plans(
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
     return [build_request_plan(provider, source, limit=limit).to_dict() for source in sources]
+
+
+def select_source(
+    sources: Iterable[SocialSource],
+    source_index: int | None = None,
+) -> tuple[SocialSource, ...]:
+    source_tuple = tuple(sources)
+    if source_index is None:
+        return source_tuple
+    if source_index < 0 or source_index >= len(source_tuple):
+        raise IndexError(f"source_index {source_index} outside 0..{len(source_tuple) - 1}")
+    return (source_tuple[source_index],)
 
 
 def _digest(value: Any) -> str:
@@ -350,3 +410,46 @@ def scrape_sources(
         "candidate_only": True,
     }
 
+
+def live_smoke_test(
+    provider: RapidApiProviderSpec,
+    source: SocialSource,
+    *,
+    limit: int | None = 1,
+    key_env: str | None = None,
+    timeout: float = 30.0,
+) -> dict[str, Any]:
+    records = fetch_source(provider, source, limit=limit, key_env=key_env, timeout=timeout)
+    first = records[0].to_dict() if records else None
+    return {
+        "provider_id": provider.provider_id,
+        "source": source.to_dict(),
+        "record_count": len(records),
+        "sample_shape": sorted(first.keys()) if first else [],
+        "sample_has_text": bool(first and first.get("text")),
+        "sample_has_post_url": bool(first and first.get("post_url")),
+        "sample_has_created_at": bool(first and first.get("created_at")),
+        "candidate_only": True,
+        "serves_truth": False,
+    }
+
+
+def normalize_fixture(
+    provider: RapidApiProviderSpec,
+    source: SocialSource,
+    fixture_path: Path,
+) -> dict[str, Any]:
+    payload = json.loads(fixture_path.read_text(encoding="utf-8"))
+    records = [
+        post.to_dict()
+        for post in normalize_posts(payload, source, records_path=provider.records_path)
+    ]
+    return {
+        "fixture": str(fixture_path),
+        "provider_id": provider.provider_id,
+        "source": source.to_dict(),
+        "record_count": len(records),
+        "records": records,
+        "candidate_only": True,
+        "serves_truth": False,
+    }

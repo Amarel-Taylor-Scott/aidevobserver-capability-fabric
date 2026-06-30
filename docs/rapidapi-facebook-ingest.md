@@ -67,6 +67,58 @@ aidevobserver-fabric rapidapi-plan \
 
 The plan output includes `X-RapidAPI-Key: <redacted>`.
 
+## Validate Provider And Key Readiness
+
+Validate the selected provider config:
+
+```bash
+aidevobserver-fabric rapidapi-validate \
+  --provider-config local/facebook_provider.json
+```
+
+Check whether the configured key environment variable is present without
+printing the key:
+
+```bash
+aidevobserver-fabric rapidapi-key-status \
+  --provider-config local/facebook_provider.json
+```
+
+The key-status command reports `present`, `length`, and `value:
+<redacted>`. It never prints the key.
+
+## Fixture Normalization
+
+Before spending API calls, save one sample provider response as JSON and test
+the response shape:
+
+```bash
+aidevobserver-fabric rapidapi-normalize-fixture \
+  --provider-config local/facebook_provider.json \
+  --sources examples/facebook_sources.json \
+  --source-index 0 \
+  --fixture examples/facebook_posts_fixture.json
+```
+
+If the fixture yields `record_count: 0`, update `records_path` in the provider
+config to the dotted path containing the posts list.
+
+## Live Smoke Test
+
+Run one low-volume live request without printing raw post text:
+
+```bash
+export RAPIDAPI_KEY="..."
+
+aidevobserver-fabric rapidapi-live-test \
+  --provider-config local/facebook_provider.json \
+  --sources examples/facebook_sources.json \
+  --source-index 0 \
+  --limit 1
+```
+
+The live test returns record count and shape checks only.
+
 ## Scrape
 
 After creating a real provider JSON:
@@ -79,6 +131,17 @@ aidevobserver-fabric rapidapi-scrape \
   --sources examples/facebook_sources.json \
   --limit 10 \
   --out generated/facebook_posts.normalized.json
+```
+
+To test one source first:
+
+```bash
+aidevobserver-fabric rapidapi-scrape \
+  --provider-config local/facebook_provider.json \
+  --sources examples/facebook_sources.json \
+  --source-index 0 \
+  --limit 5 \
+  --out generated/facebook_posts.deeprepo.normalized.json
 ```
 
 The output shape is:
@@ -138,4 +201,3 @@ aidevobserver-fabric search \
 - Do not commit raw scraped pages or raw unreviewed post dumps.
 - Treat all extracted primitive drafts as candidate evidence only.
 - Keep `serves_truth=false` until review, proof fixtures, and promotion.
-

@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "post_id": "fixture-post-1",
+      "permalink_url": "https://www.facebook.com/example/posts/fixture-post-1",
+      "page_name": "Example AI Page",
+      "message": "Example post about a reusable AI development workflow.",
+      "created_time": "2026-06-30T12:00:00Z",
+      "like_count": 42,
+      "comment_count": 7,
+      "share_count": 3
+    }
+  ]
+}
