@@ -128,6 +128,25 @@ class FabricTests(unittest.TestCase):
         self.assertEqual(status["value"], "<redacted>")
         self.assertEqual(status["length"], len("secret-value"))
 
+    def test_facebook_scraper3_provider_config_is_valid_and_plannable(self) -> None:
+        provider = social_ingest.load_provider_spec(Path("examples/rapidapi_facebook_scraper3_provider.example.json"))
+        validation = social_ingest.validate_provider_spec(provider)
+        self.assertTrue(validation["valid"])
+        self.assertEqual(validation["errors"], [])
+        page_plan = social_ingest.build_request_plan(
+            provider,
+            social_ingest.DEFAULT_FACEBOOK_SOURCES[0],
+        )
+        self.assertIn("/page/posts", page_plan.url)
+        self.assertIn("page_id=%3Cresolved%3Apage_id%3E", page_plan.url)
+        profile_plan = social_ingest.build_request_plan(
+            provider,
+            social_ingest.DEFAULT_FACEBOOK_SOURCES[3],
+        )
+        self.assertIn("/profile/posts", profile_plan.url)
+        self.assertIn("profile_id=%3Cresolved%3Aprofile_id%3E", profile_plan.url)
+        self.assertEqual(page_plan.headers["X-RapidAPI-Key"], "<redacted>")
+
     def test_social_source_selection(self) -> None:
         sources = social_ingest.load_social_sources()
         selected = social_ingest.select_source(sources, 1)

@@ -41,6 +41,16 @@ class RapidApiProviderSpec:
     static_query: dict[str, str] = field(default_factory=dict)
     docs_url: str | None = None
     key_env: str = DEFAULT_KEY_ENV
+    source_mode: str = "url_posts"
+    id_url_param: str = "url"
+    page_id_path: str | None = None
+    page_posts_path: str | None = None
+    page_id_param: str = "page_id"
+    page_id_response_path: str = "page_id"
+    profile_id_path: str | None = None
+    profile_posts_path: str | None = None
+    profile_id_param: str = "profile_id"
+    profile_id_response_path: str = "profile_id"
     candidate_only: bool = True
 
     @staticmethod
@@ -58,6 +68,16 @@ class RapidApiProviderSpec:
             static_query={str(k): str(v) for k, v in data.get("static_query", {}).items()},
             docs_url=data.get("docs_url"),
             key_env=str(data.get("key_env", DEFAULT_KEY_ENV)),
+            source_mode=str(data.get("source_mode", "url_posts")),
+            id_url_param=str(data.get("id_url_param", "url")),
+            page_id_path=data.get("page_id_path"),
+            page_posts_path=data.get("page_posts_path"),
+            page_id_param=str(data.get("page_id_param", "page_id")),
+            page_id_response_path=str(data.get("page_id_response_path", "page_id")),
+            profile_id_path=data.get("profile_id_path"),
+            profile_posts_path=data.get("profile_posts_path"),
+            profile_id_param=str(data.get("profile_id_param", "profile_id")),
+            profile_id_response_path=str(data.get("profile_id_response_path", "profile_id")),
             candidate_only=bool(data.get("candidate_only", True)),
         )
 
@@ -151,7 +171,7 @@ def validate_provider_spec(provider: RapidApiProviderSpec) -> dict[str, Any]:
         errors.append("host should be a host name only, not a URL")
     if "replace-with" in provider.host or "replace-with" in provider.path:
         warnings.append("provider config still contains example placeholder values")
-    if not provider.path:
+    if not provider.path and provider.source_mode == "url_posts":
         errors.append("path is required")
     if provider.method not in {"GET"}:
         errors.append("only GET RapidAPI providers are supported by this runtime")
@@ -159,6 +179,17 @@ def validate_provider_spec(provider: RapidApiProviderSpec) -> dict[str, Any]:
         errors.append("base_url must start with https://")
     if not provider.url_param:
         errors.append("url_param is required")
+    if provider.source_mode not in {"url_posts", "facebook_scraper3_auto"}:
+        errors.append("source_mode must be url_posts or facebook_scraper3_auto")
+    if provider.source_mode == "facebook_scraper3_auto":
+        for field_name, value in (
+            ("page_id_path", provider.page_id_path),
+            ("page_posts_path", provider.page_posts_path),
+            ("profile_id_path", provider.profile_id_path),
+            ("profile_posts_path", provider.profile_posts_path),
+        ):
+            if not value:
+                errors.append(f"{field_name} is required for facebook_scraper3_auto")
     if provider.key_env != provider.key_env.strip():
         errors.append("key_env must not contain leading or trailing spaces")
     if not provider.candidate_only:
@@ -221,11 +252,20 @@ def build_request_plan(
     redact_key: bool = True,
 ) -> RequestPlan:
     base_url = provider.base_url or f"https://{provider.host}"
-    path = provider.path if provider.path.startswith("/") else f"/{provider.path}"
     query = dict(provider.static_query)
-    query[provider.url_param] = source.url
-    if limit is not None and provider.limit_param:
-        query[provider.limit_param] = str(limit)
+    if provider.source_mode == "facebook_scraper3_auto":
+        if _is_profile_source(source):
+            path = provider.profile_posts_path or provider.path
+            query[provider.profile_id_param] = "<resolved:profile_id>"
+        else:
+            path = provider.page_posts_path or provider.path
+            query[provider.page_id_param] = "<resolved:page_id>"
+    else:
+        path = provider.path
+        query[provider.url_param] = source.url
+        if limit is not None and provider.limit_param:
+            query[provider.limit_param] = str(limit)
+    path = path if path.startswith("/") else f"/{path}"
     url = f"{base_url.rstrip('/')}{path}"
     if query:
         url = f"{url}?{parse.urlencode(query)}"
@@ -269,6 +309,40 @@ def select_source(
 def _digest(value: Any) -> str:
     encoded = json.dumps(value, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
     return "sha256:" + hashlib.sha256(encoded).hexdigest()
+
+
+def _is_profile_source(source: SocialSource) -> bool:
+    return "profile.php" in source.url or "/profile/" in source.url
+
+
+def _provider_url(provider: RapidApiProviderSpec, path: str, query: dict[str, str]) -> str:
+    base_url = provider.base_url or f"https://{provider.host}"
+    normalized_path = path if path.startswith("/") else f"/{path}"
+    url = f"{base_url.rstrip('/')}{normalized_path}"
+    if query:
+        url = f"{url}?{parse.urlencode(query)}"
+    return url
+
+
+def _fetch_json(
+    provider: RapidApiProviderSpec,
+    url: str,
+    *,
+    key_value: str,
+    timeout: float,
+) -> Any:
+    req = request.Request(
+        url,
+        headers={
+            "Accept": "application/json",
+            "X-RapidAPI-Host": provider.host,
+            "X-RapidAPI-Key": key_value,
+            "User-Agent": "aidevobserver-capability-fabric/0.1",
+        },
+        method=provider.method,
+    )
+    with request.urlopen(req, timeout=timeout) as response:
+        return json.loads(response.read().decode("utf-8"))
 
 
 def _get_path(value: Any, dotted_path: str | None) -> Any:
@@ -374,17 +448,32 @@ def fetch_source(
     key_value = os.environ.get(env_name)
     if not key_value:
         raise RuntimeError(f"missing RapidAPI key environment variable: {env_name}")
+    if provider.source_mode == "facebook_scraper3_auto":
+        if _is_profile_source(source):
+            id_path = provider.profile_id_path
+            posts_path = provider.profile_posts_path
+            id_param = provider.profile_id_param
+            id_response_path = provider.profile_id_response_path
+        else:
+            id_path = provider.page_id_path
+            posts_path = provider.page_posts_path
+            id_param = provider.page_id_param
+            id_response_path = provider.page_id_response_path
+        if not id_path or not posts_path:
+            raise RuntimeError("provider is missing required facebook_scraper3_auto paths")
+        id_url = _provider_url(provider, id_path, {provider.id_url_param: source.url})
+        id_payload = _fetch_json(provider, id_url, key_value=key_value, timeout=timeout)
+        resolved_id = _get_path(id_payload, id_response_path)
+        if not resolved_id:
+            raise RuntimeError(f"provider did not return {id_response_path} for source {source.source_id}")
+        query = {id_param: str(resolved_id)}
+        if limit is not None and provider.limit_param:
+            query[provider.limit_param] = str(limit)
+        posts_url = _provider_url(provider, posts_path, query)
+        payload = _fetch_json(provider, posts_url, key_value=key_value, timeout=timeout)
+        return normalize_posts(payload, source, records_path=provider.records_path)
     plan = build_request_plan(provider, source, limit=limit, key_value=key_value, redact_key=False)
-    req = request.Request(
-        plan.url,
-        headers={
-            **plan.headers,
-            "User-Agent": "aidevobserver-capability-fabric/0.1",
-        },
-        method=plan.method,
-    )
-    with request.urlopen(req, timeout=timeout) as response:
-        payload = json.loads(response.read().decode("utf-8"))
+    payload = _fetch_json(provider, plan.url, key_value=key_value, timeout=timeout)
     return normalize_posts(payload, source, records_path=provider.records_path)
 
 
@@ -397,15 +486,29 @@ def scrape_sources(
     timeout: float = 30.0,
 ) -> dict[str, Any]:
     records: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
     for source in sources:
-        records.extend(
-            post.to_dict()
-            for post in fetch_source(provider, source, limit=limit, key_env=key_env, timeout=timeout)
-        )
+        try:
+            records.extend(
+                post.to_dict()
+                for post in fetch_source(provider, source, limit=limit, key_env=key_env, timeout=timeout)
+            )
+        except Exception as exc:
+            errors.append(
+                {
+                    "source_id": source.source_id,
+                    "source_url": source.url,
+                    "error_type": type(exc).__name__,
+                    "error": str(exc),
+                    "serves_truth": False,
+                }
+            )
     return {
         "provider": provider.to_dict(),
         "record_count": len(records),
         "records": records,
+        "error_count": len(errors),
+        "errors": errors,
         "serves_truth": False,
         "candidate_only": True,
     }

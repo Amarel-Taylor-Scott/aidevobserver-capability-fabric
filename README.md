@@ -79,11 +79,11 @@ Plan a RapidAPI/Facebook social post scrape without exposing keys:
 ```bash
 aidevobserver-fabric social-sources --compact
 aidevobserver-fabric rapidapi-plan \
-  --provider-config examples/rapidapi_facebook_provider.example.json \
+  --provider-config examples/rapidapi_facebook_scraper3_provider.example.json \
   --sources examples/facebook_sources.json \
   --limit 10
 aidevobserver-fabric rapidapi-key-status \
-  --provider-config examples/rapidapi_facebook_provider.example.json
+  --provider-config examples/rapidapi_facebook_scraper3_provider.example.json
 ```
 
 See [`docs/rapidapi-facebook-ingest.md`](docs/rapidapi-facebook-ingest.md).

@@ -34,9 +34,26 @@ Provider config template:
 examples/rapidapi_facebook_provider.example.json
 ```
 
+Discovered working provider config:
+
+```text
+examples/rapidapi_facebook_scraper3_provider.example.json
+```
+
+This provider uses a two-step flow:
+
+```text
+page/profile URL -> page_id/profile_id -> page/profile posts
+```
+
 RapidAPI providers differ in endpoint paths, query parameter names, and response
 shapes. Store those details in the provider JSON instead of hard-coding them in
 Python.
+
+The runtime supports two provider modes:
+
+- `url_posts`: one request from source URL to post records;
+- `facebook_scraper3_auto`: resolve a page/profile ID first, then fetch posts.
 
 ## Provider Selection
 
@@ -111,7 +128,7 @@ Run one low-volume live request without printing raw post text:
 export RAPIDAPI_KEY="..."
 
 aidevobserver-fabric rapidapi-live-test \
-  --provider-config local/facebook_provider.json \
+  --provider-config examples/rapidapi_facebook_scraper3_provider.example.json \
   --sources examples/facebook_sources.json \
   --source-index 0 \
   --limit 1
@@ -127,7 +144,7 @@ After creating a real provider JSON:
 export RAPIDAPI_KEY="..."
 
 aidevobserver-fabric rapidapi-scrape \
-  --provider-config local/facebook_provider.json \
+  --provider-config examples/rapidapi_facebook_scraper3_provider.example.json \
   --sources examples/facebook_sources.json \
   --limit 10 \
   --out generated/facebook_posts.normalized.json
@@ -137,7 +154,7 @@ To test one source first:
 
 ```bash
 aidevobserver-fabric rapidapi-scrape \
-  --provider-config local/facebook_provider.json \
+  --provider-config examples/rapidapi_facebook_scraper3_provider.example.json \
   --sources examples/facebook_sources.json \
   --source-index 0 \
   --limit 5 \
