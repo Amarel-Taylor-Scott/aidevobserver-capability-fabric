@@ -113,3 +113,48 @@ FacebookSourceSet
 
 This is a candidate-intake route. It requires provider selection, terms review,
 fixtures, and proof before any promoted primitive can serve truth.
+
+## 7. Evolutionary Primitive Factory
+
+`primitive_factory` treats the seed registry as input to a candidate lifecycle
+pipeline:
+
+```text
+Observation
+  -> PrimitiveGenome
+  -> MutationRecord
+  -> CrossoverRecord
+  -> BenchmarkRecord
+  -> FitnessRecord
+```
+
+This is a factory view, not a truth store. It derives candidate evidence from
+canonical primitive records, proposes deterministic remix routes, estimates
+benchmark obligations, and ranks candidate fitness. Every generated row carries
+`candidate_only=true` and `serves_truth=false`.
+
+The factory is useful for:
+
+- finding which primitive families should be mutated next;
+- surfacing deterministic rewrites for LLM-assisted candidates;
+- proposing composite/crossover chains where contracts already align;
+- creating benchmark and proof obligations before promotion;
+- giving agents a compact "what can evolve from here" view.
+
+The registered service is `svc.primitive_factory.v0`, exposed through:
+
+```bash
+aidevobserver-fabric factory --compact
+aidevobserver-fabric factory-lineage PRIMITIVE_ID
+```
+
+And through the read-only service fabric:
+
+```text
+GET /factory
+GET /factory?compact=1
+GET /factory/lineage?id=PRIMITIVE_ID
+```
+
+Promotion still belongs to proof and registry governance. Factory fitness is a
+planning signal only.

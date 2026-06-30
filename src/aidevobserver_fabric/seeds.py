@@ -277,4 +277,32 @@ SERVICES: tuple[ServiceRecord, ...] = (
             ),
         ),
     ),
+    ServiceRecord(
+        service_id="svc.primitive_factory.v0",
+        label="Primitive Factory",
+        purpose="Generate candidate genomes, mutations, crossovers, benchmark estimates, and fitness views from primitive records.",
+        readiness="R4_candidate_factory",
+        mode="local_readonly",
+        consumes=("PrimitiveRecordSet",),
+        produces=("PrimitiveGenomeSet", "MutationRecordSet", "FitnessRecordSet"),
+        gates=("candidate_only", "proof_required_for_promotion"),
+        endpoints=(
+            ServiceEndpoint(
+                route="/factory",
+                method="GET",
+                input_contract="PrimitiveRecordSet",
+                output_contract="EvolutionaryFactorySnapshot",
+                command="aidevobserver-fabric factory --compact",
+                description="Return a candidate-only primitive lifecycle factory view.",
+            ),
+            ServiceEndpoint(
+                route="/factory/lineage",
+                method="GET",
+                input_contract="PrimitiveId",
+                output_contract="PrimitiveLineage",
+                command="aidevobserver-fabric factory-lineage PRIMITIVE_ID",
+                description="Return mutation children and contract-aligned crossovers for one primitive.",
+            ),
+        ),
+    ),
 )

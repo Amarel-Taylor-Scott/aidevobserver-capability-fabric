@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-from . import hybrid, registry
+from . import hybrid, primitive_factory, registry
 from .seeds import SERVICES, TEMPLATE_SLOTS
 
 DEFAULT_DB = Path("generated/primitive_search.sqlite")
@@ -24,6 +24,7 @@ def service_records() -> list[dict[str, Any]]:
 
 def build_fabric(db_path: Path = DEFAULT_DB) -> dict[str, Any]:
     counts = registry.build_db(db_path)
+    factory = primitive_factory.factory_snapshot()
     con = registry.connect(db_path)
     try:
         bundles = [
@@ -36,7 +37,19 @@ def build_fabric(db_path: Path = DEFAULT_DB) -> dict[str, Any]:
         "fabric_id": "fabric.aidevobserver.capability.v0",
         "serves_truth": False,
         "mode": "local_readonly",
-        "counts": {**counts, "candidate_bundles": len(bundles), "services": len(SERVICES)},
+        "counts": {
+            **counts,
+            "candidate_bundles": len(bundles),
+            "services": len(SERVICES),
+            "factory_genomes": factory["counts"]["genomes"],
+            "factory_mutations": factory["counts"]["mutations"],
+        },
+        "factory": {
+            "factory_id": factory["factory_id"],
+            "serves_truth": False,
+            "candidate_only": True,
+            "counts": factory["counts"],
+        },
         "services": service_records(),
         "candidate_bundles": bundles,
         "truth_boundary": "candidate_advice_only_planlock_proof_promotion_required",
@@ -151,6 +164,20 @@ class FabricHandler(BaseHTTPRequestHandler):
             return
         if parsed.path == "/bundles":
             self.send_json(fabric["candidate_bundles"])
+            return
+        if parsed.path == "/factory":
+            snapshot = primitive_factory.factory_snapshot()
+            if params.get("compact", ["0"])[0] in {"1", "true", "True"}:
+                self.send_text(primitive_factory.compact_snapshot(snapshot))
+            else:
+                self.send_json(snapshot)
+            return
+        if parsed.path == "/factory/lineage":
+            primitive_id = params.get("id", [""])[0]
+            if not primitive_id:
+                self.send_json({"error": "missing_id", "serves_truth": False}, status=400)
+                return
+            self.send_json(primitive_factory.lineage_for(primitive_id))
             return
         if parsed.path == "/services/discover":
             self.send_json({"query": params.get("q", [""])[0], "results": discover_services(fabric, params.get("q", [""])[0])})

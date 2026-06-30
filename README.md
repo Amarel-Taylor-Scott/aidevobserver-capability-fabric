@@ -26,6 +26,8 @@ private workspace inventory, transcripts, credentials, or local paths.
 - Candidate-only source-surface catalog for AI startups, repos, newsletters,
   benchmarks, launch trackers, and communities.
 - Candidate-only RapidAPI social post ingestion for Facebook source pages.
+- Evolutionary primitive factory views: genomes, mutations, crossovers,
+  benchmark estimates, lineage, and fitness recommendations.
 - Optional local HTTP server.
 
 Every generated candidate remains advisory:
@@ -86,6 +88,15 @@ aidevobserver-fabric rapidapi-key-status \
 
 See [`docs/rapidapi-facebook-ingest.md`](docs/rapidapi-facebook-ingest.md).
 
+Inspect the candidate-only primitive lifecycle factory:
+
+```bash
+aidevobserver-fabric factory --compact
+aidevobserver-fabric factory-lineage candidate.social.facebook_rapidapi_fetch_posts.v0
+```
+
+See [`docs/evolutionary-primitive-factory.md`](docs/evolutionary-primitive-factory.md).
+
 Start the local read-only service:
 
 ```bash
@@ -101,6 +112,9 @@ GET /agents/discovery
 GET /services/discover?q=primitive+search
 GET /capabilities/search?q=csv+profile+rows&output_contract=ColumnProfileSet&candidate_only=1
 GET /bundles
+GET /factory
+GET /factory?compact=1
+GET /factory/lineage?id=candidate.social.facebook_rapidapi_fetch_posts.v0
 GET /openapi.json
 ```
 
@@ -113,6 +127,7 @@ PrimitiveRecord
   -> CandidateBundle route context
   -> source-surface intake map
   -> social source ingestion
+  -> evolutionary primitive factory
   -> agent discovery fabric
   -> optional HTTP service
 ```

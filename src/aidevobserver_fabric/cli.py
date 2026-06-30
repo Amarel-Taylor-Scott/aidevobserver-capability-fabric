@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, registry, social_ingest, source_surfaces
+from . import fabric, hybrid, primitive_factory, registry, social_ingest, source_surfaces
 
 
 def default_db(path: str | None) -> Path:
@@ -56,6 +56,21 @@ def cmd_services(args: argparse.Namespace) -> int:
         print(fabric.agent_discovery(data), end="")
     else:
         print(fabric.canonical_json(data), end="")
+    return 0
+
+
+def cmd_factory(args: argparse.Namespace) -> int:
+    snapshot = primitive_factory.factory_snapshot()
+    if args.compact:
+        print(primitive_factory.compact_snapshot(snapshot, limit=args.limit), end="")
+    else:
+        print(fabric.canonical_json(snapshot), end="")
+    return 0
+
+
+def cmd_factory_lineage(args: argparse.Namespace) -> int:
+    snapshot = primitive_factory.factory_snapshot()
+    print(fabric.canonical_json(primitive_factory.lineage_for(args.primitive_id, snapshot)), end="")
     return 0
 
 
@@ -235,6 +250,15 @@ def build_parser() -> argparse.ArgumentParser:
     services.add_argument("--db", help="SQLite DB path")
     services.add_argument("--compact", action="store_true")
     services.set_defaults(func=cmd_services)
+
+    factory_cmd = sub.add_parser("factory", help="print evolutionary primitive factory snapshot")
+    factory_cmd.add_argument("--compact", action="store_true")
+    factory_cmd.add_argument("--limit", type=int, default=10)
+    factory_cmd.set_defaults(func=cmd_factory)
+
+    factory_lineage = sub.add_parser("factory-lineage", help="print primitive lineage and mutation children")
+    factory_lineage.add_argument("primitive_id")
+    factory_lineage.set_defaults(func=cmd_factory_lineage)
 
     sources = sub.add_parser("sources", help="print public source-surface catalog")
     sources.add_argument("--category", help="filter by exact source category")

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from aidevobserver_fabric import fabric, hybrid, registry, social_ingest, source_surfaces
+from aidevobserver_fabric import fabric, hybrid, primitive_factory, registry, social_ingest, source_surfaces
 
 
 class FabricTests(unittest.TestCase):
@@ -59,6 +59,10 @@ class FabricTests(unittest.TestCase):
             discovery = fabric.agent_discovery(data)
             self.assertIn("BOUNDARY discovery=awareness authorization=false serves_truth=false", discovery)
             self.assertIn("SVC svc.primitive_search.v0", discovery)
+            self.assertIn("SVC svc.primitive_factory.v0", discovery)
+            self.assertEqual(data["factory"]["counts"]["genomes"], data["counts"]["factory_genomes"])
+            openapi = fabric.openapi_stub(data)
+            self.assertIn("/factory", openapi["paths"])
 
     def test_source_surfaces_catalog_is_candidate_only(self) -> None:
         records = source_surfaces.SOURCE_SURFACES
@@ -167,6 +171,35 @@ class FabricTests(unittest.TestCase):
                 con.close()
             self.assertEqual(result["results"][0]["primitive_id"], "candidate.social.facebook_rapidapi_fetch_posts.v0")
             self.assertEqual(result["candidate_bundle"]["template_role"], "ingest_social_posts")
+
+    def test_primitive_factory_snapshot_is_candidate_only(self) -> None:
+        snapshot = primitive_factory.factory_snapshot()
+        self.assertFalse(snapshot["serves_truth"])
+        self.assertTrue(snapshot["candidate_only"])
+        self.assertGreaterEqual(snapshot["counts"]["genomes"], 13)
+        self.assertGreater(snapshot["counts"]["mutations"], snapshot["counts"]["genomes"])
+        self.assertGreater(snapshot["counts"]["crossovers"], 0)
+
+    def test_primitive_factory_social_genome_exposes_runtime_mutators(self) -> None:
+        snapshot = primitive_factory.factory_snapshot()
+        genome = next(
+            row
+            for row in snapshot["genomes"]
+            if row["primitive_id"] == "candidate.social.facebook_rapidapi_fetch_posts.v0"
+        )
+        self.assertEqual(genome["determinism"], "external_nondeterministic")
+        self.assertIn("provider_fallback", genome["mutators"])
+        self.assertIn("retry_wrapper", genome["mutators"])
+        self.assertIn("ttl_cache", genome["mutators"])
+
+    def test_primitive_factory_lineage_tracks_candidate_children(self) -> None:
+        snapshot = primitive_factory.factory_snapshot()
+        lineage = primitive_factory.lineage_for("candidate.social.facebook_rapidapi_fetch_posts.v0", snapshot)
+        self.assertFalse(lineage["serves_truth"])
+        self.assertTrue(lineage["children"])
+        self.assertTrue(all(not child["serves_truth"] for child in lineage["children"]))
+        tools = {child["tool"] for child in lineage["children"]}
+        self.assertIn("provider_fallback", tools)
 
 
 if __name__ == "__main__":
