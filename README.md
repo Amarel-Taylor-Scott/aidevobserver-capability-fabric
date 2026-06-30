@@ -25,6 +25,7 @@ private workspace inventory, transcripts, credentials, or local paths.
 - Compact agent discovery output.
 - Candidate-only source-surface catalog for AI startups, repos, newsletters,
   benchmarks, launch trackers, and communities.
+- Candidate-only RapidAPI social post ingestion for Facebook source pages.
 - Optional local HTTP server.
 
 Every generated candidate remains advisory:
@@ -71,6 +72,18 @@ aidevobserver-fabric sources --category startup_directory
 The same catalog is available as a reviewer-friendly document in
 [`docs/source-surfaces.md`](docs/source-surfaces.md).
 
+Plan a RapidAPI/Facebook social post scrape without exposing keys:
+
+```bash
+aidevobserver-fabric social-sources --compact
+aidevobserver-fabric rapidapi-plan \
+  --provider-config examples/rapidapi_facebook_provider.example.json \
+  --sources examples/facebook_sources.json \
+  --limit 10
+```
+
+See [`docs/rapidapi-facebook-ingest.md`](docs/rapidapi-facebook-ingest.md).
+
 Start the local read-only service:
 
 ```bash
@@ -97,6 +110,7 @@ PrimitiveRecord
   -> blocker-first hybrid search
   -> CandidateBundle route context
   -> source-surface intake map
+  -> social source ingestion
   -> agent discovery fabric
   -> optional HTTP service
 ```

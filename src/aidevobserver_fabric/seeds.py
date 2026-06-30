@@ -116,6 +116,40 @@ SEED_PRIMITIVES: tuple[PrimitiveRecord, ...] = (
         source_refs=("seed:observer.loop",),
         search_text="detect repeated coding agent retry loop session failure wasted context",
     ),
+    PrimitiveRecord(
+        primitive_id="candidate.social.facebook_rapidapi_fetch_posts.v0",
+        label="social.facebook_rapidapi_fetch_posts",
+        input_contract="FacebookSourceSet",
+        output_contract="RawSocialPostSet",
+        effects=("network_read", "external_api_call"),
+        memory="artifact_ref",
+        cache="ttl",
+        proof_obligations=("provider_fixture", "redacted_key_scan", "response_schema_fixture"),
+        promotion_blockers=("candidate_only", "needs_provider_selection", "needs_terms_review"),
+        source_refs=("examples:facebook_sources", "examples:rapidapi_facebook_provider"),
+        search_text="facebook page scraper rapidapi fetch posts social media newsletters publications pages",
+    ),
+    PrimitiveRecord(
+        primitive_id="candidate.social.normalize_posts.v0",
+        label="social.normalize_posts",
+        input_contract="RawSocialPostSet",
+        output_contract="NormalizedSocialPostSet",
+        proof_obligations=("response_shape_fixture", "schema_validation"),
+        promotion_blockers=("candidate_only", "needs_provider_fixtures"),
+        source_refs=("src:social_ingest.normalize_posts",),
+        search_text="normalize facebook social posts text author metrics permalink created time",
+    ),
+    PrimitiveRecord(
+        primitive_id="candidate.social.posts_to_primitive_drafts.v0",
+        label="social.posts_to_primitive_drafts",
+        input_contract="NormalizedSocialPostSet",
+        output_contract="PrimitiveDraftSet",
+        effects=("llm_candidate_summary",),
+        proof_obligations=("human_review", "license_review", "duplicate_detection"),
+        promotion_blockers=("candidate_only", "serves_truth_false", "needs_review"),
+        source_refs=("src:social_ingest",),
+        search_text="distill newsletters publications social posts into primitive drafts candidate evidence",
+    ),
 )
 
 
@@ -137,6 +171,11 @@ TEMPLATE_SLOTS: dict[str, tuple[TemplateSlot, ...]] = {
     "review_agent_session": (
         TemplateSlot("detect_loop", "detect agent retry loop", "SessionEventSet", "AgentLoopFindingSet"),
     ),
+    "ingest_social_posts": (
+        TemplateSlot("fetch_posts", "fetch posts through configured provider", "FacebookSourceSet", "RawSocialPostSet"),
+        TemplateSlot("normalize_posts", "normalize social post records", "RawSocialPostSet", "NormalizedSocialPostSet"),
+        TemplateSlot("draft_primitives", "distill posts into primitive drafts", "NormalizedSocialPostSet", "PrimitiveDraftSet"),
+    ),
 }
 
 
@@ -145,6 +184,7 @@ TEMPLATE_IDS = {
     "normalize_regulatory_rates": "template.web.scrape_provenanced_rates.v0",
     "extract_schema_fields": "template.document.extract_schema_fields.v0",
     "review_agent_session": "template.observer.review_agent_session.v0",
+    "ingest_social_posts": "template.social.ingest_posts_to_primitive_drafts.v0",
 }
 
 
@@ -206,6 +246,34 @@ SERVICES: tuple[ServiceRecord, ...] = (
                 output_contract="AgentDiscoveryView",
                 command="aidevobserver-fabric services --compact",
                 description="Return compact service discovery view.",
+            ),
+        ),
+    ),
+    ServiceRecord(
+        service_id="svc.social_ingest.v0",
+        label="Social Source Ingest",
+        purpose="Plan or run candidate-only social post ingestion through a configured RapidAPI provider.",
+        readiness="R4_candidate_runtime",
+        mode="local_explicit_network",
+        consumes=("FacebookSourceSet", "RapidApiProviderSpec"),
+        produces=("RapidApiRequestPlan", "NormalizedSocialPostSet"),
+        gates=("candidate_only", "requires_env_key", "terms_review_required"),
+        endpoints=(
+            ServiceEndpoint(
+                route="cli:rapidapi-plan",
+                method="CLI",
+                input_contract="RapidApiProviderSpec+FacebookSourceSet",
+                output_contract="RapidApiRequestPlan",
+                command="aidevobserver-fabric rapidapi-plan --provider-config examples/rapidapi_facebook_provider.example.json",
+                description="Return redacted RapidAPI request plans for configured social sources.",
+            ),
+            ServiceEndpoint(
+                route="cli:rapidapi-scrape",
+                method="CLI",
+                input_contract="RapidApiProviderSpec+FacebookSourceSet",
+                output_contract="NormalizedSocialPostSet",
+                command="RAPIDAPI_KEY=... aidevobserver-fabric rapidapi-scrape --provider-config PROVIDER.json",
+                description="Fetch and normalize posts through a selected RapidAPI provider.",
             ),
         ),
     ),

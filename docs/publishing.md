@@ -35,5 +35,7 @@ Do not publish:
 - generated operational logs.
 - raw scraped pages from third-party sources unless licensing and attribution
   have been reviewed.
+- live RapidAPI provider configs if they contain private account details.
+- API keys in JSON examples, docs, tests, logs, request plans, or output files.
 
 The seed examples are synthetic and candidate-only.

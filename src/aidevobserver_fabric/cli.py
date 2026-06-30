@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, registry, source_surfaces
+from . import fabric, hybrid, registry, social_ingest, source_surfaces
 
 
 def default_db(path: str | None) -> Path:
@@ -72,6 +72,54 @@ def cmd_sources(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_social_sources(args: argparse.Namespace) -> int:
+    sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    if args.compact:
+        print(social_ingest.compact_sources(sources), end="")
+    else:
+        print(social_ingest.sources_json(sources), end="")
+    return 0
+
+
+def cmd_rapidapi_plan(args: argparse.Namespace) -> int:
+    provider = social_ingest.load_provider_spec(Path(args.provider_config))
+    sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    data = {
+        "boundary": "candidate_request_plan",
+        "serves_truth": False,
+        "provider": provider.to_dict(),
+        "plans": social_ingest.request_plans(provider, sources, limit=args.limit),
+    }
+    print(fabric.canonical_json(data), end="")
+    return 0
+
+
+def cmd_rapidapi_scrape(args: argparse.Namespace) -> int:
+    provider = social_ingest.load_provider_spec(Path(args.provider_config))
+    sources = social_ingest.load_social_sources(Path(args.sources) if args.sources else None)
+    if args.dry_run:
+        data = {
+            "boundary": "candidate_request_plan",
+            "serves_truth": False,
+            "provider": provider.to_dict(),
+            "plans": social_ingest.request_plans(provider, sources, limit=args.limit),
+        }
+    else:
+        data = social_ingest.scrape_sources(
+            provider,
+            sources,
+            limit=args.limit,
+            key_env=args.key_env,
+            timeout=args.timeout,
+        )
+    rendered = fabric.canonical_json(data)
+    if args.out:
+        Path(args.out).write_text(rendered, encoding="utf-8")
+    else:
+        print(rendered, end="")
+    return 0
+
+
 def cmd_discover(args: argparse.Namespace) -> int:
     data = fabric.build_fabric(default_db(args.db))
     print(fabric.canonical_json({"query": args.query, "results": fabric.discover_services(data, args.query)}), end="")
@@ -90,8 +138,8 @@ def cmd_self_test(args: argparse.Namespace) -> int:
         print("self-test failed: expected at least ten primitive records")
         return 1
     data = fabric.build_fabric(db_path)
-    if data["counts"]["candidate_bundles"] < 4:
-        print("self-test failed: expected four candidate bundles")
+    if data["counts"]["candidate_bundles"] < 5:
+        print("self-test failed: expected five candidate bundles")
         return 1
     con = hybrid.ensure_db(db_path)
     try:
@@ -143,6 +191,27 @@ def build_parser() -> argparse.ArgumentParser:
     sources.add_argument("--limit", type=int, help="limit returned source records")
     sources.add_argument("--compact", action="store_true")
     sources.set_defaults(func=cmd_sources)
+
+    social_sources = sub.add_parser("social-sources", help="print default social source pages")
+    social_sources.add_argument("--sources", help="JSON source list")
+    social_sources.add_argument("--compact", action="store_true")
+    social_sources.set_defaults(func=cmd_social_sources)
+
+    rapidapi_plan = sub.add_parser("rapidapi-plan", help="print redacted RapidAPI request plans")
+    rapidapi_plan.add_argument("--provider-config", required=True)
+    rapidapi_plan.add_argument("--sources", help="JSON source list")
+    rapidapi_plan.add_argument("--limit", type=int)
+    rapidapi_plan.set_defaults(func=cmd_rapidapi_plan)
+
+    rapidapi_scrape = sub.add_parser("rapidapi-scrape", help="scrape social sources through a RapidAPI provider")
+    rapidapi_scrape.add_argument("--provider-config", required=True)
+    rapidapi_scrape.add_argument("--sources", help="JSON source list")
+    rapidapi_scrape.add_argument("--limit", type=int)
+    rapidapi_scrape.add_argument("--key-env", help="environment variable containing the RapidAPI key")
+    rapidapi_scrape.add_argument("--timeout", type=float, default=30.0)
+    rapidapi_scrape.add_argument("--out", help="write normalized JSON to this path")
+    rapidapi_scrape.add_argument("--dry-run", action="store_true")
+    rapidapi_scrape.set_defaults(func=cmd_rapidapi_scrape)
 
     discover = sub.add_parser("discover", help="search services")
     discover.add_argument("--db", help="SQLite DB path")

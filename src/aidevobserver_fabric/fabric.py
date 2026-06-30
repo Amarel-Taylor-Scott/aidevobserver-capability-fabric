@@ -9,7 +9,7 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from . import hybrid, registry
-from .seeds import SERVICES
+from .seeds import SERVICES, TEMPLATE_SLOTS
 
 DEFAULT_DB = Path("generated/primitive_search.sqlite")
 
@@ -27,10 +27,8 @@ def build_fabric(db_path: Path = DEFAULT_DB) -> dict[str, Any]:
     con = registry.connect(db_path)
     try:
         bundles = [
-            hybrid.build_bundle(con, "csv profile rows", "profile_tabular_data").to_dict(),
-            hybrid.build_bundle(con, "normalize interest rates", "normalize_regulatory_rates").to_dict(),
-            hybrid.build_bundle(con, "document schema fields", "extract_schema_fields").to_dict(),
-            hybrid.build_bundle(con, "agent retry loop", "review_agent_session").to_dict(),
+            hybrid.build_bundle(con, role.replace("_", " "), role).to_dict()
+            for role in TEMPLATE_SLOTS
         ]
     finally:
         con.close()

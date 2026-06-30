@@ -28,7 +28,11 @@ def infer_template_role(query: str, blockers: dict[str, Any]) -> str:
         return "review_agent_session"
     if blockers.get("output_contract") == "RawFieldSet":
         return "extract_schema_fields"
+    if blockers.get("output_contract") in {"RawSocialPostSet", "NormalizedSocialPostSet", "PrimitiveDraftSet"}:
+        return "ingest_social_posts"
     terms = registry.expand_tokens(query)
+    if {"facebook", "rapidapi", "social", "posts", "newsletter", "publication"} & terms:
+        return "ingest_social_posts"
     if {"csv", "table", "warehouse"} & terms:
         return "profile_tabular_data"
     if {"document", "schema", "fields"} & terms:

@@ -1,0 +1,46 @@
+{
+  "catalog_id": "aidevobserver.facebook_sources.v0",
+  "serves_truth": false,
+  "sources": [
+    {
+      "source_id": "facebook.deeprepo",
+      "label": "DeepRepo",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/DeepRepo",
+      "cadence": "daily",
+      "candidate_only": true
+    },
+    {
+      "source_id": "facebook.aidev_repo",
+      "label": "AI Dev Repo",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/aidev.repo",
+      "cadence": "daily",
+      "candidate_only": true
+    },
+    {
+      "source_id": "facebook.ai_reporter_kh",
+      "label": "AI Reporter KH",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/AIReporterKH",
+      "cadence": "daily",
+      "candidate_only": true
+    },
+    {
+      "source_id": "facebook.profile_61590784647199",
+      "label": "Facebook profile 61590784647199",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/profile.php?id=61590784647199",
+      "cadence": "daily",
+      "candidate_only": true
+    },
+    {
+      "source_id": "facebook.profile_61573369875592",
+      "label": "Facebook profile 61573369875592",
+      "platform": "facebook",
+      "url": "https://www.facebook.com/profile.php?id=61573369875592",
+      "cadence": "daily",
+      "candidate_only": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "provider_id": "rapidapi.facebook_page_posts.example.v0",
+  "name": "Replace with selected RapidAPI Facebook page-posts provider",
+  "host": "replace-with-provider-host.p.rapidapi.com",
+  "base_url": "https://replace-with-provider-host.p.rapidapi.com",
+  "path": "/replace-with-posts-endpoint",
+  "method": "GET",
+  "url_param": "url",
+  "limit_param": "limit",
+  "records_path": null,
+  "static_query": {},
+  "docs_url": "https://rapidapi.com/search/facebook%20scraper",
+  "key_env": "RAPIDAPI_KEY",
+  "candidate_only": true
+}
