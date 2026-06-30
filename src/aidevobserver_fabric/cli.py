@@ -149,6 +149,7 @@ def cmd_rapidapi_live_test(args: argparse.Namespace) -> int:
         limit=args.limit,
         key_env=args.key_env,
         timeout=args.timeout,
+        include_comments=args.include_comments,
     )
     print(fabric.canonical_json(data), end="")
     return 0
@@ -176,6 +177,7 @@ def cmd_rapidapi_scrape(args: argparse.Namespace) -> int:
             limit=args.limit,
             key_env=args.key_env,
             timeout=args.timeout,
+            include_comments=args.include_comments,
         )
     rendered = fabric.canonical_json(data)
     if args.out:
@@ -301,6 +303,7 @@ def build_parser() -> argparse.ArgumentParser:
     rapidapi_live.add_argument("--limit", type=int, default=1)
     rapidapi_live.add_argument("--key-env", help="environment variable containing the RapidAPI key")
     rapidapi_live.add_argument("--timeout", type=float, default=30.0)
+    rapidapi_live.add_argument("--include-comments", action="store_true", help="also fetch post comments when supported")
     rapidapi_live.set_defaults(func=cmd_rapidapi_live_test)
 
     rapidapi_scrape = sub.add_parser("rapidapi-scrape", help="scrape social sources through a RapidAPI provider")
@@ -312,6 +315,7 @@ def build_parser() -> argparse.ArgumentParser:
     rapidapi_scrape.add_argument("--timeout", type=float, default=30.0)
     rapidapi_scrape.add_argument("--out", help="write normalized JSON to this path")
     rapidapi_scrape.add_argument("--dry-run", action="store_true")
+    rapidapi_scrape.add_argument("--include-comments", action="store_true", help="also fetch post comments when supported")
     rapidapi_scrape.set_defaults(func=cmd_rapidapi_scrape)
 
     discover = sub.add_parser("discover", help="search services")

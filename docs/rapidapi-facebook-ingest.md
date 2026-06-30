@@ -46,6 +46,12 @@ This provider uses a two-step flow:
 page/profile URL -> page_id/profile_id -> page/profile posts
 ```
 
+When `--include-comments` is passed, the working provider also fetches:
+
+```text
+post_id -> /post/comments -> normalized comments + links + github_repo_urls
+```
+
 RapidAPI providers differ in endpoint paths, query parameter names, and response
 shapes. Store those details in the provider JSON instead of hard-coding them in
 Python.
@@ -131,7 +137,8 @@ aidevobserver-fabric rapidapi-live-test \
   --provider-config examples/rapidapi_facebook_scraper3_provider.example.json \
   --sources examples/facebook_sources.json \
   --source-index 0 \
-  --limit 1
+  --limit 1 \
+  --include-comments
 ```
 
 The live test returns record count and shape checks only.
@@ -147,6 +154,7 @@ aidevobserver-fabric rapidapi-scrape \
   --provider-config examples/rapidapi_facebook_scraper3_provider.example.json \
   --sources examples/facebook_sources.json \
   --limit 10 \
+  --include-comments \
   --out generated/facebook_posts.normalized.json
 ```
 
@@ -158,6 +166,7 @@ aidevobserver-fabric rapidapi-scrape \
   --sources examples/facebook_sources.json \
   --source-index 0 \
   --limit 5 \
+  --include-comments \
   --out generated/facebook_posts.deeprepo.normalized.json
 ```
 
@@ -184,6 +193,9 @@ Each normalized post includes:
 - `text`;
 - `created_at`;
 - `metrics`;
+- `links`;
+- `github_repo_urls`;
+- `comments`;
 - `raw_digest`;
 - `candidate_only`;
 - `serves_truth`.

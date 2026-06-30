@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
@@ -51,6 +52,9 @@ class RapidApiProviderSpec:
     profile_posts_path: str | None = None
     profile_id_param: str = "profile_id"
     profile_id_response_path: str = "profile_id"
+    comments_path: str | None = None
+    comments_post_id_param: str = "post_id"
+    comments_records_path: str = "results"
     candidate_only: bool = True
 
     @staticmethod
@@ -78,6 +82,9 @@ class RapidApiProviderSpec:
             profile_posts_path=data.get("profile_posts_path"),
             profile_id_param=str(data.get("profile_id_param", "profile_id")),
             profile_id_response_path=str(data.get("profile_id_response_path", "profile_id")),
+            comments_path=data.get("comments_path"),
+            comments_post_id_param=str(data.get("comments_post_id_param", "post_id")),
+            comments_records_path=str(data.get("comments_records_path", "results")),
             candidate_only=bool(data.get("candidate_only", True)),
         )
 
@@ -110,7 +117,10 @@ class NormalizedSocialPost:
     text: str | None
     created_at: str | None
     metrics: dict[str, Any]
+    links: tuple[str, ...]
+    github_repo_urls: tuple[str, ...]
     raw_digest: str
+    comments: tuple[dict[str, Any], ...] = ()
     candidate_only: bool = True
     serves_truth: bool = False
 
@@ -311,6 +321,34 @@ def _digest(value: Any) -> str:
     return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
+URL_RE = re.compile(r"https?://[^\s)\"']+")
+GITHUB_REPO_RE = re.compile(r"https?://(?:www\.)?github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?", re.I)
+
+
+def _extract_links(*values: Any) -> tuple[str, ...]:
+    links: list[str] = []
+    for value in values:
+        if value is None:
+            continue
+        for match in URL_RE.findall(str(value)):
+            cleaned = match.rstrip(".,;:")
+            if cleaned not in links:
+                links.append(cleaned)
+    return tuple(links)
+
+
+def _extract_github_repos(*values: Any) -> tuple[str, ...]:
+    repos: list[str] = []
+    for value in values:
+        if value is None:
+            continue
+        for match in GITHUB_REPO_RE.findall(str(value)):
+            cleaned = match.rstrip("/").rstrip(".,;:")
+            if cleaned not in repos:
+                repos.append(cleaned)
+    return tuple(repos)
+
+
 def _is_profile_source(source: SocialSource) -> bool:
     return "profile.php" in source.url or "/profile/" in source.url
 
@@ -395,16 +433,26 @@ def normalize_posts(
     source: SocialSource,
     *,
     records_path: str | None = None,
+    comments_by_post_id: dict[str, tuple[dict[str, Any], ...]] | None = None,
 ) -> tuple[NormalizedSocialPost, ...]:
     posts: list[NormalizedSocialPost] = []
     for item in _coerce_items(payload, records_path):
         if not isinstance(item, dict):
             continue
         post_id = _first_present(item, ("post_id", "id", "postId", "postID", "fbid"))
+        post_id_key = str(post_id) if post_id is not None else ""
+        comments = (comments_by_post_id or {}).get(post_id_key, ())
         post_url = _first_present(item, ("url", "post_url", "permalink_url", "permalink", "link"))
         author = _first_present(item, ("author", "owner", "page_name", "from_name", "username", "name"))
         text = _first_present(item, ("text", "message", "content", "caption", "description", "body"))
         created_at = _first_present(item, ("created_at", "created_time", "timestamp", "time", "date"))
+        comment_texts = tuple(comment.get("text") or "" for comment in comments)
+        link_fields = (
+            text,
+            post_url,
+            _first_present(item, ("external_url", "attached_post_url", "link")),
+            *comment_texts,
+        )
         metrics = {
             key: item[key]
             for key in (
@@ -419,6 +467,8 @@ def normalize_posts(
             )
             if key in item
         }
+        if comments:
+            metrics["normalized_comment_count"] = len(comments)
         posts.append(
             NormalizedSocialPost(
                 source_id=source.source_id,
@@ -430,10 +480,38 @@ def normalize_posts(
                 text=str(text) if text is not None else None,
                 created_at=str(created_at) if created_at is not None else None,
                 metrics=metrics,
+                links=_extract_links(*link_fields),
+                github_repo_urls=_extract_github_repos(*link_fields),
+                comments=comments,
                 raw_digest=_digest(item),
             )
         )
     return tuple(posts)
+
+
+def normalize_comments(payload: Any, records_path: str | None = None) -> tuple[dict[str, Any], ...]:
+    comments: list[dict[str, Any]] = []
+    for item in _coerce_items(payload, records_path):
+        if not isinstance(item, dict):
+            continue
+        comment_id = _first_present(item, ("comment_id", "id", "legacy_comment_id"))
+        text = _first_present(item, ("text", "message", "comment", "body", "content"))
+        author = _first_present(item, ("author", "from", "owner", "username", "name"))
+        created_at = _first_present(item, ("created_at", "created_time", "timestamp", "time", "date"))
+        comments.append(
+            {
+                "comment_id": str(comment_id) if comment_id is not None else None,
+                "author": str(author) if author is not None else None,
+                "text": str(text) if text is not None else None,
+                "created_at": str(created_at) if created_at is not None else None,
+                "links": _extract_links(text),
+                "github_repo_urls": _extract_github_repos(text),
+                "raw_digest": _digest(item),
+                "candidate_only": True,
+                "serves_truth": False,
+            }
+        )
+    return tuple(comments)
 
 
 def fetch_source(
@@ -443,6 +521,7 @@ def fetch_source(
     limit: int | None = None,
     key_env: str | None = None,
     timeout: float = 30.0,
+    include_comments: bool = False,
 ) -> tuple[NormalizedSocialPost, ...]:
     env_name = key_env or provider.key_env
     key_value = os.environ.get(env_name)
@@ -471,10 +550,51 @@ def fetch_source(
             query[provider.limit_param] = str(limit)
         posts_url = _provider_url(provider, posts_path, query)
         payload = _fetch_json(provider, posts_url, key_value=key_value, timeout=timeout)
-        return normalize_posts(payload, source, records_path=provider.records_path)
+        comments_by_post_id = fetch_comments_for_payload(
+            provider,
+            payload,
+            key_value=key_value,
+            timeout=timeout,
+        ) if include_comments else {}
+        return normalize_posts(payload, source, records_path=provider.records_path, comments_by_post_id=comments_by_post_id)
     plan = build_request_plan(provider, source, limit=limit, key_value=key_value, redact_key=False)
     payload = _fetch_json(provider, plan.url, key_value=key_value, timeout=timeout)
-    return normalize_posts(payload, source, records_path=provider.records_path)
+    comments_by_post_id = fetch_comments_for_payload(
+        provider,
+        payload,
+        key_value=key_value,
+        timeout=timeout,
+    ) if include_comments else {}
+    return normalize_posts(payload, source, records_path=provider.records_path, comments_by_post_id=comments_by_post_id)
+
+
+def fetch_comments_for_payload(
+    provider: RapidApiProviderSpec,
+    payload: Any,
+    *,
+    key_value: str,
+    timeout: float,
+) -> dict[str, tuple[dict[str, Any], ...]]:
+    if not provider.comments_path:
+        return {}
+    comments_by_post_id: dict[str, tuple[dict[str, Any], ...]] = {}
+    for item in _coerce_items(payload, provider.records_path):
+        if not isinstance(item, dict):
+            continue
+        post_id = _first_present(item, ("post_id", "id", "postId", "postID", "fbid"))
+        if post_id is None:
+            continue
+        comment_count = _first_present(item, ("comments_count", "comment_count", "comments"))
+        if comment_count in (None, "", 0, "0"):
+            continue
+        comments_url = _provider_url(
+            provider,
+            provider.comments_path,
+            {provider.comments_post_id_param: str(post_id)},
+        )
+        comments_payload = _fetch_json(provider, comments_url, key_value=key_value, timeout=timeout)
+        comments_by_post_id[str(post_id)] = normalize_comments(comments_payload, provider.comments_records_path)
+    return comments_by_post_id
 
 
 def scrape_sources(
@@ -484,6 +604,7 @@ def scrape_sources(
     limit: int | None = None,
     key_env: str | None = None,
     timeout: float = 30.0,
+    include_comments: bool = False,
 ) -> dict[str, Any]:
     records: list[dict[str, Any]] = []
     errors: list[dict[str, Any]] = []
@@ -491,7 +612,14 @@ def scrape_sources(
         try:
             records.extend(
                 post.to_dict()
-                for post in fetch_source(provider, source, limit=limit, key_env=key_env, timeout=timeout)
+                for post in fetch_source(
+                    provider,
+                    source,
+                    limit=limit,
+                    key_env=key_env,
+                    timeout=timeout,
+                    include_comments=include_comments,
+                )
             )
         except Exception as exc:
             errors.append(
@@ -507,6 +635,8 @@ def scrape_sources(
         "provider": provider.to_dict(),
         "record_count": len(records),
         "records": records,
+        "comment_count": sum(len(record.get("comments", ())) for record in records),
+        "github_repo_url_count": sum(len(record.get("github_repo_urls", ())) for record in records),
         "error_count": len(errors),
         "errors": errors,
         "serves_truth": False,
@@ -521,8 +651,16 @@ def live_smoke_test(
     limit: int | None = 1,
     key_env: str | None = None,
     timeout: float = 30.0,
+    include_comments: bool = False,
 ) -> dict[str, Any]:
-    records = fetch_source(provider, source, limit=limit, key_env=key_env, timeout=timeout)
+    records = fetch_source(
+        provider,
+        source,
+        limit=limit,
+        key_env=key_env,
+        timeout=timeout,
+        include_comments=include_comments,
+    )
     first = records[0].to_dict() if records else None
     return {
         "provider_id": provider.provider_id,
@@ -532,6 +670,9 @@ def live_smoke_test(
         "sample_has_text": bool(first and first.get("text")),
         "sample_has_post_url": bool(first and first.get("post_url")),
         "sample_has_created_at": bool(first and first.get("created_at")),
+        "sample_link_count": len(first.get("links", ())) if first else 0,
+        "sample_github_repo_url_count": len(first.get("github_repo_urls", ())) if first else 0,
+        "sample_comment_count": len(first.get("comments", ())) if first else 0,
         "candidate_only": True,
         "serves_truth": False,
     }

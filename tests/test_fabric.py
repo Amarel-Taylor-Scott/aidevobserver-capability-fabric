@@ -161,7 +161,7 @@ class FabricTests(unittest.TestCase):
                 {
                     "post_id": "abc",
                     "permalink_url": "https://www.facebook.com/example/posts/abc",
-                    "message": "New AI tooling post",
+                    "message": "New AI tooling post https://github.com/example/project",
                     "created_time": "2026-06-30T00:00:00Z",
                     "like_count": 12,
                     "comment_count": 3,
@@ -171,8 +171,10 @@ class FabricTests(unittest.TestCase):
         posts = social_ingest.normalize_posts(payload, social_ingest.DEFAULT_FACEBOOK_SOURCES[0])
         self.assertEqual(len(posts), 1)
         self.assertEqual(posts[0].post_id, "abc")
-        self.assertEqual(posts[0].text, "New AI tooling post")
+        self.assertEqual(posts[0].text, "New AI tooling post https://github.com/example/project")
         self.assertEqual(posts[0].metrics["like_count"], 12)
+        self.assertIn("https://github.com/example/project", posts[0].links)
+        self.assertIn("https://github.com/example/project", posts[0].github_repo_urls)
         self.assertFalse(posts[0].serves_truth)
 
     def test_social_search_returns_social_bundle(self) -> None:
