@@ -67,3 +67,21 @@ The fabric tells agents what services exist:
 
 The local HTTP service is read-only. Discovery does not authorize execution or
 promotion.
+
+## 5. Source Surfaces
+
+`SourceSurface` records describe public places to look for startup, tool,
+research, benchmark, newsletter, community, and open-source signals.
+
+They are intentionally candidate-only:
+
+- source directories can suggest primitive families;
+- launch feeds can suggest workflows and user pain;
+- repositories can suggest callable surfaces and proof fixtures;
+- benchmarks can suggest evaluation contracts;
+- newsletters and VC essays can suggest trend labels.
+
+None of those signals becomes registry truth by itself. A source-surface scan
+can create primitive drafts, CandidateBundle examples, benchmark fixtures, or
+review findings. PlanLocks, proofs, licensing review, and promotion decide what
+can serve truth later.

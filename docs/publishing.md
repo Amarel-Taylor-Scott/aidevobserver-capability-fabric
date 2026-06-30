@@ -33,5 +33,7 @@ Do not publish:
 - private repo paths;
 - copied third-party source;
 - generated operational logs.
+- raw scraped pages from third-party sources unless licensing and attribution
+  have been reviewed.
 
 The seed examples are synthetic and candidate-only.

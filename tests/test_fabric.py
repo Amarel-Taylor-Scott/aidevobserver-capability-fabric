@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from aidevobserver_fabric import fabric, hybrid, registry
+from aidevobserver_fabric import fabric, hybrid, registry, source_surfaces
 
 
 class FabricTests(unittest.TestCase):
@@ -57,6 +57,25 @@ class FabricTests(unittest.TestCase):
             discovery = fabric.agent_discovery(data)
             self.assertIn("BOUNDARY discovery=awareness authorization=false serves_truth=false", discovery)
             self.assertIn("SVC svc.primitive_search.v0", discovery)
+
+    def test_source_surfaces_catalog_is_candidate_only(self) -> None:
+        records = source_surfaces.SOURCE_SURFACES
+        self.assertGreaterEqual(len(records), 60)
+        self.assertTrue(all(surface.candidate_only for surface in records))
+        self.assertTrue(all(surface.url.startswith("https://") for surface in records))
+        categories = {surface.category for surface in records}
+        self.assertIn("startup_directory", categories)
+        self.assertIn("repo_directory", categories)
+        self.assertIn("newsletter", categories)
+        self.assertIn("model_benchmark", categories)
+
+    def test_source_surfaces_render_compact_and_json(self) -> None:
+        compact = source_surfaces.as_compact(source_surfaces.SOURCE_SURFACES[:2])
+        self.assertIn("BOUNDARY candidate_intake=true serves_truth=false", compact)
+        self.assertIn("SRC startup.yc.ai", compact)
+        rendered = source_surfaces.as_json(source_surfaces.SOURCE_SURFACES[:1])
+        self.assertIn('"serves_truth": false', rendered)
+        self.assertIn('"record_count": 1', rendered)
 
 
 if __name__ == "__main__":

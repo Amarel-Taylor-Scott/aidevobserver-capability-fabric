@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, registry
+from . import fabric, hybrid, registry, source_surfaces
 
 
 def default_db(path: str | None) -> Path:
@@ -56,6 +56,19 @@ def cmd_services(args: argparse.Namespace) -> int:
         print(fabric.agent_discovery(data), end="")
     else:
         print(fabric.canonical_json(data), end="")
+    return 0
+
+
+def cmd_sources(args: argparse.Namespace) -> int:
+    records = source_surfaces.SOURCE_SURFACES
+    if args.category:
+        records = tuple(surface for surface in records if surface.category == args.category)
+    if args.limit is not None:
+        records = records[: args.limit]
+    if args.compact:
+        print(source_surfaces.as_compact(records), end="")
+    else:
+        print(source_surfaces.as_json(records), end="")
     return 0
 
 
@@ -124,6 +137,12 @@ def build_parser() -> argparse.ArgumentParser:
     services.add_argument("--db", help="SQLite DB path")
     services.add_argument("--compact", action="store_true")
     services.set_defaults(func=cmd_services)
+
+    sources = sub.add_parser("sources", help="print public source-surface catalog")
+    sources.add_argument("--category", help="filter by exact source category")
+    sources.add_argument("--limit", type=int, help="limit returned source records")
+    sources.add_argument("--compact", action="store_true")
+    sources.set_defaults(func=cmd_sources)
 
     discover = sub.add_parser("discover", help="search services")
     discover.add_argument("--db", help="SQLite DB path")

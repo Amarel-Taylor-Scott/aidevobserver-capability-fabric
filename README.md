@@ -23,6 +23,8 @@ private workspace inventory, transcripts, credentials, or local paths.
 - Hierarchical CandidateBundle route context.
 - A read-only capability service fabric.
 - Compact agent discovery output.
+- Candidate-only source-surface catalog for AI startups, repos, newsletters,
+  benchmarks, launch trackers, and communities.
 - Optional local HTTP server.
 
 Every generated candidate remains advisory:
@@ -59,6 +61,16 @@ Discover available services:
 aidevobserver-fabric discover "find reusable primitive search route"
 ```
 
+List public source surfaces for primitive discovery:
+
+```bash
+aidevobserver-fabric sources --compact
+aidevobserver-fabric sources --category startup_directory
+```
+
+The same catalog is available as a reviewer-friendly document in
+[`docs/source-surfaces.md`](docs/source-surfaces.md).
+
 Start the local read-only service:
 
 ```bash
@@ -84,6 +96,7 @@ PrimitiveRecord
   -> local SQLite/FTS registry
   -> blocker-first hybrid search
   -> CandidateBundle route context
+  -> source-surface intake map
   -> agent discovery fabric
   -> optional HTTP service
 ```
