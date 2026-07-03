@@ -129,12 +129,34 @@ Generate and validate the larger edge primitive graph:
 ```bash
 python3 scripts/build_edge_primitive_catalog.py
 python3 scripts/check_edge_primitive_catalog.py
+aidevobserver-fabric edge-summary
+aidevobserver-fabric edge-search \
+  --query "validate csv table customer import" \
+  --domain data_ingest \
+  --data-shape csv_table \
+  --operation validate_contract \
+  --runtime-target python_function \
+  --compact
+aidevobserver-fabric edge-planlock \
+  --query "compile csv data ingest route" \
+  --domain data_ingest \
+  --data-shape csv_table \
+  --pattern compact_data_route
 ```
 
 The committed ZIP artifact is
 [`artifacts/edge_primitive_catalog.zip`](artifacts/edge_primitive_catalog.zip).
 It contains the generated raw JSONL pack. See
 [`docs/edge-primitive-catalog.md`](docs/edge-primitive-catalog.md).
+
+Generate the local published-projects URL inventory:
+
+```bash
+python3 scripts/inventory_published_projects.py --root /home/username/code_projects/repos
+```
+
+The generated inventory is
+[`docs/published-projects.md`](docs/published-projects.md).
 
 Start the local read-only service:
 

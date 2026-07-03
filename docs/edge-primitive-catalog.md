@@ -56,6 +56,31 @@ python3 scripts/build_edge_primitive_catalog.py
 python3 scripts/check_edge_primitive_catalog.py
 ```
 
+Use the catalog from the CLI:
+
+```bash
+aidevobserver-fabric edge-summary
+aidevobserver-fabric edge-search \
+  --query "validate csv table customer import" \
+  --domain data_ingest \
+  --data-shape csv_table \
+  --operation validate_contract \
+  --runtime-target python_function \
+  --compact
+aidevobserver-fabric edge-routes \
+  --query "compile csv data ingest route" \
+  --domain data_ingest \
+  --data-shape csv_table
+aidevobserver-fabric edge-planlock \
+  --query "compile csv data ingest route" \
+  --domain data_ingest \
+  --data-shape csv_table \
+  --pattern compact_data_route
+aidevobserver-fabric edge-graph-route \
+  --start-type "Parsed[data_ingest.csv_table]" \
+  --end-type "Plan[data_ingest.csv_table]"
+```
+
 ## Why Wrappers Multiply Primitives
 
 The same family is a different primitive when it lowers into a different
@@ -103,11 +128,23 @@ That is enough to seed graph compilation. Later catalog versions can add:
 - human-review gates
 - negative-memory suppression
 
-## High-Value Next Steps
+## Implemented Consumption Path
 
-1. Index `resolved_primitives.jsonl` into the SQLite registry alongside the
-   existing seed primitives.
-2. Add a graph route search that starts from a requested input and output type.
-3. Generate PlanLock objects from `route_templates.jsonl`.
-4. Run route templates through benchmark fixtures and record proof receipts.
-5. Promote only implemented, source-backed, receipt-backed primitives.
+The package can now read the ignored exploded catalog or the committed ZIP
+artifact through `aidevobserver_fabric.edge_catalog`.
+
+Implemented:
+
+1. Catalog summary from directory or ZIP.
+2. Resolved primitive search over compact edge contracts.
+3. Route template search.
+4. PlanLock-shaped route compilation with route hash, effect union, and proof
+   requirement union.
+5. Graph route search from requested start artifact type to end artifact type.
+
+Remaining promotion work:
+
+1. Run selected route templates against benchmark fixtures.
+2. Attach source references and implementation receipts.
+3. Add negative memory for failed route candidates.
+4. Promote only implemented, source-backed, receipt-backed primitives.

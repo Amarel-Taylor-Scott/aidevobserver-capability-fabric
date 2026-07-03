@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
+from . import edge_catalog, fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
 
 
 def default_db(path: str | None) -> Path:
@@ -84,6 +84,72 @@ def cmd_sources(args: argparse.Namespace) -> int:
         print(source_surfaces.as_compact(records), end="")
     else:
         print(source_surfaces.as_json(records), end="")
+    return 0
+
+
+def _edge_location(args: argparse.Namespace) -> edge_catalog.CatalogLocation:
+    return edge_catalog.CatalogLocation(
+        root=Path(args.catalog_dir),
+        archive=Path(args.catalog_zip),
+    )
+
+
+def cmd_edge_summary(args: argparse.Namespace) -> int:
+    print(fabric.canonical_json(edge_catalog.summary(_edge_location(args))), end="")
+    return 0
+
+
+def cmd_edge_search(args: argparse.Namespace) -> int:
+    result = edge_catalog.search_primitives(
+        args.query,
+        domain=args.domain,
+        data_shape=args.data_shape,
+        operation=args.operation,
+        runtime_target=args.runtime_target,
+        limit=args.limit,
+        location=_edge_location(args),
+    )
+    if args.compact:
+        print(edge_catalog.compact_search(result), end="")
+    else:
+        print(fabric.canonical_json(result), end="")
+    return 0
+
+
+def cmd_edge_routes(args: argparse.Namespace) -> int:
+    result = edge_catalog.search_routes(
+        args.query,
+        domain=args.domain,
+        data_shape=args.data_shape,
+        pattern=args.pattern,
+        limit=args.limit,
+        location=_edge_location(args),
+    )
+    print(fabric.canonical_json(result), end="")
+    return 0
+
+
+def cmd_edge_planlock(args: argparse.Namespace) -> int:
+    result = edge_catalog.best_route_planlock(
+        args.query,
+        domain=args.domain,
+        data_shape=args.data_shape,
+        pattern=args.pattern,
+        location=_edge_location(args),
+    )
+    print(fabric.canonical_json(result), end="")
+    return 0
+
+
+def cmd_edge_graph_route(args: argparse.Namespace) -> int:
+    result = edge_catalog.graph_route(
+        args.start_type,
+        args.end_type,
+        max_depth=args.max_depth,
+        limit=args.limit,
+        location=_edge_location(args),
+    )
+    print(fabric.canonical_json(result), end="")
     return 0
 
 
@@ -340,6 +406,50 @@ def build_parser() -> argparse.ArgumentParser:
     sources.add_argument("--limit", type=int, help="limit returned source records")
     sources.add_argument("--compact", action="store_true")
     sources.set_defaults(func=cmd_sources)
+
+    def add_edge_catalog_args(command: argparse.ArgumentParser) -> None:
+        command.add_argument("--catalog-dir", default=str(edge_catalog.DEFAULT_CATALOG_DIR))
+        command.add_argument("--catalog-zip", default=str(edge_catalog.DEFAULT_CATALOG_ZIP))
+
+    edge_summary = sub.add_parser("edge-summary", help="print edge primitive catalog summary")
+    add_edge_catalog_args(edge_summary)
+    edge_summary.set_defaults(func=cmd_edge_summary)
+
+    edge_search = sub.add_parser("edge-search", help="search resolved edge primitive contracts")
+    add_edge_catalog_args(edge_search)
+    edge_search.add_argument("--query", required=True)
+    edge_search.add_argument("--domain")
+    edge_search.add_argument("--data-shape")
+    edge_search.add_argument("--operation")
+    edge_search.add_argument("--runtime-target")
+    edge_search.add_argument("--limit", type=int, default=10)
+    edge_search.add_argument("--compact", action="store_true")
+    edge_search.set_defaults(func=cmd_edge_search)
+
+    edge_routes = sub.add_parser("edge-routes", help="search route templates in the edge catalog")
+    add_edge_catalog_args(edge_routes)
+    edge_routes.add_argument("--query", required=True)
+    edge_routes.add_argument("--domain")
+    edge_routes.add_argument("--data-shape")
+    edge_routes.add_argument("--pattern")
+    edge_routes.add_argument("--limit", type=int, default=10)
+    edge_routes.set_defaults(func=cmd_edge_routes)
+
+    edge_planlock = sub.add_parser("edge-planlock", help="compile the best route template into a PlanLock-shaped object")
+    add_edge_catalog_args(edge_planlock)
+    edge_planlock.add_argument("--query", required=True)
+    edge_planlock.add_argument("--domain")
+    edge_planlock.add_argument("--data-shape")
+    edge_planlock.add_argument("--pattern")
+    edge_planlock.set_defaults(func=cmd_edge_planlock)
+
+    edge_graph_route = sub.add_parser("edge-graph-route", help="find primitive graph paths by typed artifact edges")
+    add_edge_catalog_args(edge_graph_route)
+    edge_graph_route.add_argument("--start-type", required=True)
+    edge_graph_route.add_argument("--end-type", required=True)
+    edge_graph_route.add_argument("--max-depth", type=int, default=8)
+    edge_graph_route.add_argument("--limit", type=int, default=3)
+    edge_graph_route.set_defaults(func=cmd_edge_graph_route)
 
     social_sources = sub.add_parser("social-sources", help="print default social source pages")
     social_sources.add_argument("--sources", help="JSON source list")

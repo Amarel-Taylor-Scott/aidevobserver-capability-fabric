@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from aidevobserver_fabric import fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
+from aidevobserver_fabric import edge_catalog, fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
 
 
 class FabricTests(unittest.TestCase):
@@ -258,6 +258,38 @@ class FabricTests(unittest.TestCase):
         self.assertEqual(normalized["assistant_content"], "ok")
         self.assertEqual(normalized["model"], "gemma4:latest")
         self.assertFalse(normalized["serves_truth"])
+
+    def test_edge_catalog_summary_search_and_planlock_from_zip(self) -> None:
+        location = edge_catalog.CatalogLocation(
+            root=Path("generated/nonexistent-edge-catalog"),
+            archive=Path("artifacts/edge_primitive_catalog.zip"),
+        )
+        summary = edge_catalog.summary(location)
+        self.assertEqual(summary["source"], "zip")
+        self.assertGreaterEqual(summary["files"]["resolved_primitives.jsonl"]["rows"], 25000)
+        search = edge_catalog.search_primitives(
+            "validate csv table customer import",
+            domain="data_ingest",
+            data_shape="csv_table",
+            operation="validate_contract",
+            runtime_target="python_function",
+            limit=3,
+            location=location,
+        )
+        self.assertTrue(search["results"])
+        self.assertEqual(search["results"][0]["primitive_id"], "prim:data_ingest.csv_table.validate_contract.python_function@candidate")
+        self.assertFalse(search["results"][0]["serves_truth"])
+        planlock = edge_catalog.best_route_planlock(
+            "compile csv data ingest route",
+            domain="data_ingest",
+            data_shape="csv_table",
+            pattern="compact_data_route",
+            location=location,
+        )
+        self.assertTrue(planlock["planlock_id"].startswith("lock:data_ingest.csv_table.compact_data_route"))
+        self.assertGreaterEqual(len(planlock["route_steps"]), 3)
+        self.assertIn("route_hash", planlock)
+        self.assertFalse(planlock["serves_truth"])
 
     def test_primitive_factory_snapshot_is_candidate_only(self) -> None:
         snapshot = primitive_factory.factory_snapshot()
