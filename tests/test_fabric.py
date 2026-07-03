@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from aidevobserver_fabric import fabric, hybrid, openwebui, primitive_factory, registry, social_ingest, source_surfaces
+from aidevobserver_fabric import fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
 
 
 class FabricTests(unittest.TestCase):
@@ -231,6 +231,32 @@ class FabricTests(unittest.TestCase):
         )
         self.assertEqual(normalized["assistant_content"], "ok")
         self.assertEqual(normalized["model"], "gemma-4-coding")
+        self.assertFalse(normalized["serves_truth"])
+
+    def test_ollama_plan_payload_and_response_normalization(self) -> None:
+        config = ollama.OllamaConfig()
+        plan = ollama.redacted_plan(config)
+        self.assertEqual(plan["provider"], "ollama")
+        self.assertEqual(plan["endpoint"], "/api/chat")
+        self.assertEqual(plan["model"], "gemma4:latest")
+        self.assertFalse(plan["serves_truth"])
+        payload = ollama.chat_payload("hello", max_tokens=64, temperature=0)
+        self.assertEqual(payload["model"], "gemma4:latest")
+        self.assertFalse(payload["stream"])
+        self.assertEqual(payload["messages"][0]["content"], "hello")
+        self.assertEqual(payload["options"]["num_predict"], 64)
+        normalized = ollama.normalize_chat_response(
+            {
+                "model": "gemma4:latest",
+                "message": {"role": "assistant", "content": "ok"},
+                "done": True,
+                "done_reason": "stop",
+                "prompt_eval_count": 3,
+                "eval_count": 1,
+            }
+        )
+        self.assertEqual(normalized["assistant_content"], "ok")
+        self.assertEqual(normalized["model"], "gemma4:latest")
         self.assertFalse(normalized["serves_truth"])
 
     def test_primitive_factory_snapshot_is_candidate_only(self) -> None:

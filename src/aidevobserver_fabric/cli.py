@@ -6,7 +6,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, openwebui, primitive_factory, registry, social_ingest, source_surfaces
+from . import fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
 
 
 def default_db(path: str | None) -> Path:
@@ -197,6 +197,40 @@ def _openwebui_config(args: argparse.Namespace) -> openwebui.OpenWebUIConfig:
     )
 
 
+def _ollama_config(args: argparse.Namespace) -> ollama.OllamaConfig:
+    return ollama.OllamaConfig(
+        host=args.host,
+        model=args.model,
+    )
+
+
+def cmd_ollama_plan(args: argparse.Namespace) -> int:
+    print(fabric.canonical_json(ollama.redacted_plan(_ollama_config(args))), end="")
+    return 0
+
+
+def cmd_ollama_models(args: argparse.Namespace) -> int:
+    print(fabric.canonical_json(ollama.list_models(_ollama_config(args), timeout=args.timeout)), end="")
+    return 0
+
+
+def cmd_ollama_chat(args: argparse.Namespace) -> int:
+    result = ollama.chat(
+        _ollama_config(args),
+        args.prompt,
+        timeout=args.timeout,
+        system=args.system,
+        max_tokens=args.max_tokens,
+        temperature=args.temperature,
+    )
+    rendered = fabric.canonical_json(result)
+    if args.out:
+        Path(args.out).write_text(rendered, encoding="utf-8")
+    else:
+        print(rendered, end="")
+    return 0
+
+
 def cmd_openwebui_plan(args: argparse.Namespace) -> int:
     print(fabric.canonical_json(openwebui.redacted_plan(_openwebui_config(args), mode=args.mode)), end="")
     return 0
@@ -356,6 +390,28 @@ def build_parser() -> argparse.ArgumentParser:
     rapidapi_scrape.add_argument("--dry-run", action="store_true")
     rapidapi_scrape.add_argument("--include-comments", action="store_true", help="also fetch post comments when supported")
     rapidapi_scrape.set_defaults(func=cmd_rapidapi_scrape)
+
+    ollama_plan = sub.add_parser("ollama-plan", help="print a redacted local Ollama chat request plan")
+    ollama_plan.add_argument("--host", default=ollama.DEFAULT_HOST)
+    ollama_plan.add_argument("--model", default=ollama.DEFAULT_MODEL)
+    ollama_plan.set_defaults(func=cmd_ollama_plan)
+
+    ollama_models = sub.add_parser("ollama-models", help="list local Ollama models")
+    ollama_models.add_argument("--host", default=ollama.DEFAULT_HOST)
+    ollama_models.add_argument("--model", default=ollama.DEFAULT_MODEL)
+    ollama_models.add_argument("--timeout", type=float, default=10.0)
+    ollama_models.set_defaults(func=cmd_ollama_models)
+
+    ollama_chat = sub.add_parser("ollama-chat", help="send one candidate-only local Ollama chat request")
+    ollama_chat.add_argument("--prompt", required=True)
+    ollama_chat.add_argument("--system")
+    ollama_chat.add_argument("--host", default=ollama.DEFAULT_HOST)
+    ollama_chat.add_argument("--model", default=ollama.DEFAULT_MODEL)
+    ollama_chat.add_argument("--timeout", type=float, default=120.0)
+    ollama_chat.add_argument("--max-tokens", type=int, default=512)
+    ollama_chat.add_argument("--temperature", type=float, default=0.0)
+    ollama_chat.add_argument("--out", help="write normalized result JSON to this path")
+    ollama_chat.set_defaults(func=cmd_ollama_chat)
 
     openwebui_plan = sub.add_parser("openwebui-plan", help="print a redacted Open WebUI chat request plan")
     openwebui_plan.add_argument("--base-url", default=openwebui.DEFAULT_BASE_URL)

@@ -27,8 +27,11 @@ private workspace inventory, transcripts, credentials, or local paths.
   benchmarks, launch trackers, and communities.
 - Candidate-only RapidAPI social post ingestion for Facebook source pages.
 - Candidate-only Open WebUI wrapper for direct-token or browser-context LLM calls.
+- Candidate-only local Ollama wrapper for Gemma-family coding calls.
 - Evolutionary primitive factory views: genomes, mutations, crossovers,
   benchmark estimates, lineage, and fitness recommendations.
+- Edge primitive catalog generator with 25k+ resolved primitive contracts,
+  compatibility edges, route templates, and a compressed artifact.
 - Optional local HTTP server.
 
 Every generated candidate remains advisory:
@@ -102,6 +105,16 @@ aidevobserver-fabric openwebui-chat \
 Use `--mode direct` with `OPENWEBUI_TOKEN` when a stable bearer token is
 available. See [`docs/openwebui-wrapper.md`](docs/openwebui-wrapper.md).
 
+Plan or run a candidate-only local Ollama chat request:
+
+```bash
+aidevobserver-fabric ollama-plan
+aidevobserver-fabric ollama-models
+aidevobserver-fabric ollama-chat \
+  --prompt "Print exactly: AIDevObserver Ollama smoke test OK" \
+  --out generated/ollama_smoke_result.json
+```
+
 Inspect the candidate-only primitive lifecycle factory:
 
 ```bash
@@ -110,6 +123,18 @@ aidevobserver-fabric factory-lineage candidate.social.facebook_rapidapi_fetch_po
 ```
 
 See [`docs/evolutionary-primitive-factory.md`](docs/evolutionary-primitive-factory.md).
+
+Generate and validate the larger edge primitive graph:
+
+```bash
+python3 scripts/build_edge_primitive_catalog.py
+python3 scripts/check_edge_primitive_catalog.py
+```
+
+The committed ZIP artifact is
+[`artifacts/edge_primitive_catalog.zip`](artifacts/edge_primitive_catalog.zip).
+It contains the generated raw JSONL pack. See
+[`docs/edge-primitive-catalog.md`](docs/edge-primitive-catalog.md).
 
 Start the local read-only service:
 
