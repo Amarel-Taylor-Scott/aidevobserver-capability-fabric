@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import argparse
+import getpass
+import os
 import sys
 from pathlib import Path
 
-from . import fabric, hybrid, primitive_factory, registry, social_ingest, source_surfaces
+from . import credentials, e2e, fabric, hybrid, mcp_server, primitive_factory, registry, runtime, social_ingest, source_surfaces, webapp
+from .api_client import APIError, FabricClient
+from .paths import default_db as product_default_db
 
 
 def default_db(path: str | None) -> Path:
-    return Path(path or "generated/primitive_search.sqlite")
+    return Path(path).expanduser() if path else product_default_db()
 
 
 def cmd_build(args: argparse.Namespace) -> int:
@@ -194,7 +198,72 @@ def cmd_discover(args: argparse.Namespace) -> int:
 
 
 def cmd_serve(args: argparse.Namespace) -> int:
-    fabric.serve(args.host, args.port, default_db(args.db))
+    webapp.serve(
+        args.host,
+        args.port,
+        default_db(args.db),
+        public_url=args.public_url,
+        secure_cookie=args.secure_cookie,
+        signup_mode=args.signup_mode,
+        bridge_install_command=args.bridge_install_command,
+    )
+    return 0
+
+
+def cmd_prove_all(args: argparse.Namespace) -> int:
+    result = runtime.prove_all()
+    print(fabric.canonical_json(result), end="")
+    return 0 if result["passed"] else 1
+
+
+def cmd_mcp(args: argparse.Namespace) -> int:
+    argv: list[str] = []
+    if args.base_url:
+        argv.extend(("--base-url", args.base_url))
+    if args.workspace_root:
+        argv.extend(("--workspace-root", args.workspace_root))
+    return mcp_server.main(argv)
+
+
+def cmd_e2e_demo(args: argparse.Namespace) -> int:
+    return e2e.main(["--workspace-root", args.workspace_root])
+
+
+def cmd_auth_login(args: argparse.Namespace) -> int:
+    token = getpass.getpass("Paste the one-time AIDevObserver token: ")
+    try:
+        client = FabricClient(args.server, token)
+        principal = client.me()
+        path = credentials.save_token(args.server, token)
+    except (APIError, ValueError) as exc:
+        print(f"Authentication failed: {exc}", file=sys.stderr)
+        return 1
+    print(f"Authenticated {principal['email']} for {client.base_url}")
+    print(f"Credential saved with mode 0600: {path}")
+    return 0
+
+
+def cmd_auth_logout(args: argparse.Namespace) -> int:
+    try:
+        removed = credentials.remove_token(args.server)
+    except ValueError as exc:
+        print(f"Could not update credentials: {exc}", file=sys.stderr)
+        return 1
+    print("Credential removed" if removed else "No stored credential for this server")
+    return 0
+
+
+def cmd_auth_status(args: argparse.Namespace) -> int:
+    try:
+        token = credentials.load_token(args.server)
+        if token is None:
+            print("No stored credential")
+            return 1
+        principal = FabricClient(args.server, token).me()
+    except (APIError, ValueError) as exc:
+        print(f"Stored credential is not usable: {exc}", file=sys.stderr)
+        return 1
+    print(f"Authenticated {principal['email']} for {args.server}")
     return 0
 
 
@@ -210,7 +279,7 @@ def cmd_self_test(args: argparse.Namespace) -> int:
         return 1
     con = hybrid.ensure_db(db_path)
     try:
-        result = hybrid.search(con, "csv profile rows for warehouse ingestion", {"output_contract": "ColumnProfileSet", "candidate_only": True})
+        result = hybrid.search(con, "csv profile rows for warehouse ingestion", {"output_contract": "CsvProfileReport", "candidate_only": True})
     finally:
         con.close()
     if result["results"][0]["primitive_id"] != "candidate.csv.profile_columns.v0":
@@ -218,6 +287,10 @@ def cmd_self_test(args: argparse.Namespace) -> int:
         return 1
     if not fabric.discover_services(data, "find reusable primitive search route"):
         print("self-test failed: service discovery returned no hits")
+        return 1
+    proof = runtime.prove_all()
+    if not proof["passed"] or proof["passed_count"] != 11:
+        print("self-test failed: packaged primitive proof did not pass 11/11")
         return 1
     print("AIDevObserver capability fabric self-test ok")
     return 0
@@ -229,11 +302,11 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="command", required=True)
 
     build = sub.add_parser("build", help="build and print service fabric")
-    build.add_argument("--db", help="SQLite DB path")
+    build.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     build.set_defaults(func=cmd_build)
 
     search = sub.add_parser("search", help="run hybrid primitive search")
-    search.add_argument("--db", help="SQLite DB path")
+    search.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     search.add_argument("--query", required=True)
     search.add_argument("--input-contract")
     search.add_argument("--output-contract")
@@ -245,11 +318,11 @@ def build_parser() -> argparse.ArgumentParser:
     search.set_defaults(func=cmd_search)
 
     bundles = sub.add_parser("bundles", help="print candidate bundles")
-    bundles.add_argument("--db", help="SQLite DB path")
+    bundles.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     bundles.set_defaults(func=cmd_bundles)
 
     services = sub.add_parser("services", help="print service discovery")
-    services.add_argument("--db", help="SQLite DB path")
+    services.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     services.add_argument("--compact", action="store_true")
     services.set_defaults(func=cmd_services)
 
@@ -319,18 +392,54 @@ def build_parser() -> argparse.ArgumentParser:
     rapidapi_scrape.set_defaults(func=cmd_rapidapi_scrape)
 
     discover = sub.add_parser("discover", help="search services")
-    discover.add_argument("--db", help="SQLite DB path")
+    discover.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     discover.add_argument("query")
     discover.set_defaults(func=cmd_discover)
 
-    serve = sub.add_parser("serve", help="start local read-only HTTP server")
-    serve.add_argument("--db", help="SQLite DB path")
+    serve = sub.add_parser("serve", help="start authenticated website and JSON API")
+    serve.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     serve.add_argument("--host", default="127.0.0.1")
     serve.add_argument("--port", type=int, default=8766)
+    serve.add_argument("--public-url", help="URL displayed in generated MCP install commands")
+    serve.add_argument("--secure-cookie", action=argparse.BooleanOptionalAction, default=None)
+    serve.add_argument(
+        "--signup-mode",
+        choices=("local", "open", "disabled"),
+        help="local permits first-owner bootstrap; hosted defaults to disabled unless explicitly open",
+    )
+    serve.add_argument(
+        "--bridge-install-command",
+        help="published pipx/uv install command shown to remote website users",
+    )
     serve.set_defaults(func=cmd_serve)
 
+    prove_all = sub.add_parser("prove-all", help="run deterministic proofs for every executable primitive")
+    prove_all.set_defaults(func=cmd_prove_all)
+
+    mcp = sub.add_parser("mcp", help="run the authenticated MCP stdio bridge")
+    mcp.add_argument("--base-url", help="website/API base URL (or AIDEVOBSERVER_URL)")
+    mcp.add_argument("--workspace-root", help="bounded root for materialized primitive source")
+    mcp.set_defaults(func=cmd_mcp)
+
+    e2e_demo = sub.add_parser("e2e-demo", help="run the complete authenticated primitive-reuse demo")
+    e2e_demo.add_argument("--workspace-root", default=".")
+    e2e_demo.set_defaults(func=cmd_e2e_demo)
+
+    auth_cmd = sub.add_parser("auth", help="store or remove an agent credential")
+    auth_sub = auth_cmd.add_subparsers(dest="auth_command", required=True)
+    default_server = os.environ.get("AIDEVOBSERVER_URL", "http://127.0.0.1:8766")
+    auth_login = auth_sub.add_parser("login", help="validate and privately store a one-time PAT")
+    auth_login.add_argument("--server", default=default_server)
+    auth_login.set_defaults(func=cmd_auth_login)
+    auth_logout = auth_sub.add_parser("logout", help="remove a stored PAT")
+    auth_logout.add_argument("--server", default=default_server)
+    auth_logout.set_defaults(func=cmd_auth_logout)
+    auth_status = auth_sub.add_parser("status", help="validate the stored PAT")
+    auth_status.add_argument("--server", default=default_server)
+    auth_status.set_defaults(func=cmd_auth_status)
+
     self_test = sub.add_parser("self-test", help="run smoke tests")
-    self_test.add_argument("--db", help="SQLite DB path")
+    self_test.add_argument("--db", help="SQLite DB path", default=argparse.SUPPRESS)
     self_test.set_defaults(func=cmd_self_test)
     return parser
 

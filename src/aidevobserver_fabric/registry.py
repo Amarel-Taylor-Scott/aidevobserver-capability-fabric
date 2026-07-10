@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
 import sqlite3
 from pathlib import Path
@@ -14,13 +15,31 @@ from .seeds import SEED_PRIMITIVES
 TOKEN_RE = re.compile(r"[A-Za-z][A-Za-z0-9_]+")
 
 SYNONYMS = {
-    "csv": {"table", "rows", "file", "delimiter"},
     "document": {"doc", "schema", "fields", "extraction", "json"},
     "schema": {"fields", "contract", "json", "validation"},
     "loop": {"retry", "failure", "agent", "session"},
     "rate": {"interest", "jurisdiction", "normalize"},
     "registry": {"catalog", "metadata", "component"},
     "search": {"find", "retrieve", "lookup", "rank"},
+    "email": {"address", "mailbox"},
+    "phone": {"telephone", "e164", "mobile"},
+    "luhn": {"credit", "card", "pan", "imei", "npi", "checksum", "mod10"},
+    "credit": {"card", "luhn", "pan", "checksum"},
+    "iban": {"bank", "account", "iso13616", "mod97"},
+    "sha256": {"hash", "digest", "checksum", "crypto"},
+    "cosine": {"vector", "similarity", "embedding"},
+    "jaro": {"winkler", "fuzzy", "string", "similarity"},
+    "csv": {"table", "rows", "file", "delimiter", "columns", "profile"},
+    "date": {"calendar", "iso8601", "day", "month", "year"},
+    "tokens": {"count", "approximate", "llm"},
+}
+
+STOPWORDS = {
+    "a", "an", "and", "build", "code", "create", "data", "existing",
+    "extract", "find", "for", "from", "function", "input", "make",
+    "normalize", "number", "numbers", "or", "output", "primitive",
+    "service", "text", "the", "to", "tool", "use", "using", "validate",
+    "validation", "value", "with",
 }
 
 
@@ -41,6 +60,10 @@ def expand_tokens(text: str) -> set[str]:
     for token in list(tokens):
         expanded.update(SYNONYMS.get(token, set()))
     return expanded
+
+
+def meaningful_terms(text: str) -> set[str]:
+    return expand_tokens(text) - STOPWORDS
 
 
 def hashed_vector(terms: tuple[str, ...], dims: int = 16) -> tuple[float, ...]:
@@ -69,20 +92,24 @@ def semantic_terms(record: PrimitiveRecord) -> tuple[str, ...]:
 
 
 def connect(path: Path) -> sqlite3.Connection:
-    path.parent.mkdir(parents=True, exist_ok=True)
+    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    path.touch(mode=0o600, exist_ok=True)
+    os.chmod(path, 0o600)
     con = sqlite3.connect(path)
     con.row_factory = sqlite3.Row
+    con.execute("PRAGMA journal_mode=WAL")
+    con.execute("PRAGMA busy_timeout=5000")
+    con.execute("PRAGMA foreign_keys=ON")
+    for companion in (Path(f"{path}-wal"), Path(f"{path}-shm")):
+        if companion.exists():
+            os.chmod(companion, 0o600)
     return con
 
 
 def create_schema(con: sqlite3.Connection) -> None:
     con.executescript(
         """
-        DROP TABLE IF EXISTS primitives;
-        DROP TABLE IF EXISTS primitive_search;
-        DROP TABLE IF EXISTS compatibility_edges;
-
-        CREATE TABLE primitives (
+        CREATE TABLE IF NOT EXISTS primitives (
           primitive_id TEXT PRIMARY KEY,
           label TEXT NOT NULL,
           input_contract TEXT NOT NULL,
@@ -102,7 +129,7 @@ def create_schema(con: sqlite3.Connection) -> None:
           semantic_vector_json TEXT NOT NULL
         );
 
-        CREATE VIRTUAL TABLE primitive_search USING fts5(
+        CREATE VIRTUAL TABLE IF NOT EXISTS primitive_search USING fts5(
           primitive_id UNINDEXED,
           label,
           input_contract,
@@ -111,7 +138,7 @@ def create_schema(con: sqlite3.Connection) -> None:
           semantic_terms
         );
 
-        CREATE TABLE compatibility_edges (
+        CREATE TABLE IF NOT EXISTS compatibility_edges (
           from_primitive_id TEXT NOT NULL,
           to_primitive_id TEXT NOT NULL,
           status TEXT NOT NULL,
@@ -127,7 +154,26 @@ def insert_records(con: sqlite3.Connection, records: tuple[PrimitiveRecord, ...]
         terms = semantic_terms(record)
         vector = hashed_vector(terms)
         con.execute(
-            "INSERT INTO primitives VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            """
+            INSERT INTO primitives VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(primitive_id) DO UPDATE SET
+              label=excluded.label,
+              input_contract=excluded.input_contract,
+              output_contract=excluded.output_contract,
+              trust=excluded.trust,
+              readiness=excluded.readiness,
+              effects_json=excluded.effects_json,
+              memory=excluded.memory,
+              cache=excluded.cache,
+              serves_truth=excluded.serves_truth,
+              remix_tools_json=excluded.remix_tools_json,
+              proof_obligations_json=excluded.proof_obligations_json,
+              promotion_blockers_json=excluded.promotion_blockers_json,
+              source_refs_json=excluded.source_refs_json,
+              search_text=excluded.search_text,
+              semantic_terms=excluded.semantic_terms,
+              semantic_vector_json=excluded.semantic_vector_json
+            """,
             (
                 record.primitive_id,
                 record.label,
@@ -148,6 +194,7 @@ def insert_records(con: sqlite3.Connection, records: tuple[PrimitiveRecord, ...]
                 json.dumps(vector),
             ),
         )
+        con.execute("DELETE FROM primitive_search WHERE primitive_id = ?", (record.primitive_id,))
         con.execute(
             "INSERT INTO primitive_search VALUES (?, ?, ?, ?, ?, ?)",
             (
@@ -173,6 +220,14 @@ def compatibility_status(left: PrimitiveRecord, right: PrimitiveRecord) -> tuple
 
 
 def insert_edges(con: sqlite3.Connection, records: tuple[PrimitiveRecord, ...]) -> None:
+    ids = tuple(record.primitive_id for record in records)
+    if ids:
+        placeholders = ",".join("?" for _ in ids)
+        con.execute(
+            f"DELETE FROM compatibility_edges WHERE from_primitive_id IN ({placeholders}) "
+            f"AND to_primitive_id IN ({placeholders})",
+            (*ids, *ids),
+        )
     rows: list[tuple[str, str, str, str]] = []
     for left in records:
         for right in records:
@@ -180,10 +235,56 @@ def insert_edges(con: sqlite3.Connection, records: tuple[PrimitiveRecord, ...]) 
             if status is None:
                 continue
             rows.append((left.primitive_id, right.primitive_id, status[0], status[1]))
-    con.executemany("INSERT INTO compatibility_edges VALUES (?, ?, ?, ?)", rows)
+    con.executemany("INSERT OR REPLACE INTO compatibility_edges VALUES (?, ?, ?, ?)", rows)
 
 
-def build_db(path: Path, records: tuple[PrimitiveRecord, ...] = SEED_PRIMITIVES) -> dict[str, int]:
+def builtin_records() -> tuple[PrimitiveRecord, ...]:
+    """Return advisory seeds plus every packaged executable implementation."""
+
+    # Kept lazy so registry token helpers remain cheap to import and runtime
+    # never gains a dependency on the storage layer.
+    from . import runtime
+
+    runtime_ids = set(runtime.EXECUTABLE_PRIMITIVES)
+    executable: list[PrimitiveRecord] = []
+    for spec in runtime.EXECUTABLE_PRIMITIVES.values():
+        proof = spec.prove()
+        governed_candidate = spec.primitive_id.startswith("candidate.")
+        verified = bool(proof["passed"]) and not governed_candidate
+        if spec.primitive_id == "candidate.csv.profile_columns.v0":
+            input_contract = "CsvProfileInput"
+            output_contract = "CsvProfileReport"
+        else:
+            input_contract = f"{spec.primitive_id}.input"
+            output_contract = f"{spec.primitive_id}.output"
+        executable.append(
+            PrimitiveRecord(
+                primitive_id=spec.primitive_id,
+                label=spec.label,
+                input_contract=input_contract,
+                output_contract=output_contract,
+                trust="verified" if verified else "candidate",
+                readiness="R8_executable" if verified else "R6_executable_proven" if proof["passed"] else "R4_proof_failed",
+                serves_truth=verified,
+                proof_obligations=("packaged_fixture_proof", "source_digest"),
+                promotion_blockers=() if verified else ("governance_promotion_required",) if proof["passed"] else ("packaged_fixture_failed",),
+                source_refs=(f"python:{spec.module.__name__}",),
+                search_text=f"{spec.label} {spec.description}",
+            )
+        )
+    advisory = tuple(record for record in SEED_PRIMITIVES if record.primitive_id not in runtime_ids)
+    return advisory + tuple(executable)
+
+
+def build_db(path: Path, records: tuple[PrimitiveRecord, ...] | None = None) -> dict[str, int]:
+    """Initialize and synchronize built-in records without deleting user data.
+
+    Earlier versions dropped every registry table during service startup.  The
+    product database also contains accounts, API tokens, receipts, and imported
+    primitives, so startup must be an idempotent upsert operation.
+    """
+    if records is None:
+        records = builtin_records()
     con = connect(path)
     with con:
         create_schema(con)
@@ -193,6 +294,11 @@ def build_db(path: Path, records: tuple[PrimitiveRecord, ...] = SEED_PRIMITIVES)
     edge_count = int(con.execute("SELECT COUNT(*) FROM compatibility_edges").fetchone()[0])
     con.close()
     return {"primitive_records": primitive_count, "compatibility_edges": edge_count}
+
+
+def get_primitive(con: sqlite3.Connection, primitive_id: str) -> dict | None:
+    row = con.execute("SELECT * FROM primitives WHERE primitive_id = ?", (primitive_id,)).fetchone()
+    return row_to_dict(row) if row is not None else None
 
 
 def row_to_dict(row: sqlite3.Row) -> dict:
