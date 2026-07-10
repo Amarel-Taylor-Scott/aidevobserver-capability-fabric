@@ -25,7 +25,7 @@ class FabricTests(unittest.TestCase):
                 result = hybrid.search(
                     con,
                     "csv profile rows for warehouse ingestion",
-                    {"output_contract": "ColumnProfileSet", "candidate_only": True},
+                    {"output_contract": "CsvProfileReport", "candidate_only": True},
                 )
             finally:
                 con.close()

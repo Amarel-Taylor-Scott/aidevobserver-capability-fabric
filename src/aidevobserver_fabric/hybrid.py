@@ -21,8 +21,8 @@ class LaneHit:
     reason: str
 
 
-def infer_template_role(query: str, blockers: dict[str, Any]) -> str:
-    if blockers.get("output_contract") == "ColumnProfileSet":
+def infer_template_role(query: str, blockers: dict[str, Any]) -> str | None:
+    if blockers.get("output_contract") in {"ColumnProfileSet", "CsvProfileReport"}:
         return "profile_tabular_data"
     if blockers.get("output_contract") == "AgentLoopFindingSet":
         return "review_agent_session"
@@ -39,7 +39,9 @@ def infer_template_role(query: str, blockers: dict[str, Any]) -> str:
         return "extract_schema_fields"
     if {"agent", "loop", "retry", "session"} & terms:
         return "review_agent_session"
-    return "normalize_regulatory_rates"
+    if {"rate", "rates", "regulatory", "interest", "jurisdiction"} & terms:
+        return "normalize_regulatory_rates"
+    return None
 
 
 def candidate_rows(con: sqlite3.Connection, blockers: dict[str, Any]) -> list[sqlite3.Row]:
@@ -77,17 +79,20 @@ def rank_exact(rows: list[sqlite3.Row], blockers: dict[str, Any]) -> list[LaneHi
             score += 1.0
         if blockers.get("output_contract") == row["output_contract"]:
             score += 1.0
-        if blockers.get("trust") == row["trust"]:
-            score += 0.3
         hits.append(LaneHit(row["primitive_id"], score, "hard_contract_match"))
     return sort_hits(hits)
 
 
 def rank_fts(con: sqlite3.Connection, rows: list[sqlite3.Row], query: str) -> list[LaneHit]:
     allowed = {row["primitive_id"] for row in rows}
-    terms = sorted(registry.normalize_tokens(query))
+    row_terms = {
+        row["primitive_id"]: set((row["semantic_terms"] or "").split())
+        for row in rows
+    }
+    terms = sorted(registry.meaningful_terms(query))
     if not terms:
         return []
+    minimum_overlap = 1 if len(terms) == 1 else 2
     try:
         matches = con.execute(
             """
@@ -102,32 +107,23 @@ def rank_fts(con: sqlite3.Connection, rows: list[sqlite3.Row], query: str) -> li
         return []
     hits = []
     for index, row in enumerate(matches, start=1):
-        if row["primitive_id"] in allowed:
-            hits.append(LaneHit(row["primitive_id"], 1.0 / index, "fts_bm25"))
+        if row["primitive_id"] not in allowed:
+            continue
+        overlap = len(row_terms[row["primitive_id"]] & set(terms))
+        if overlap >= minimum_overlap:
+            hits.append(LaneHit(row["primitive_id"], overlap + (1.0 / index), f"fts_bm25_overlap:{overlap}"))
     return sort_hits(hits)
 
 
 def rank_semantic(rows: list[sqlite3.Row], query: str) -> list[LaneHit]:
-    query_terms = registry.expand_tokens(query)
+    query_terms = registry.meaningful_terms(query)
+    minimum_overlap = 1 if len(query_terms) == 1 else 2
     hits: list[LaneHit] = []
     for row in rows:
         row_terms = set((row["semantic_terms"] or "").split())
         overlap = len(query_terms & row_terms)
-        hits.append(LaneHit(row["primitive_id"], overlap / max(1, len(query_terms)), f"term_overlap:{overlap}"))
-    return sort_hits(hits)
-
-
-def rank_trust(rows: list[sqlite3.Row]) -> list[LaneHit]:
-    hits: list[LaneHit] = []
-    for row in rows:
-        score = 0.05
-        if row["trust"] == "verified":
-            score += 0.75
-        if row["serves_truth"]:
-            score += 0.25
-        if row["readiness"].startswith("R8"):
-            score += 0.1
-        hits.append(LaneHit(row["primitive_id"], score, "trust_proof"))
+        if overlap >= minimum_overlap:
+            hits.append(LaneHit(row["primitive_id"], float(overlap), f"term_overlap:{overlap}"))
     return sort_hits(hits)
 
 
@@ -203,19 +199,34 @@ def build_bundle(con: sqlite3.Connection, query: str, role: str) -> CandidateBun
     )
 
 
-def search(con: sqlite3.Connection, query: str, blockers: dict[str, Any], limit: int = 6) -> dict[str, Any]:
+def search(
+    con: sqlite3.Connection,
+    query: str,
+    blockers: dict[str, Any],
+    limit: int = 6,
+    *,
+    allowed_ids: set[str] | None = None,
+) -> dict[str, Any]:
     rows = candidate_rows(con, blockers)
+    if allowed_ids is not None:
+        rows = [row for row in rows if row["primitive_id"] in allowed_ids]
     row_by_id = {row["primitive_id"]: row for row in rows}
-    rankings = {
+    relevance_rankings = {
         "exact_contract": rank_exact(rows, blockers),
         "fts": rank_fts(con, rows, query),
         "semantic": rank_semantic(rows, query),
-        "trust": rank_trust(rows),
     }
-    fused = rrf(rankings)
+    # Trust is applied only as a tiny post-relevance tiebreak below.  It can
+    # never introduce a primitive into the result set.
+    fused = rrf(relevance_rankings)
     results = []
     for primitive_id, item in fused.items():
         row = row_by_id[primitive_id]
+        trust_boost = 0.0
+        if row["trust"] == "verified":
+            trust_boost += 0.0002
+        if row["serves_truth"]:
+            trust_boost += 0.0001
         results.append(
             {
                 "primitive_id": primitive_id,
@@ -224,7 +235,7 @@ def search(con: sqlite3.Connection, query: str, blockers: dict[str, Any], limit:
                 "output_contract": row["output_contract"],
                 "trust": row["trust"],
                 "serves_truth": bool(row["serves_truth"]),
-                "rrf_score": round(item["score"], 6),
+                "rrf_score": round(item["score"] + trust_boost, 6),
                 "lanes": sorted(set(item["lanes"])),
             }
         )
@@ -234,7 +245,7 @@ def search(con: sqlite3.Connection, query: str, blockers: dict[str, Any], limit:
         "query": query,
         "blockers": blockers,
         "results": results[:limit],
-        "candidate_bundle": build_bundle(con, query, role).to_dict(),
+        "candidate_bundle": build_bundle(con, query, role).to_dict() if role is not None else None,
     }
 
 
@@ -247,6 +258,9 @@ def compact_result(result: dict[str, Any]) -> str:
             f"tr:{item['trust']} truth:{truth} score:{item['rrf_score']} lanes:{','.join(item['lanes'])}"
         )
     bundle = result["candidate_bundle"]
+    if bundle is None:
+        lines.append("CB -")
+        return "\n".join(lines) + "\n"
     lines.append(f"CB {bundle['bundle_id']} T {bundle['template_id']} role:{bundle['template_role']}")
     for slot in bundle["slots"]:
         lines.append(f"{slot['slot_alias']} {slot['slot_id']} {slot['input_contract']}>{slot['output_contract']}")

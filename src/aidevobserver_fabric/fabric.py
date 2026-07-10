@@ -9,9 +9,10 @@ from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 from . import hybrid, primitive_factory, registry
+from .paths import default_db
 from .seeds import SERVICES, TEMPLATE_SLOTS
 
-DEFAULT_DB = Path("generated/primitive_search.sqlite")
+DEFAULT_DB = default_db()
 
 
 def canonical_json(value: Any) -> str:
@@ -89,7 +90,7 @@ def openapi_stub(fabric: dict[str, Any]) -> dict[str, Any]:
             }
     return {
         "openapi": "3.1.0",
-        "info": {"title": "AIDevObserver Capability Fabric", "version": "0.1.0"},
+        "info": {"title": "AIDevObserver Capability Fabric", "version": "0.2.0"},
         "paths": paths,
         "x-truth-boundary": fabric["truth_boundary"],
     }
