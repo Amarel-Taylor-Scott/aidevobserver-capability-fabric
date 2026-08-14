@@ -1,0 +1,51 @@
+{
+  "builder_digest": "sha256:74bdc7a3d02b6a117ca0f881cf7b0a803dff784053504cc82440c5e6404d07ee",
+  "builder_id": "aidevobserver.problem_primitive_builder.v1",
+  "candidate_only": true,
+  "created_at": "2026-07-11T05:36:33.082537Z",
+  "draft_id": "draft.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.afe0de5a4434d63a.v0",
+  "files": {
+    "README.md": {
+      "bytes": 213,
+      "digest": "sha256:b77c995480cf14ecbedd31752e0671fb70b53399b3c344975d42e46660283e65"
+    },
+    "contracts/input.schema.json": {
+      "bytes": 208,
+      "digest": "sha256:06fe767d0d28c9a3b2dac7145aeec9f207fb9ed280ab2a703929e8ba8a47cff8"
+    },
+    "contracts/output.schema.json": {
+      "bytes": 151,
+      "digest": "sha256:373df1f46cf78ac7a5a0c298acfb04260aaed0b21cbf8feb968f1860bd41ce17"
+    },
+    "fixtures/negative.json": {
+      "bytes": 3,
+      "digest": "sha256:ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+    },
+    "fixtures/positive.json": {
+      "bytes": 159,
+      "digest": "sha256:c623e94522ce5df5b5e56539f99ac9e62fa3f4b885877b68adc1de65bb858c03"
+    },
+    "ocg.json": {
+      "bytes": 6691,
+      "digest": "sha256:285a044cd5415ef4ad4c5cb7fa353970cb7f7b70ac941bfec181cd9c255451ca"
+    },
+    "primitive.json": {
+      "bytes": 8689,
+      "digest": "sha256:ae31c23d1928147fc1804dd0c701cb927e4531192a95aa5d297434afbf649624"
+    },
+    "source-evidence.json": {
+      "bytes": 1122,
+      "digest": "sha256:bc0277153d3febd81f19c561bdaef08e5c861b59a7fdd0e393f77b904e5e629d"
+    },
+    "src/primitive.py": {
+      "bytes": 10630,
+      "digest": "sha256:d79adad6572b4f2f7da7134ee3f47554438b299e2d265b25eb3980535a3afb61"
+    },
+    "tests/test_contract.py": {
+      "bytes": 1030,
+      "digest": "sha256:14cdb53bbad697e1b068c1ae4226a389f9e99fb5f221740707cfc9e338b5d98d"
+    }
+  },
+  "manifest_digest": "sha256:5e27edc183bd4de3ad3416e1780f75e7f8117b83a609b6731c62645cb0a4b44c",
+  "serves_truth": false
+}

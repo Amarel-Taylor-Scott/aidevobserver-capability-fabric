@@ -1,0 +1,6 @@
+{
+  "recipe_id": "urn:example:ocg:projection:domain-intent-v1",
+  "source_view": "urn:example:ocg:view:intent",
+  "steps": ["utf8", "no-truncation", "customer-domain-adapter"],
+  "output_role": "symmetric"
+}

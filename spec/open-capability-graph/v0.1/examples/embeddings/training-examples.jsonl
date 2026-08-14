@@ -1,0 +1,2 @@
+{"query":"clean customer contact data","positive":"Normalize a customer name and email into a stable validated record for downstream export.","negative":"Delete a customer record from the billing database."}
+{"query":"standardize an email address","positive":"Trim and lowercase a customer email while preserving the address.","negative":"Send a marketing email to a customer."}

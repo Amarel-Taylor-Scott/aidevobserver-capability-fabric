@@ -1,0 +1,2747 @@
+{
+  "$schema": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/raw/main/spec/open-capability-graph/v0.1/schemas/open-capability-graph.schema.json",
+  "actions": [
+    {
+      "capability_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "description": "Normalize a customer name and email address without changing address semantics.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:6b5fe223-4fa9-529e-8c60-8dd91c3f46d6",
+      "implementation_ref": "urn:uuid:a18f2c1e-ac7a-5cca-b789-1aaf6050ba89",
+      "label": "Normalize customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/0"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:7dde9441-9826-5e5f-ba24-73ed95ec18b8",
+          "direction": "input",
+          "id": "input",
+          "label": "Normalize customer input",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/inputSchema"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:b7f933e5-7006-58ec-a713-9eb715a5cc6c",
+          "direction": "output",
+          "id": "output",
+          "label": "Normalize customer structured output",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/outputSchema"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    },
+    {
+      "capability_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "description": "Serialize an export-shaped customer record as deterministic JSON.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:d0dfa7d9-e62b-55a3-bd26-07b7f6c3db59",
+      "implementation_ref": "urn:uuid:7431aa8f-a5d5-5473-a309-dd46e52bee42",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/1"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:a6ff34fd-7c17-5028-b8fe-02dd5b2e318a",
+          "direction": "input",
+          "id": "input",
+          "label": "Emit customer JSON input",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/1/inputSchema"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:85215dcf-8746-581f-ae7a-8ee32d3b45b9",
+          "direction": "output",
+          "id": "output",
+          "label": "Emit customer JSON structured output",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/1/outputSchema"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    },
+    {
+      "capability_ref": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+      "description": "Imported POST /customers/export OpenAPI operation candidate.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:1a6fab76-2153-5a58-b167-6af9d1129c02",
+      "implementation_ref": "urn:uuid:1baa45fe-30ac-5a32-a808-66c14edbdaf2",
+      "label": "Adapt a normalized customer to the export field vocabulary",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "openapi",
+        "source_pointer": "/paths/~1customers~1export/post"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:93208890-c672-5221-a73c-7028abd65014",
+          "direction": "input",
+          "id": "request",
+          "label": "Adapt a normalized customer to the export field vocabulary request",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/paths/~1customers~1export/post"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:437f8b93-739a-578c-8f80-ebb108d61be6",
+          "direction": "output",
+          "id": "response",
+          "label": "Adapt a normalized customer to the export field vocabulary responses",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/paths/~1customers~1export/post/responses"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    },
+    {
+      "capability_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:a18a7651-347c-5ed6-943d-d625dcf3b11c",
+      "implementation_ref": "urn:uuid:920049c7-d7f2-513f-aa15-416f2b7e6a22",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "cwl",
+        "source_pointer": "/"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:5742ab2a-056e-5639-8b38-5bf4d8cd1ab4",
+          "direction": "input",
+          "id": "customer",
+          "label": "customer",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/inputs/customer"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:b5613e38-492a-5e70-a40d-f13ca4ef3c3d",
+          "direction": "output",
+          "id": "json_artifact",
+          "label": "json_artifact",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/outputs/json_artifact"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    },
+    {
+      "capability_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "description": "Imported WIT function customer-normalization.normalize-customer candidate.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:53287dfe-4e6e-5b83-b098-1978de2dd3d7",
+      "implementation_ref": "urn:uuid:e805388d-b632-5174-940c-27dd2ee0b0f8",
+      "label": "normalize-customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "wit",
+        "source_pointer": "/interfaces/0/functions/normalize-customer"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:68e61942-2975-5b0a-96ff-416eaec323fb",
+          "direction": "input",
+          "id": "customer",
+          "label": "customer",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/interfaces/0/functions/normalize-customer/params/0"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:0e41cd1e-38eb-53b5-afc0-be8f3c50272d",
+          "direction": "output",
+          "id": "result",
+          "label": "normalize-customer result",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/interfaces/0/functions/normalize-customer/result"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    },
+    {
+      "capability_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "description": "Validate a normalized customer record.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:315717b3-68e3-504f-90d1-bca516de08b6",
+      "implementation_ref": "urn:uuid:90bd1bef-9d95-5460-a130-cf5d60927cf9",
+      "label": "validate_customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "agent-spec",
+        "source_pointer": "/tools/0"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:46355814-33ac-513c-a6b8-538c5aaf05b2",
+          "direction": "input",
+          "id": "customer",
+          "label": "customer",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/inputs/0"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:80d6c781-dbcc-59c7-b161-2712ca8ac599",
+          "direction": "output",
+          "id": "valid",
+          "label": "valid",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/outputs/0"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+      "id": "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c",
+      "lifecycle": "candidate",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "data:application/json;base64,eyJpbnRlcmZhY2VzIjpbeyJmdW5jdGlvbnMiOnsibm9ybWFsaXplLWN1c3RvbWVyIjp7ImtpbmQiOiJmcmVlc3RhbmRpbmciLCJuYW1lIjoibm9ybWFsaXplLWN1c3RvbWVyIiwicGFyYW1zIjpbeyJuYW1lIjoiY3VzdG9tZXIiLCJ0eXBlIjowfV0sInJlc3VsdCI6Mn19LCJuYW1lIjoiY3VzdG9tZXItbm9ybWFsaXphdGlvbiIsInBhY2thZ2UiOjAsInR5cGVzIjp7Im5vcm1hbGl6ZWQtY3VzdG9tZXIiOjEsInJhdy1jdXN0b21lciI6MH19XSwicGFja2FnZXMiOlt7ImludGVyZmFjZXMiOnsiY3VzdG9tZXItbm9ybWFsaXphdGlvbiI6MH0sIm5hbWUiOiJleGFtcGxlOmN1c3RvbWVyQDAuMS4wIiwid29ybGRzIjp7fX1dLCJ0eXBlcyI6W3sia2luZCI6eyJyZWNvcmQiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbCIsInR5cGUiOiJzdHJpbmcifV19fSwibmFtZSI6InJhdy1jdXN0b21lciIsIm93bmVyIjp7ImludGVyZmFjZSI6MH19LHsia2luZCI6eyJyZWNvcmQiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbCIsInR5cGUiOiJzdHJpbmcifV19fSwibmFtZSI6Im5vcm1hbGl6ZWQtY3VzdG9tZXIiLCJvd25lciI6eyJpbnRlcmZhY2UiOjB9fSx7ImtpbmQiOnsicmVzdWx0Ijp7ImVyciI6InN0cmluZyIsIm9rIjoxfX0sIm5hbWUiOm51bGwsIm93bmVyIjpudWxsfV0sIndvcmxkcyI6W119"
+        }
+      ],
+      "media_type": "application/json",
+      "metadata": {
+        "normalizer": {
+          "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+          "binary_size_bytes": 19172248,
+          "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+          "id": "wasm-tools component wit --json",
+          "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+        },
+        "role": "normalized-interface-projection"
+      },
+      "size_bytes": 738
+    },
+    {
+      "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+      "id": "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2",
+      "lifecycle": "candidate",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "urn:example:ocg:interop-fixture:customer.wit"
+        }
+      ],
+      "media_type": "text/wit",
+      "metadata": {
+        "role": "authoritative-raw-wit-source"
+      },
+      "size_bytes": 326
+    },
+    {
+      "digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+      "id": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a",
+      "lifecycle": "candidate",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux"
+        }
+      ],
+      "media_type": "application/octet-stream",
+      "metadata": {
+        "role": "wit-normalizer-binary",
+        "tool": "wasm-tools component wit --json",
+        "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+      },
+      "size_bytes": 19172248
+    },
+    {
+      "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+      "id": "urn:example:ocg:artifact:interop-projection:word-hash",
+      "lifecycle": "active",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "data:application/json;base64,eyJhbGdvcml0aG0iOiJzaWduZWQtc2hhMjU2LWZlYXR1cmUtaGFzaCIsImRpbWVuc2lvbnMiOjMyLCJkdHlwZSI6ImZsb2F0MzIiLCJmZWF0dXJlX2hhc2giOnsiYWNjdW11bGF0aW9uIjoic2lnbmVkIGNvdW50IHBlciBidWNrZXQiLCJidWNrZXQiOiJ1bnNpZ25lZCBiaWctZW5kaWFuIGRpZ2VzdCBieXRlcyAwLi4zIG1vZHVsbyBkaW1lbnNpb25zIiwiZmVhdHVyZV9lbmNvZGluZyI6IlVURi04IiwiaGFzaCI6InNoYTI1NiIsIm5vcm1hbGl6YXRpb24iOiJMMiBvdmVyIGFjY3VtdWxhdGVkIHZlY3RvciIsInF1YW50aXphdGlvbiI6IklFRUUtNzU0IGJpbmFyeTMyIGFmdGVyIG5vcm1hbGl6YXRpb24iLCJzaWduIjoiZGlnZXN0IGJ5dGUgNCBsb3cgYml0OiAxID0+IC0xLjAsIDAgPT4gKzEuMCJ9LCJmZWF0dXJlcyI6Im9uZSBmZWF0dXJlIHBlciBub3JtYWxpemVkIHRva2VuIiwibGVhcm5lZCI6ZmFsc2UsIm5vcm1hbGl6YXRpb24iOiJsMiIsInJlY2lwZV92ZXJzaW9uIjoib2NnLWRldGVybWluaXN0aWMtcHJvamVjdGlvbi8wLjEiLCJ0b2tlbml6YXRpb24iOnsiaW5wdXQiOiJVbmljb2RlIHN0cmluZyIsIm1hdGNoaW5nIjoibGVmdC10by1yaWdodCBub24tb3ZlcmxhcHBpbmcgZmluZGFsbCIsIm91dHB1dF9vcmRlciI6ImVuY291bnRlciBvcmRlciB3aXRoIGR1cGxpY2F0ZXMgcHJlc2VydmVkIiwicmVnZXgiOiJbQS1aYS16MC05XSsoPzpbXy1dW0EtWmEtejAtOV0rKSoiLCJyZWdleF9jaGFyYWN0ZXJfY2xhc3NlcyI6IkFTQ0lJIHJhbmdlcyB3cml0dGVuIGV4cGxpY2l0bHk7IFB5dGhvbiBVbmljb2RlIHJlZ2V4IG1vZGUiLCJ0cmFuc2Zvcm0iOlsiQVNDSUkgbG93ZXJjYXNlIiwicmVwbGFjZSB1bmRlcnNjb3JlIHdpdGggaHlwaGVuIl19fQ=="
+        }
+      ],
+      "media_type": "application/json",
+      "metadata": {
+        "boundary": "deterministic_nonlearned_retrieval_projection"
+      },
+      "size_bytes": 880
+    },
+    {
+      "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+      "id": "urn:example:ocg:artifact:interop-projection:char-hash",
+      "lifecycle": "active",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "data:application/json;base64,eyJhbGdvcml0aG0iOiJzaWduZWQtc2hhMjU2LWZlYXR1cmUtaGFzaCIsImRpbWVuc2lvbnMiOjMyLCJkdHlwZSI6ImZsb2F0MzIiLCJmZWF0dXJlX2hhc2giOnsiYWNjdW11bGF0aW9uIjoic2lnbmVkIGNvdW50IHBlciBidWNrZXQiLCJidWNrZXQiOiJ1bnNpZ25lZCBiaWctZW5kaWFuIGRpZ2VzdCBieXRlcyAwLi4zIG1vZHVsbyBkaW1lbnNpb25zIiwiZmVhdHVyZV9lbmNvZGluZyI6IlVURi04IiwiaGFzaCI6InNoYTI1NiIsIm5vcm1hbGl6YXRpb24iOiJMMiBvdmVyIGFjY3VtdWxhdGVkIHZlY3RvciIsInF1YW50aXphdGlvbiI6IklFRUUtNzU0IGJpbmFyeTMyIGFmdGVyIG5vcm1hbGl6YXRpb24iLCJzaWduIjoiZGlnZXN0IGJ5dGUgNCBsb3cgYml0OiAxID0+IC0xLjAsIDAgPT4gKzEuMCJ9LCJmZWF0dXJlcyI6eyJqb2luIjoic2luZ2xlIEFTQ0lJIHNwYWNlIiwicGFkZGluZyI6InR3byBBU0NJSSBzcGFjZXMgb24gZWFjaCBzaWRlIiwid2luZG93IjoiYWxsIG92ZXJsYXBwaW5nIDMtY29kZS1wb2ludCB3aW5kb3dzIGluIGVuY291bnRlciBvcmRlciJ9LCJsZWFybmVkIjpmYWxzZSwibm9ybWFsaXphdGlvbiI6ImwyIiwicmVjaXBlX3ZlcnNpb24iOiJvY2ctZGV0ZXJtaW5pc3RpYy1wcm9qZWN0aW9uLzAuMSIsInRva2VuaXphdGlvbiI6eyJpbnB1dCI6IlVuaWNvZGUgc3RyaW5nIiwibWF0Y2hpbmciOiJsZWZ0LXRvLXJpZ2h0IG5vbi1vdmVybGFwcGluZyBmaW5kYWxsIiwib3V0cHV0X29yZGVyIjoiZW5jb3VudGVyIG9yZGVyIHdpdGggZHVwbGljYXRlcyBwcmVzZXJ2ZWQiLCJyZWdleCI6IltBLVphLXowLTldKyg/OltfLV1bQS1aYS16MC05XSspKiIsInJlZ2V4X2NoYXJhY3Rlcl9jbGFzc2VzIjoiQVNDSUkgcmFuZ2VzIHdyaXR0ZW4gZXhwbGljaXRseTsgUHl0aG9uIFVuaWNvZGUgcmVnZXggbW9kZSIsInRyYW5zZm9ybSI6WyJBU0NJSSBsb3dlcmNhc2UiLCJyZXBsYWNlIHVuZGVyc2NvcmUgd2l0aCBoeXBoZW4iXX19"
+        }
+      ],
+      "media_type": "application/json",
+      "metadata": {
+        "boundary": "deterministic_nonlearned_retrieval_projection"
+      },
+      "size_bytes": 984
+    },
+    {
+      "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+      "id": "urn:example:ocg:artifact:interop-projection:token-sparse",
+      "lifecycle": "active",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "data:application/json;base64,eyJhbGdvcml0aG0iOiJjb3JwdXMtc25hcHNob3QtdG9rZW4tY291bnQiLCJkaW1lbnNpb25zIjo1MywiZHR5cGUiOiJzcGFyc2VfZmxvYXQzMiIsImluZGV4aW5nIjoiemVyby1iYXNlZCBpbmRleCBpbiB0aGUgc3RvcmVkIHZvY2FidWxhcnkgYXJyYXkiLCJsZWFybmVkIjpmYWxzZSwibm9ybWFsaXphdGlvbiI6ImwyIiwicmVjaXBlX3ZlcnNpb24iOiJvY2ctZGV0ZXJtaW5pc3RpYy1wcm9qZWN0aW9uLzAuMSIsInRva2VuaXphdGlvbiI6eyJpbnB1dCI6IlVuaWNvZGUgc3RyaW5nIiwibWF0Y2hpbmciOiJsZWZ0LXRvLXJpZ2h0IG5vbi1vdmVybGFwcGluZyBmaW5kYWxsIiwib3V0cHV0X29yZGVyIjoiZW5jb3VudGVyIG9yZGVyIHdpdGggZHVwbGljYXRlcyBwcmVzZXJ2ZWQiLCJyZWdleCI6IltBLVphLXowLTldKyg/OltfLV1bQS1aYS16MC05XSspKiIsInJlZ2V4X2NoYXJhY3Rlcl9jbGFzc2VzIjoiQVNDSUkgcmFuZ2VzIHdyaXR0ZW4gZXhwbGljaXRseTsgUHl0aG9uIFVuaWNvZGUgcmVnZXggbW9kZSIsInRyYW5zZm9ybSI6WyJBU0NJSSBsb3dlcmNhc2UiLCJyZXBsYWNlIHVuZGVyc2NvcmUgd2l0aCBoeXBoZW4iXX0sInZvY2FidWxhcnkiOlsiYSIsImFic3RyYWN0IiwiYWRhcHQiLCJhZGRyZXNzIiwiYWdlbnQtc3BlYyIsImFuIiwiYW5kIiwiYXMiLCJjYW5kaWRhdGUiLCJjaGFuZ2luZyIsImNvbnN1bWVzIiwiY3VzdG9tZXIiLCJjdXN0b21lci1ub3JtYWxpemF0aW9uIiwiY3VzdG9tZXJzIiwiY3dsIiwiZGV0ZXJtaW5pc3RpYyIsImVtYWlsIiwiZW1pdCIsImV4cG9ydCIsImV4cG9ydC1zaGFwZWQiLCJmaWVsZCIsImZpbGUiLCJmdW5jdGlvbiIsImltcG9ydGVkIiwiaW5wdXQiLCJqc29uIiwianNvbi1hcnRpZmFjdCIsIm1jcC10b29scyIsIm5hbWUiLCJub3JtYWxpemUiLCJub3JtYWxpemUtY3VzdG9tZXIiLCJub3JtYWxpemVkIiwib3BlbmFwaSIsIm9wZXJhdGlvbiIsIm91dHB1dCIsInBvc3QiLCJwcm9kdWNlcyIsInJlY29yZCIsInJlcXVlc3QiLCJyZXNwb25zZXMiLCJyZXN1bHQiLCJzZW1hbnRpY3MiLCJzZXJpYWxpemUiLCJzdHJ1Y3R1cmVkIiwidGhhdCIsInRoZSIsInRvIiwidmFsaWQiLCJ2YWxpZGF0ZSIsInZhbGlkYXRlLWN1c3RvbWVyIiwidm9jYWJ1bGFyeSIsIndpdCIsIndpdGhvdXQiXSwidm9jYWJ1bGFyeV9kaWdlc3QiOiJzaGEyNTY6N2FiMmM2MWQ5ZDUzMDJiZDRkNTk0ZmE5NzQyNWIxMDcxZjM0ZTMyNTkxNzlhOWZkODM4YmQ2OTYwOTZkY2QyZCJ9"
+        }
+      ],
+      "media_type": "application/json",
+      "metadata": {
+        "boundary": "deterministic_nonlearned_retrieval_projection"
+      },
+      "size_bytes": 1242
+    }
+  ],
+  "description": "Candidate-only merge of five loss-aware native imports with deterministic retrieval projections.",
+  "extensions": {
+    "urn:example:ocg:extension:interop-import-summary": {
+      "execution_authorization": "not_established",
+      "imports": [
+        {
+          "action_count": 2,
+          "planning_eligibility": "unknown",
+          "source_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_format": "mcp-tools",
+          "warning_count": 4
+        },
+        {
+          "action_count": 1,
+          "planning_eligibility": "unknown",
+          "source_digest": "sha256:d8d60c1b09e7c432b21f4506d9ee8653679128835353375909c655a58d449dce",
+          "source_format": "openapi",
+          "warning_count": 6
+        },
+        {
+          "action_count": 1,
+          "planning_eligibility": "unknown",
+          "source_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+          "source_format": "cwl",
+          "warning_count": 2
+        },
+        {
+          "action_count": 1,
+          "planning_eligibility": "unknown",
+          "source_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+          "source_format": "wit",
+          "warning_count": 3
+        },
+        {
+          "action_count": 1,
+          "planning_eligibility": "unknown",
+          "source_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+          "source_format": "agent-spec",
+          "warning_count": 2
+        }
+      ],
+      "planning_eligibility": "unknown"
+    }
+  },
+  "graph_id": "urn:example:ocg:interoperability-bakeoff-corpus",
+  "nodes": [
+    {
+      "description": "Normalize a customer name and email address without changing address semantics.",
+      "digest": "sha256:abcaf903778fa9fd3b00be7cab2aafcca754928e43abf027757695bad2e9b8fb",
+      "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "kind": "capability",
+      "label": "Normalize customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "retrieval_projection_boundary": "candidate_generation_only",
+        "semantic_status": "candidate",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:a18f2c1e-ac7a-5cca-b789-1aaf6050ba89",
+      "kind": "implementation",
+      "label": "Native mcp-tools binding for Normalize customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "kind": "mcp-tool",
+          "name": "normalize_customer",
+          "protocol_version": "2025-06-18"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+        "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:7dde9441-9826-5e5f-ba24-73ed95ec18b8",
+      "kind": "contract",
+      "label": "Normalize customer input",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:312d2e32e2d5abb001e3e255eca9e91318af6acf6d57ac6669611bca8e947d74",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/0/inputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidHlwZSI6Im9iamVjdCJ9"
+      }
+    },
+    {
+      "id": "urn:uuid:b7f933e5-7006-58ec-a713-9eb715a5cc6c",
+      "kind": "contract",
+      "label": "Normalize customer structured output",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:312d2e32e2d5abb001e3e255eca9e91318af6acf6d57ac6669611bca8e947d74",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/0/outputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidHlwZSI6Im9iamVjdCJ9"
+      }
+    },
+    {
+      "description": "Serialize an export-shaped customer record as deterministic JSON.",
+      "digest": "sha256:46b761c5df35c343cfe27babd30c3544b99f4767c2715fb8d28719eb30120cc4",
+      "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "kind": "capability",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "retrieval_projection_boundary": "candidate_generation_only",
+        "semantic_status": "candidate",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/1"
+      }
+    },
+    {
+      "id": "urn:uuid:7431aa8f-a5d5-5473-a309-dd46e52bee42",
+      "kind": "implementation",
+      "label": "Native mcp-tools binding for Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "kind": "mcp-tool",
+          "name": "emit_customer_json",
+          "protocol_version": "2025-06-18"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+        "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/1"
+      }
+    },
+    {
+      "id": "urn:uuid:a6ff34fd-7c17-5028-b8fe-02dd5b2e318a",
+      "kind": "contract",
+      "label": "Emit customer JSON input",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:49fcfc428508d31b4f00ff59a9f6cb55bf2d9cdf0fb601eb7be1d1768dad9e7f",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/1/inputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "email_address": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email_address"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWxfYWRkcmVzcyI6eyJtaW5MZW5ndGgiOjMsInR5cGUiOiJzdHJpbmcifSwibmFtZSI6eyJtaW5MZW5ndGgiOjEsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJlbWFpbF9hZGRyZXNzIl0sInR5cGUiOiJvYmplY3QifQ=="
+      }
+    },
+    {
+      "id": "urn:uuid:85215dcf-8746-581f-ae7a-8ee32d3b45b9",
+      "kind": "contract",
+      "label": "Emit customer JSON structured output",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:9e28ea119e432e7421b4ac7a1f874de852c83d682a668761ed0800713cc74ac5",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/1/outputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "json": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "json"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsianNvbiI6eyJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJqc29uIl0sInR5cGUiOiJvYmplY3QifQ=="
+      }
+    },
+    {
+      "description": "Imported POST /customers/export OpenAPI operation candidate.",
+      "digest": "sha256:a7e01541b825fa64e55470b2c174ba112e73892cda6b3a3a9f1a72ee26321aac",
+      "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+      "kind": "capability",
+      "label": "Adapt a normalized customer to the export field vocabulary",
+      "lifecycle": "candidate",
+      "metadata": {
+        "retrieval_projection_boundary": "candidate_generation_only",
+        "semantic_status": "candidate",
+        "source_format": "openapi",
+        "source_pointer": "/paths/~1customers~1export/post"
+      }
+    },
+    {
+      "id": "urn:uuid:1baa45fe-30ac-5a32-a808-66c14edbdaf2",
+      "kind": "implementation",
+      "label": "Native openapi binding for Adapt a normalized customer to the export field vocabulary",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "kind": "openapi-operation",
+          "method": "POST",
+          "openapi_version": "3.1.1",
+          "operation_id": "adapt_customer_for_export",
+          "path": "/customers/export"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:d8d60c1b09e7c432b21f4506d9ee8653679128835353375909c655a58d449dce",
+        "source_document_uri": "urn:example:ocg:interop-fixture:openapi-customer.json",
+        "source_format": "openapi",
+        "source_pointer": "/paths/~1customers~1export/post"
+      }
+    },
+    {
+      "id": "urn:uuid:93208890-c672-5221-a73c-7028abd65014",
+      "kind": "contract",
+      "label": "Adapt a normalized customer to the export field vocabulary request",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://spec.openapis.org/oas/v3.1.1.html#operation-object",
+        "digest": "sha256:04c0468e7c11f302b7cf7a25451435778ced7dd2ab2b0b3625251c2829da4e49",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection": "request-fields-preserved-no-serialization-resolution",
+          "projection_kind": "openapi-operation-request-wrapper",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:d8d60c1b09e7c432b21f4506d9ee8653679128835353375909c655a58d449dce",
+          "source_document_uri": "urn:example:ocg:interop-fixture:openapi-customer.json",
+          "source_format": "openapi",
+          "source_pointer": "/paths/~1customers~1export/post"
+        },
+        "schema": {
+          "method": "POST",
+          "operationParameters": [],
+          "path": "/customers/export",
+          "pathItemParameters": [],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NormalizedCustomer"
+                }
+              }
+            },
+            "required": true
+          }
+        },
+        "schema_uri": "data:application/json;base64,eyJtZXRob2QiOiJQT1NUIiwib3BlcmF0aW9uUGFyYW1ldGVycyI6W10sInBhdGgiOiIvY3VzdG9tZXJzL2V4cG9ydCIsInBhdGhJdGVtUGFyYW1ldGVycyI6W10sInJlcXVlc3RCb2R5Ijp7ImNvbnRlbnQiOnsiYXBwbGljYXRpb24vanNvbiI6eyJzY2hlbWEiOnsiJHJlZiI6IiMvY29tcG9uZW50cy9zY2hlbWFzL05vcm1hbGl6ZWRDdXN0b21lciJ9fX0sInJlcXVpcmVkIjp0cnVlfX0="
+      }
+    },
+    {
+      "id": "urn:uuid:437f8b93-739a-578c-8f80-ebb108d61be6",
+      "kind": "contract",
+      "label": "Adapt a normalized customer to the export field vocabulary responses",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://spec.openapis.org/oas/v3.1.1.html#operation-object",
+        "digest": "sha256:04c369b1e008662b99582325f24e81522a9196a32e5aa573ffc187f52023a60e",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection": "responses-preserved-no-status-selection",
+          "projection_kind": "openapi-operation-response-wrapper",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:d8d60c1b09e7c432b21f4506d9ee8653679128835353375909c655a58d449dce",
+          "source_document_uri": "urn:example:ocg:interop-fixture:openapi-customer.json",
+          "source_format": "openapi",
+          "source_pointer": "/paths/~1customers~1export/post/responses"
+        },
+        "schema": {
+          "responses": {
+            "200": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ExportCustomer"
+                  }
+                }
+              },
+              "description": "Export-shaped customer"
+            },
+            "422": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ValidationError"
+                  }
+                }
+              },
+              "description": "Validation failure"
+            }
+          }
+        },
+        "schema_uri": "data:application/json;base64,eyJyZXNwb25zZXMiOnsiMjAwIjp7ImNvbnRlbnQiOnsiYXBwbGljYXRpb24vanNvbiI6eyJzY2hlbWEiOnsiJHJlZiI6IiMvY29tcG9uZW50cy9zY2hlbWFzL0V4cG9ydEN1c3RvbWVyIn19fSwiZGVzY3JpcHRpb24iOiJFeHBvcnQtc2hhcGVkIGN1c3RvbWVyIn0sIjQyMiI6eyJjb250ZW50Ijp7ImFwcGxpY2F0aW9uL2pzb24iOnsic2NoZW1hIjp7IiRyZWYiOiIjL2NvbXBvbmVudHMvc2NoZW1hcy9WYWxpZGF0aW9uRXJyb3IifX19LCJkZXNjcmlwdGlvbiI6IlZhbGlkYXRpb24gZmFpbHVyZSJ9fX0="
+      }
+    },
+    {
+      "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+      "digest": "sha256:34f24a740f4af70b1352801a8779aea3c4d55cd9fa9931d824fc9073545a61dd",
+      "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "kind": "capability",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "retrieval_projection_boundary": "candidate_generation_only",
+        "semantic_status": "candidate",
+        "source_format": "cwl",
+        "source_pointer": "/"
+      }
+    },
+    {
+      "id": "urn:uuid:920049c7-d7f2-513f-aa15-416f2b7e6a22",
+      "kind": "implementation",
+      "label": "Native cwl binding for Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "class": "Operation",
+          "cwl_version": "v1.2",
+          "id": "urn:example:interop:cwl:emit-customer-json",
+          "kind": "cwl-record"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+        "source_document_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+        "source_format": "cwl",
+        "source_pointer": "/"
+      }
+    },
+    {
+      "id": "urn:uuid:5742ab2a-056e-5639-8b38-5bf4d8cd1ab4",
+      "kind": "contract",
+      "label": "customer",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://w3id.org/cwl/v1.2/",
+        "digest": "sha256:330328b0d7f03aab5ba88ae461ab1fecd5edc91fcc7361a9fdb905f1b5fe1b2a",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "cwl_record_class": "InputParameter",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+          "source_document_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+          "source_format": "cwl",
+          "source_pointer": "/inputs/customer"
+        },
+        "schema": {
+          "type": {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "email_address",
+                "type": "string"
+              }
+            ],
+            "name": "ExportCustomer",
+            "type": "record"
+          }
+        },
+        "schema_uri": "data:application/json;base64,eyJ0eXBlIjp7ImZpZWxkcyI6W3sibmFtZSI6Im5hbWUiLCJ0eXBlIjoic3RyaW5nIn0seyJuYW1lIjoiZW1haWxfYWRkcmVzcyIsInR5cGUiOiJzdHJpbmcifV0sIm5hbWUiOiJFeHBvcnRDdXN0b21lciIsInR5cGUiOiJyZWNvcmQifX0="
+      }
+    },
+    {
+      "id": "urn:uuid:b5613e38-492a-5e70-a40d-f13ca4ef3c3d",
+      "kind": "contract",
+      "label": "json_artifact",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://w3id.org/cwl/v1.2/",
+        "digest": "sha256:0d7c708a6820470a20ad79afe4541dcf161bdbfb435c47faa249ff9bc47c5358",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "cwl_record_class": "OutputParameter",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+          "source_document_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+          "source_format": "cwl",
+          "source_pointer": "/outputs/json_artifact"
+        },
+        "schema": {
+          "type": "File"
+        },
+        "schema_uri": "data:application/json;base64,eyJ0eXBlIjoiRmlsZSJ9"
+      }
+    },
+    {
+      "description": "Imported WIT function customer-normalization.normalize-customer candidate.",
+      "digest": "sha256:6d5680a4a74d729c614542123c61d2e00b40b968cd56c8c212429083a452da9b",
+      "id": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "kind": "capability",
+      "label": "normalize-customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "retrieval_projection_boundary": "candidate_generation_only",
+        "semantic_status": "candidate",
+        "source_format": "wit",
+        "source_pointer": "/interfaces/0/functions/normalize-customer"
+      }
+    },
+    {
+      "id": "urn:uuid:e805388d-b632-5174-940c-27dd2ee0b0f8",
+      "kind": "implementation",
+      "label": "Native wit binding for normalize-customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "function": "normalize-customer",
+          "function_kind": "freestanding",
+          "interface": "customer-normalization",
+          "kind": "wit-interface-function",
+          "package": "example:customer@0.1.0"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+        "source_document_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+        "source_format": "wit",
+        "source_pointer": "/interfaces/0/functions/normalize-customer"
+      }
+    },
+    {
+      "id": "urn:uuid:68e61942-2975-5b0a-96ff-416eaec323fb",
+      "kind": "contract",
+      "label": "customer",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md",
+        "digest": "sha256:2c0947e1b518c0b7c8c436a09d72fa0cb18408e2c84e3e7295a97ad077a09c64",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "wit-resolved-type-projection",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+          "source_document_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+          "source_format": "wit",
+          "source_pointer": "/interfaces/0/functions/normalize-customer/params/0",
+          "source_provenance": {
+            "authority": "informational summary; artifact records, typed relations, and native-contract artifact references are the machine-verifiable provenance view",
+            "normalized_projection": {
+              "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+              "media_type": "application/json",
+              "serialization": "stdlib-json-sort-keys-v1",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection"
+            },
+            "normalizer": {
+              "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+              "binary_size_bytes": 19172248,
+              "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+              "id": "wasm-tools component wit --json",
+              "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+            },
+            "raw_source": {
+              "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+              "media_type": "text/wit",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit"
+            }
+          },
+          "wit_function": "normalize-customer",
+          "wit_interface": "customer-normalization"
+        },
+        "normalizer_artifact_ref": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a",
+        "schema": {
+          "resolved_type": {
+            "kind": {
+              "record": {
+                "fields": [
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "email",
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "name": "raw-customer",
+            "owner": {
+              "interface": 0
+            }
+          },
+          "type_ref": 0
+        },
+        "schema_uri": "data:application/json;base64,eyJyZXNvbHZlZF90eXBlIjp7ImtpbmQiOnsicmVjb3JkIjp7ImZpZWxkcyI6W3sibmFtZSI6Im5hbWUiLCJ0eXBlIjoic3RyaW5nIn0seyJuYW1lIjoiZW1haWwiLCJ0eXBlIjoic3RyaW5nIn1dfX0sIm5hbWUiOiJyYXctY3VzdG9tZXIiLCJvd25lciI6eyJpbnRlcmZhY2UiOjB9fSwidHlwZV9yZWYiOjB9",
+        "source_artifact_refs": [
+          "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c",
+          "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2"
+        ]
+      }
+    },
+    {
+      "id": "urn:uuid:0e41cd1e-38eb-53b5-afc0-be8f3c50272d",
+      "kind": "contract",
+      "label": "normalize-customer result",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md",
+        "digest": "sha256:fe98ddb89159a32a0ac4ac3464a1ac40fc1afb16e5e62502d0ab6496fe2e7fca",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "wit-resolved-type-projection",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+          "source_document_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+          "source_format": "wit",
+          "source_pointer": "/interfaces/0/functions/normalize-customer/result",
+          "source_provenance": {
+            "authority": "informational summary; artifact records, typed relations, and native-contract artifact references are the machine-verifiable provenance view",
+            "normalized_projection": {
+              "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+              "media_type": "application/json",
+              "serialization": "stdlib-json-sort-keys-v1",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection"
+            },
+            "normalizer": {
+              "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+              "binary_size_bytes": 19172248,
+              "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+              "id": "wasm-tools component wit --json",
+              "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+            },
+            "raw_source": {
+              "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+              "media_type": "text/wit",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit"
+            }
+          },
+          "wit_function": "normalize-customer",
+          "wit_interface": "customer-normalization"
+        },
+        "normalizer_artifact_ref": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a",
+        "schema": {
+          "resolved_type": {
+            "kind": {
+              "result": {
+                "err": "string",
+                "ok": 1
+              }
+            },
+            "name": null,
+            "owner": null
+          },
+          "type_ref": 2
+        },
+        "schema_uri": "data:application/json;base64,eyJyZXNvbHZlZF90eXBlIjp7ImtpbmQiOnsicmVzdWx0Ijp7ImVyciI6InN0cmluZyIsIm9rIjoxfX0sIm5hbWUiOm51bGwsIm93bmVyIjpudWxsfSwidHlwZV9yZWYiOjJ9",
+        "source_artifact_refs": [
+          "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c",
+          "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2"
+        ]
+      }
+    },
+    {
+      "description": "Validate a normalized customer record.",
+      "digest": "sha256:8522c7dbb1fc06761671db05001d60aac7d176df9a861ce4ad6642426c7d33cc",
+      "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "kind": "capability",
+      "label": "validate_customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "retrieval_projection_boundary": "candidate_generation_only",
+        "semantic_status": "candidate",
+        "source_format": "agent-spec",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:90bd1bef-9d95-5460-a130-cf5d60927cf9",
+      "kind": "implementation",
+      "label": "Native agent-spec binding for validate_customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "agentspec_version": "26.1.0",
+          "component_type": "ServerTool",
+          "id": "urn:example:interop:agentspec:validate-customer",
+          "kind": "agent-spec-tool",
+          "parent_component_id": "urn:example:interop:agentspec:customer-agent"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+        "source_document_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+        "source_format": "agent-spec",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:46355814-33ac-513c-a6b8-538c5aaf05b2",
+      "kind": "contract",
+      "label": "customer",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://oracle.github.io/agent-spec/26.1.0/",
+        "digest": "sha256:eb1cab631f70d4fe8fc82c774c8f92fdd05d92f6ee11076791ccedd015433811",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "agentspec_property_index": 0,
+          "agentspec_tool": "validate_customer",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+          "source_document_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+          "source_format": "agent-spec",
+          "source_pointer": "/tools/0/inputs/0"
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "title": "customer",
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidGl0bGUiOiJjdXN0b21lciIsInR5cGUiOiJvYmplY3QifQ=="
+      }
+    },
+    {
+      "id": "urn:uuid:80d6c781-dbcc-59c7-b161-2712ca8ac599",
+      "kind": "contract",
+      "label": "valid",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://oracle.github.io/agent-spec/26.1.0/",
+        "digest": "sha256:4e4faec7b7c9b8c0294f72550a9426276906c41719bed916a3883710755ce259",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "agentspec_property_index": 0,
+          "agentspec_tool": "validate_customer",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+          "source_document_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+          "source_format": "agent-spec",
+          "source_pointer": "/tools/0/outputs/0"
+        },
+        "schema": {
+          "title": "valid",
+          "type": "boolean"
+        },
+        "schema_uri": "data:application/json;base64,eyJ0aXRsZSI6InZhbGlkIiwidHlwZSI6ImJvb2xlYW4ifQ=="
+      }
+    }
+  ],
+  "profiles": [
+    "core",
+    "retrieval"
+  ],
+  "relations": [
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:aea59369-f298-5db4-ad1a-be60320e5f0e",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:a18f2c1e-ac7a-5cca-b789-1aaf6050ba89"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:dfd6e0ff-8945-5043-ba93-3f80947abb02",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:7431aa8f-a5d5-5473-a309-dd46e52bee42"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:b605a317-0050-57c4-8a87-42633d645291",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:1baa45fe-30ac-5a32-a808-66c14edbdaf2"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:13bb689f-490b-5557-97c5-f0d7e1eaea10",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:920049c7-d7f2-513f-aa15-416f2b7e6a22"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:f0153d44-ac1c-5c12-a475-7439d741a04c",
+      "kind": "derives_from",
+      "metadata": {
+        "planning_eligibility": "unknown"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:8e3f2c2a-631c-5a70-9eac-ed416d1110b4",
+      "kind": "depends_on",
+      "metadata": {
+        "planning_eligibility": "unknown"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:b5688762-9d32-5f6b-83cb-18c5f0c47dc6",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:e805388d-b632-5174-940c-27dd2ee0b0f8"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:0643a35b-a9e4-5570-844b-0b825ee5f4f0",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:90bd1bef-9d95-5460-a130-cf5d60927cf9"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+      }
+    }
+  ],
+  "representations": [
+    {
+      "encoding": "lexical",
+      "id": "urn:uuid:e070d117-2c6a-5bf2-b054-c74434281222",
+      "lifecycle": "candidate",
+      "metadata": {
+        "learned": false,
+        "source": "loss-aware-native-import"
+      },
+      "modality": "text",
+      "source_digest": "sha256:abcaf903778fa9fd3b00be7cab2aafcca754928e43abf027757695bad2e9b8fb",
+      "subject_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "text": "Normalize customer Normalize a customer name and email address without changing address semantics. Normalize customer Normalize a customer name and email address without changing address semantics. Normalize customer input Normalize customer structured output mcp-tools",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-word-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:word-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "vector": [
+          0.0,
+          0.09128709137439728,
+          0.0,
+          -0.547722578048706,
+          0.18257418274879456,
+          0.0,
+          0.0,
+          0.0,
+          -0.18257418274879456,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.547722578048706,
+          0.0,
+          0.0,
+          0.18257418274879456,
+          0.0,
+          0.0,
+          0.09128709137439728,
+          0.0,
+          -0.18257418274879456,
+          0.0,
+          0.3651483654975891,
+          0.0,
+          -0.09128709137439728,
+          0.18257418274879456,
+          0.0,
+          0.0,
+          0.273861289024353
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:680f1392-0bba-56c9-a316-8fc47c714dcf",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "id": "urn:example:ocg:artifact:interop-projection:word-hash"
+      },
+      "source_digest": "sha256:abcaf903778fa9fd3b00be7cab2aafcca754928e43abf027757695bad2e9b8fb",
+      "subject_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-char-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:char-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "vector": [
+          0.2909286916255951,
+          -0.12930163741111755,
+          -0.09697622805833817,
+          -0.22627785801887512,
+          0.12930163741111755,
+          -0.12930163741111755,
+          0.16162703931331635,
+          0.06465081870555878,
+          0.06465081870555878,
+          0.2586032748222351,
+          0.12930163741111755,
+          0.09697622805833817,
+          -0.06465081870555878,
+          -0.12930163741111755,
+          -0.09697622805833817,
+          -0.12930163741111755,
+          -0.16162703931331635,
+          -0.22627785801887512,
+          0.0,
+          -0.45255571603775024,
+          -0.03232540935277939,
+          -0.03232540935277939,
+          0.12930163741111755,
+          0.12930163741111755,
+          -0.16162703931331635,
+          -0.22627785801887512,
+          -0.16162703931331635,
+          -0.42023032903671265,
+          -0.09697622805833817,
+          -0.09697622805833817,
+          0.09697622805833817,
+          -0.06465081870555878
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:a8dc5955-b32d-586e-b1cc-2f7706f218d0",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "id": "urn:example:ocg:artifact:interop-projection:char-hash"
+      },
+      "source_digest": "sha256:abcaf903778fa9fd3b00be7cab2aafcca754928e43abf027757695bad2e9b8fb",
+      "subject_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 53,
+        "distance": "cosine",
+        "dtype": "sparse_float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-token-count-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:token-count-v1",
+          "revision": "sha256:7ab2c61d9d5302bd4d594fa97425b1071f34e3259179a9fd838bd696096dcd2d",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "vector": {
+          "indices": [
+            0,
+            3,
+            6,
+            9,
+            11,
+            16,
+            24,
+            27,
+            28,
+            29,
+            34,
+            41,
+            43,
+            52
+          ],
+          "values": [
+            0.18257418274879456,
+            0.3651483654975891,
+            0.18257418274879456,
+            0.18257418274879456,
+            0.547722578048706,
+            0.18257418274879456,
+            0.09128709137439728,
+            0.09128709137439728,
+            0.18257418274879456,
+            0.547722578048706,
+            0.09128709137439728,
+            0.18257418274879456,
+            0.09128709137439728,
+            0.18257418274879456
+          ]
+        }
+      },
+      "encoding": "sparse_vector",
+      "id": "urn:uuid:feb2fc57-f856-5f24-80b0-352d3098561e",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "id": "urn:example:ocg:artifact:interop-projection:token-sparse"
+      },
+      "source_digest": "sha256:abcaf903778fa9fd3b00be7cab2aafcca754928e43abf027757695bad2e9b8fb",
+      "subject_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "encoding": "lexical",
+      "id": "urn:uuid:2bf8af22-3196-5d73-b542-6b12f0bcfd65",
+      "lifecycle": "candidate",
+      "metadata": {
+        "learned": false,
+        "source": "loss-aware-native-import"
+      },
+      "modality": "text",
+      "source_digest": "sha256:46b761c5df35c343cfe27babd30c3544b99f4767c2715fb8d28719eb30120cc4",
+      "subject_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "text": "Emit customer JSON Serialize an export-shaped customer record as deterministic JSON. Emit customer JSON Serialize an export-shaped customer record as deterministic JSON. Emit customer JSON input Emit customer JSON structured output mcp-tools",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-word-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:word-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "vector": [
+          -0.3535533845424652,
+          0.0883883461356163,
+          0.0,
+          -0.5303300619125366,
+          0.0,
+          0.0,
+          0.1767766922712326,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0883883461356163,
+          -0.1767766922712326,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0883883461356163,
+          -0.3535533845424652,
+          0.0,
+          0.0,
+          0.6187184453010559
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:2959d158-c022-5c65-9bcf-32be81fa2179",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "id": "urn:example:ocg:artifact:interop-projection:word-hash"
+      },
+      "source_digest": "sha256:46b761c5df35c343cfe27babd30c3544b99f4767c2715fb8d28719eb30120cc4",
+      "subject_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-char-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:char-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "vector": [
+          -0.04647394269704819,
+          0.27884364128112793,
+          -0.04647394269704819,
+          -0.23236970603466034,
+          0.3717915415763855,
+          0.0,
+          0.04647394269704819,
+          -0.09294788539409637,
+          0.0,
+          0.27884364128112793,
+          0.18589577078819275,
+          -0.04647394269704819,
+          0.0,
+          0.23236970603466034,
+          0.04647394269704819,
+          -0.09294788539409637,
+          -0.13942182064056396,
+          -0.3253175914287567,
+          0.0,
+          -0.23236970603466034,
+          -0.09294788539409637,
+          -0.04647394269704819,
+          0.13942182064056396,
+          0.0,
+          -0.04647394269704819,
+          0.13942182064056396,
+          0.3253175914287567,
+          -0.04647394269704819,
+          0.04647394269704819,
+          0.3253175914287567,
+          0.23236970603466034,
+          -0.18589577078819275
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:3da06c78-b3f9-5da0-9d8a-6b0c30135c41",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "id": "urn:example:ocg:artifact:interop-projection:char-hash"
+      },
+      "source_digest": "sha256:46b761c5df35c343cfe27babd30c3544b99f4767c2715fb8d28719eb30120cc4",
+      "subject_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 53,
+        "distance": "cosine",
+        "dtype": "sparse_float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-token-count-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:token-count-v1",
+          "revision": "sha256:7ab2c61d9d5302bd4d594fa97425b1071f34e3259179a9fd838bd696096dcd2d",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "vector": {
+          "indices": [
+            5,
+            7,
+            11,
+            15,
+            17,
+            19,
+            24,
+            25,
+            27,
+            34,
+            37,
+            42,
+            43
+          ],
+          "values": [
+            0.1856953352689743,
+            0.1856953352689743,
+            0.5570859909057617,
+            0.1856953352689743,
+            0.3713906705379486,
+            0.1856953352689743,
+            0.09284766763448715,
+            0.5570859909057617,
+            0.09284766763448715,
+            0.09284766763448715,
+            0.1856953352689743,
+            0.1856953352689743,
+            0.09284766763448715
+          ]
+        }
+      },
+      "encoding": "sparse_vector",
+      "id": "urn:uuid:5976f895-8541-5c23-9fbe-f4e68dd83dda",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "id": "urn:example:ocg:artifact:interop-projection:token-sparse"
+      },
+      "source_digest": "sha256:46b761c5df35c343cfe27babd30c3544b99f4767c2715fb8d28719eb30120cc4",
+      "subject_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "encoding": "lexical",
+      "id": "urn:uuid:87a06361-ca7c-529e-ab04-c137ad703e77",
+      "lifecycle": "candidate",
+      "metadata": {
+        "learned": false,
+        "source": "loss-aware-native-import"
+      },
+      "modality": "text",
+      "source_digest": "sha256:a7e01541b825fa64e55470b2c174ba112e73892cda6b3a3a9f1a72ee26321aac",
+      "subject_ref": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+      "text": "Adapt a normalized customer to the export field vocabulary Imported POST /customers/export OpenAPI operation candidate. Adapt a normalized customer to the export field vocabulary Imported POST /customers/export OpenAPI operation candidate. Adapt a normalized customer to the export field vocabulary request Adapt a normalized customer to the export field vocabulary responses openapi",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-word-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:word-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "vector": [
+          0.0,
+          0.2105587273836136,
+          0.2807449698448181,
+          -0.14037248492240906,
+          0.0,
+          0.0,
+          0.0,
+          -0.2807449698448181,
+          0.4211174547672272,
+          0.0,
+          0.0,
+          0.2807449698448181,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.07018624246120453,
+          0.0,
+          0.2807449698448181,
+          -0.14037248492240906,
+          -0.07018624246120453,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.14037248492240906,
+          0.0,
+          -0.5614899396896362,
+          0.0,
+          -0.2807449698448181
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:ec17aba9-81e0-5d83-a66c-8fb51f4297c4",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "id": "urn:example:ocg:artifact:interop-projection:word-hash"
+      },
+      "source_digest": "sha256:a7e01541b825fa64e55470b2c174ba112e73892cda6b3a3a9f1a72ee26321aac",
+      "subject_ref": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-char-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:char-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "vector": [
+          0.20472480356693268,
+          -0.3070872128009796,
+          0.025590600445866585,
+          -0.1535436064004898,
+          0.20472480356693268,
+          -0.3838590085506439,
+          0.05118120089173317,
+          0.05118120089173317,
+          -0.12795300781726837,
+          -0.025590600445866585,
+          0.0,
+          0.025590600445866585,
+          -0.1535436064004898,
+          0.3070872128009796,
+          0.1535436064004898,
+          0.0,
+          -0.25590601563453674,
+          -0.10236240178346634,
+          0.10236240178346634,
+          -0.025590600445866585,
+          0.05118120089173317,
+          -0.4350402057170868,
+          -0.12795300781726837,
+          -0.17913420498371124,
+          -0.1535436064004898,
+          -0.20472480356693268,
+          -0.12795300781726837,
+          -0.1535436064004898,
+          0.025590600445866585,
+          0.10236240178346634,
+          0.0,
+          -0.20472480356693268
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:3f123c52-bbf8-5c15-8bf4-d78101cc8b35",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "id": "urn:example:ocg:artifact:interop-projection:char-hash"
+      },
+      "source_digest": "sha256:a7e01541b825fa64e55470b2c174ba112e73892cda6b3a3a9f1a72ee26321aac",
+      "subject_ref": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 53,
+        "distance": "cosine",
+        "dtype": "sparse_float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-token-count-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:token-count-v1",
+          "revision": "sha256:7ab2c61d9d5302bd4d594fa97425b1071f34e3259179a9fd838bd696096dcd2d",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "vector": {
+          "indices": [
+            0,
+            2,
+            8,
+            11,
+            13,
+            18,
+            20,
+            23,
+            31,
+            32,
+            33,
+            35,
+            38,
+            39,
+            45,
+            46,
+            50
+          ],
+          "values": [
+            0.2864459455013275,
+            0.2864459455013275,
+            0.14322297275066376,
+            0.2864459455013275,
+            0.14322297275066376,
+            0.42966893315315247,
+            0.2864459455013275,
+            0.14322297275066376,
+            0.2864459455013275,
+            0.21483446657657623,
+            0.14322297275066376,
+            0.14322297275066376,
+            0.07161148637533188,
+            0.07161148637533188,
+            0.2864459455013275,
+            0.2864459455013275,
+            0.2864459455013275
+          ]
+        }
+      },
+      "encoding": "sparse_vector",
+      "id": "urn:uuid:415ba3f9-dee5-529f-a68d-d1b6385fa46d",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "id": "urn:example:ocg:artifact:interop-projection:token-sparse"
+      },
+      "source_digest": "sha256:a7e01541b825fa64e55470b2c174ba112e73892cda6b3a3a9f1a72ee26321aac",
+      "subject_ref": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "encoding": "lexical",
+      "id": "urn:uuid:df453c94-37f8-5a94-8cdf-51ed909c1e44",
+      "lifecycle": "candidate",
+      "metadata": {
+        "learned": false,
+        "source": "loss-aware-native-import"
+      },
+      "modality": "text",
+      "source_digest": "sha256:34f24a740f4af70b1352801a8779aea3c4d55cd9fa9931d824fc9073545a61dd",
+      "subject_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "text": "Emit customer JSON An abstract CWL operation that consumes an export-shaped customer and produces a JSON file. Emit customer JSON An abstract CWL operation that consumes an export-shaped customer and produces a JSON file. customer json_artifact cwl",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-word-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:word-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "vector": [
+          -0.20739033818244934,
+          0.0,
+          0.0,
+          -0.6221710443496704,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.20739033818244934,
+          0.20739033818244934,
+          0.0,
+          0.0,
+          0.4147806763648987,
+          0.0,
+          0.0,
+          0.0,
+          -0.4147806763648987,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.20739033818244934,
+          -0.20739033818244934,
+          0.20739033818244934,
+          0.0,
+          0.10369516909122467
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:206bebb6-a4b9-5fcd-a6e2-c6d61ab6e166",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "id": "urn:example:ocg:artifact:interop-projection:word-hash"
+      },
+      "source_digest": "sha256:34f24a740f4af70b1352801a8779aea3c4d55cd9fa9931d824fc9073545a61dd",
+      "subject_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-char-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:char-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "vector": [
+          0.14605934917926788,
+          -0.03651483729481697,
+          -0.03651483729481697,
+          -0.14605934917926788,
+          0.14605934917926788,
+          0.03651483729481697,
+          0.0,
+          -0.18257418274879456,
+          -0.10954450815916061,
+          0.10954450815916061,
+          0.07302967458963394,
+          -0.14605934917926788,
+          -0.18257418274879456,
+          0.14605934917926788,
+          0.03651483729481697,
+          0.07302967458963394,
+          -0.2556038498878479,
+          -0.07302967458963394,
+          -0.03651483729481697,
+          -0.03651483729481697,
+          -0.401663213968277,
+          -0.07302967458963394,
+          0.32863354682922363,
+          0.07302967458963394,
+          -0.21908901631832123,
+          -0.03651483729481697,
+          0.10954450815916061,
+          -0.18257418274879456,
+          0.0,
+          0.18257418274879456,
+          0.07302967458963394,
+          -0.547722578048706
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:a52778f0-5662-597a-a819-03d5d3bc6015",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "id": "urn:example:ocg:artifact:interop-projection:char-hash"
+      },
+      "source_digest": "sha256:34f24a740f4af70b1352801a8779aea3c4d55cd9fa9931d824fc9073545a61dd",
+      "subject_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 53,
+        "distance": "cosine",
+        "dtype": "sparse_float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-token-count-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:token-count-v1",
+          "revision": "sha256:7ab2c61d9d5302bd4d594fa97425b1071f34e3259179a9fd838bd696096dcd2d",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "vector": {
+          "indices": [
+            0,
+            1,
+            5,
+            6,
+            10,
+            11,
+            14,
+            17,
+            19,
+            21,
+            25,
+            26,
+            33,
+            36,
+            44
+          ],
+          "values": [
+            0.19334730505943298,
+            0.19334730505943298,
+            0.38669461011886597,
+            0.19334730505943298,
+            0.19334730505943298,
+            0.48336824774742126,
+            0.2900209426879883,
+            0.19334730505943298,
+            0.19334730505943298,
+            0.19334730505943298,
+            0.38669461011886597,
+            0.09667365252971649,
+            0.19334730505943298,
+            0.19334730505943298,
+            0.19334730505943298
+          ]
+        }
+      },
+      "encoding": "sparse_vector",
+      "id": "urn:uuid:dbcc863a-e3ba-5528-94bf-cec3e8ab7e1e",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "id": "urn:example:ocg:artifact:interop-projection:token-sparse"
+      },
+      "source_digest": "sha256:34f24a740f4af70b1352801a8779aea3c4d55cd9fa9931d824fc9073545a61dd",
+      "subject_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "encoding": "lexical",
+      "id": "urn:uuid:5598039a-e5f1-5022-a85d-3ab03f786d25",
+      "lifecycle": "candidate",
+      "metadata": {
+        "learned": false,
+        "source": "loss-aware-native-import"
+      },
+      "modality": "text",
+      "source_digest": "sha256:6d5680a4a74d729c614542123c61d2e00b40b968cd56c8c212429083a452da9b",
+      "subject_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "text": "normalize-customer Imported WIT function customer-normalization.normalize-customer candidate. normalize-customer Imported WIT function customer-normalization.normalize-customer candidate. customer normalize-customer result wit",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-word-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:word-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "vector": [
+          0.0,
+          0.2357022613286972,
+          0.0,
+          -0.1178511306643486,
+          0.0,
+          0.0,
+          0.0,
+          0.3535533845424652,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.8249579071998596,
+          0.0,
+          -0.2357022613286972,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.1178511306643486,
+          0.0,
+          0.0,
+          0.0,
+          0.2357022613286972,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:d4c857ab-b351-5ed5-95b9-7c10802b3e19",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "id": "urn:example:ocg:artifact:interop-projection:word-hash"
+      },
+      "source_digest": "sha256:6d5680a4a74d729c614542123c61d2e00b40b968cd56c8c212429083a452da9b",
+      "subject_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-char-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:char-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "vector": [
+          0.21896393597126007,
+          -0.21896393597126007,
+          0.06256112456321716,
+          -0.3440861999988556,
+          0.3128056228160858,
+          -0.03128056228160858,
+          0.21896393597126007,
+          0.2815250754356384,
+          0.03128056228160858,
+          0.06256112456321716,
+          -0.06256112456321716,
+          0.1564028114080429,
+          0.0,
+          0.06256112456321716,
+          -0.1564028114080429,
+          0.0,
+          -0.2815250754356384,
+          -0.21896393597126007,
+          0.06256112456321716,
+          -0.3440861999988556,
+          0.06256112456321716,
+          -0.21896393597126007,
+          0.21896393597126007,
+          0.06256112456321716,
+          -0.12512224912643433,
+          -0.21896393597126007,
+          -0.03128056228160858,
+          -0.25024449825286865,
+          -0.03128056228160858,
+          0.09384168684482574,
+          0.0,
+          -0.06256112456321716
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:6d99a2ee-b3cd-5d85-bdd8-9f972deb6be9",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "id": "urn:example:ocg:artifact:interop-projection:char-hash"
+      },
+      "source_digest": "sha256:6d5680a4a74d729c614542123c61d2e00b40b968cd56c8c212429083a452da9b",
+      "subject_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 53,
+        "distance": "cosine",
+        "dtype": "sparse_float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-token-count-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:token-count-v1",
+          "revision": "sha256:7ab2c61d9d5302bd4d594fa97425b1071f34e3259179a9fd838bd696096dcd2d",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "vector": {
+          "indices": [
+            8,
+            11,
+            12,
+            22,
+            23,
+            30,
+            40,
+            51
+          ],
+          "values": [
+            0.2773500978946686,
+            0.1386750489473343,
+            0.2773500978946686,
+            0.2773500978946686,
+            0.2773500978946686,
+            0.6933752298355103,
+            0.1386750489473343,
+            0.41602516174316406
+          ]
+        }
+      },
+      "encoding": "sparse_vector",
+      "id": "urn:uuid:50b35ea1-8a67-5ef1-a365-d715b32d892c",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "id": "urn:example:ocg:artifact:interop-projection:token-sparse"
+      },
+      "source_digest": "sha256:6d5680a4a74d729c614542123c61d2e00b40b968cd56c8c212429083a452da9b",
+      "subject_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "encoding": "lexical",
+      "id": "urn:uuid:0ab5168c-015d-5e30-9919-5c6b95b7f935",
+      "lifecycle": "candidate",
+      "metadata": {
+        "learned": false,
+        "source": "loss-aware-native-import"
+      },
+      "modality": "text",
+      "source_digest": "sha256:8522c7dbb1fc06761671db05001d60aac7d176df9a861ce4ad6642426c7d33cc",
+      "subject_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "text": "validate_customer Validate a normalized customer record. validate_customer Validate a normalized customer record. customer valid agent-spec",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-word-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:word-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "vector": [
+          0.0,
+          0.0,
+          0.0,
+          -0.5388159155845642,
+          0.0,
+          -0.3592106103897095,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.17960530519485474,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.17960530519485474,
+          0.3592106103897095,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.3592106103897095,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          -0.3592106103897095,
+          0.0,
+          0.3592106103897095
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:ddc65cba-0768-57e8-97e7-fb1274ab4470",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+        "id": "urn:example:ocg:artifact:interop-projection:word-hash"
+      },
+      "source_digest": "sha256:8522c7dbb1fc06761671db05001d60aac7d176df9a861ce4ad6642426c7d33cc",
+      "subject_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 32,
+        "distance": "cosine",
+        "dtype": "float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-char-hash-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:char-hash:v1",
+          "revision": "1",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "vector": [
+          0.08762159198522568,
+          -0.08762159198522568,
+          0.0,
+          -0.39429715275764465,
+          0.3066755533218384,
+          0.0,
+          0.08762159198522568,
+          -0.08762159198522568,
+          0.0,
+          0.04381079599261284,
+          0.04381079599261284,
+          0.13143238425254822,
+          0.0,
+          0.0,
+          -0.2190539836883545,
+          0.13143238425254822,
+          -0.17524318397045135,
+          -0.13143238425254822,
+          0.26286476850509644,
+          -0.08762159198522568,
+          0.17524318397045135,
+          -0.39429715275764465,
+          0.13143238425254822,
+          0.0,
+          0.08762159198522568,
+          -0.438107967376709,
+          0.0,
+          -0.08762159198522568,
+          0.0,
+          0.3066755533218384,
+          0.04381079599261284,
+          -0.04381079599261284
+        ]
+      },
+      "encoding": "dense_vector",
+      "id": "urn:uuid:6087871a-ee83-5e8e-8188-8e3950c1a5da",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+        "id": "urn:example:ocg:artifact:interop-projection:char-hash"
+      },
+      "source_digest": "sha256:8522c7dbb1fc06761671db05001d60aac7d176df9a861ce4ad6642426c7d33cc",
+      "subject_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    },
+    {
+      "embedding": {
+        "dimensions": 53,
+        "distance": "cosine",
+        "dtype": "sparse_float32",
+        "generation": {
+          "generated_at": "2026-07-11T00:00:00Z",
+          "generator": "aidevobserver-ocg-token-count-v1"
+        },
+        "model": {
+          "id": "urn:example:ocg:model:token-count-v1",
+          "revision": "sha256:7ab2c61d9d5302bd4d594fa97425b1071f34e3259179a9fd838bd696096dcd2d",
+          "task": "symmetric"
+        },
+        "normalization": "l2",
+        "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "vector": {
+          "indices": [
+            0,
+            4,
+            11,
+            31,
+            37,
+            47,
+            48,
+            49
+          ],
+          "values": [
+            0.3592106103897095,
+            0.17960530519485474,
+            0.5388159155845642,
+            0.3592106103897095,
+            0.3592106103897095,
+            0.17960530519485474,
+            0.3592106103897095,
+            0.3592106103897095
+          ]
+        }
+      },
+      "encoding": "sparse_vector",
+      "id": "urn:uuid:3aced0fb-4fb4-5383-83f4-0ca84aa18f7b",
+      "lifecycle": "candidate",
+      "metadata": {
+        "authorization_role": "none",
+        "learned": false
+      },
+      "modality": "text",
+      "projection_recipe": {
+        "digest": "sha256:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+        "id": "urn:example:ocg:artifact:interop-projection:token-sparse"
+      },
+      "source_digest": "sha256:8522c7dbb1fc06761671db05001d60aac7d176df9a861ce4ad6642426c7d33cc",
+      "subject_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "view_kind": "urn:example:ocg:view:intent-and-contract-labels"
+    }
+  ],
+  "search_profiles": [
+    {
+      "created_at": "2026-07-11T00:00:00Z",
+      "description": "Portable candidate retrieval across lexical and three explicit non-learned vector spaces.",
+      "fusion": {
+        "inputs": [
+          {
+            "stage_ref": "lexical",
+            "weight": 1.0
+          },
+          {
+            "stage_ref": "word-hash",
+            "weight": 0.8
+          },
+          {
+            "stage_ref": "char-hash",
+            "weight": 0.6
+          },
+          {
+            "stage_ref": "token-sparse",
+            "weight": 0.8
+          }
+        ],
+        "method": "rrf",
+        "parameters": {
+          "raw_cross_space_scores_are_not_mixed": true,
+          "rrf_k": 60,
+          "weights_are_query_preferences_not_truth": true
+        }
+      },
+      "hard_gates": [
+        {
+          "field": "lifecycle",
+          "operator": "not_in",
+          "value": [
+            "revoked",
+            "rejected"
+          ]
+        }
+      ],
+      "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+      "metadata": {
+        "execution_authorization": "not_evaluated",
+        "learned_embedding_models_executed": false
+      },
+      "output": {
+        "include_fields": [
+          "label",
+          "description",
+          "lifecycle",
+          "metadata"
+        ],
+        "limit": 4
+      },
+      "stages": [
+        {
+          "candidate_limit": 50,
+          "id": "lexical",
+          "kind": "lexical",
+          "query_view": "urn:example:ocg:view:intent-and-contract-labels",
+          "representation_refs": [
+            "urn:uuid:e070d117-2c6a-5bf2-b054-c74434281222",
+            "urn:uuid:2bf8af22-3196-5d73-b542-6b12f0bcfd65",
+            "urn:uuid:87a06361-ca7c-529e-ab04-c137ad703e77",
+            "urn:uuid:df453c94-37f8-5a94-8cdf-51ed909c1e44",
+            "urn:uuid:5598039a-e5f1-5022-a85d-3ab03f786d25",
+            "urn:uuid:0ab5168c-015d-5e30-9919-5c6b95b7f935"
+          ]
+        },
+        {
+          "candidate_limit": 50,
+          "id": "word-hash",
+          "kind": "dense_vector",
+          "query_view": "urn:example:ocg:view:intent-and-contract-labels",
+          "representation_refs": [
+            "urn:uuid:680f1392-0bba-56c9-a316-8fc47c714dcf",
+            "urn:uuid:2959d158-c022-5c65-9bcf-32be81fa2179",
+            "urn:uuid:ec17aba9-81e0-5d83-a66c-8fb51f4297c4",
+            "urn:uuid:206bebb6-a4b9-5fcd-a6e2-c6d61ab6e166",
+            "urn:uuid:d4c857ab-b351-5ed5-95b9-7c10802b3e19",
+            "urn:uuid:ddc65cba-0768-57e8-97e7-fb1274ab4470"
+          ]
+        },
+        {
+          "candidate_limit": 50,
+          "id": "char-hash",
+          "kind": "dense_vector",
+          "query_view": "urn:example:ocg:view:intent-and-contract-labels",
+          "representation_refs": [
+            "urn:uuid:a8dc5955-b32d-586e-b1cc-2f7706f218d0",
+            "urn:uuid:3da06c78-b3f9-5da0-9d8a-6b0c30135c41",
+            "urn:uuid:3f123c52-bbf8-5c15-8bf4-d78101cc8b35",
+            "urn:uuid:a52778f0-5662-597a-a819-03d5d3bc6015",
+            "urn:uuid:6d99a2ee-b3cd-5d85-bdd8-9f972deb6be9",
+            "urn:uuid:6087871a-ee83-5e8e-8188-8e3950c1a5da"
+          ]
+        },
+        {
+          "candidate_limit": 50,
+          "id": "token-sparse",
+          "kind": "sparse_vector",
+          "query_view": "urn:example:ocg:view:intent-and-contract-labels",
+          "representation_refs": [
+            "urn:uuid:feb2fc57-f856-5f24-80b0-352d3098561e",
+            "urn:uuid:5976f895-8541-5c23-9fbe-f4e68dd83dda",
+            "urn:uuid:415ba3f9-dee5-529f-a68d-d1b6385fa46d",
+            "urn:uuid:dbcc863a-e3ba-5528-94bf-cec3e8ab7e1e",
+            "urn:uuid:50b35ea1-8a67-5ef1-a365-d715b32d892c",
+            "urn:uuid:3aced0fb-4fb4-5383-83f4-0ca84aa18f7b"
+          ]
+        }
+      ],
+      "status": "candidate",
+      "version": "0.1.0"
+    }
+  ],
+  "spec_version": "0.1.0-draft",
+  "status": "candidate",
+  "title": "OCG native-format interoperability retrieval corpus"
+}

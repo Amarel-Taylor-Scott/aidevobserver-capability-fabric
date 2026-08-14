@@ -1,0 +1,220 @@
+{
+  "$schema": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/raw/main/spec/open-capability-graph/v0.1/schemas/open-capability-graph.schema.json",
+  "actions": [
+    {
+      "capability_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "description": "Validate a normalized customer record.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:315717b3-68e3-504f-90d1-bca516de08b6",
+      "implementation_ref": "urn:uuid:90bd1bef-9d95-5460-a130-cf5d60927cf9",
+      "label": "validate_customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "agent-spec",
+        "source_pointer": "/tools/0"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:46355814-33ac-513c-a6b8-538c5aaf05b2",
+          "direction": "input",
+          "id": "customer",
+          "label": "customer",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/inputs/0"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:80d6c781-dbcc-59c7-b161-2712ca8ac599",
+          "direction": "output",
+          "id": "valid",
+          "label": "valid",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/outputs/0"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    }
+  ],
+  "description": "Loss-aware agent-spec import. Native values are preserved; compatibility and execution authorization are not established.",
+  "extensions": {
+    "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/extensions/native-import-report": {
+      "contract_profile_claimed": false,
+      "execution_authorization": "not_established",
+      "format_reference": "https://github.com/oracle/agent-spec",
+      "normalized_payload_uri": "data:application/json;base64,eyJhZ2VudHNwZWNfdmVyc2lvbiI6IjI2LjEuMCIsImNvbXBvbmVudF90eXBlIjoiQWdlbnQiLCJkZXNjcmlwdGlvbiI6IkFnZW50IFNwZWMgZXhhbXBsZSBjb250YWluaW5nIHBvcnRhYmxlIGN1c3RvbWVyIHRvb2xzLiIsImlkIjoidXJuOmV4YW1wbGU6aW50ZXJvcDphZ2VudHNwZWM6Y3VzdG9tZXItYWdlbnQiLCJpbnB1dHMiOltdLCJsbG1fY29uZmlnIjp7ImNvbXBvbmVudF90eXBlIjoiT3BlbkFpQ29tcGF0aWJsZUNvbmZpZyIsImRlZmF1bHRfZ2VuZXJhdGlvbl9wYXJhbWV0ZXJzIjpudWxsLCJkZXNjcmlwdGlvbiI6bnVsbCwiaWQiOiJ1cm46ZXhhbXBsZTppbnRlcm9wOmFnZW50c3BlYzpmaXh0dXJlLW1vZGVsIiwibWV0YWRhdGEiOnt9LCJtb2RlbF9pZCI6ImZpeHR1cmUtbW9kZWwiLCJuYW1lIjoiZml4dHVyZV9tb2RlbCIsInVybCI6Imh0dHBzOi8vZXhhbXBsZS5pbnZhbGlkL3YxIn0sIm1ldGFkYXRhIjp7fSwibmFtZSI6ImN1c3RvbWVyX2FnZW50Iiwib3V0cHV0cyI6W10sInN5c3RlbV9wcm9tcHQiOiJVc2UgdGhlIGRlY2xhcmVkIGN1c3RvbWVyIHRvb2xzIG9ubHkgd2hlbiB0aGVpciBjb250cmFjdHMgbWF0Y2ggdGhlIHJlcXVlc3QuIiwidG9vbHMiOlt7ImNvbXBvbmVudF90eXBlIjoiU2VydmVyVG9vbCIsImRlc2NyaXB0aW9uIjoiVmFsaWRhdGUgYSBub3JtYWxpemVkIGN1c3RvbWVyIHJlY29yZC4iLCJpZCI6InVybjpleGFtcGxlOmludGVyb3A6YWdlbnRzcGVjOnZhbGlkYXRlLWN1c3RvbWVyIiwiaW5wdXRzIjpbeyJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidGl0bGUiOiJjdXN0b21lciIsInR5cGUiOiJvYmplY3QifV0sIm1ldGFkYXRhIjp7fSwibmFtZSI6InZhbGlkYXRlX2N1c3RvbWVyIiwib3V0cHV0cyI6W3sidGl0bGUiOiJ2YWxpZCIsInR5cGUiOiJib29sZWFuIn1dfV19",
+      "planning_eligibility": "unknown",
+      "source_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+      "source_format": "agent-spec",
+      "source_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+      "warnings": [
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0"
+        },
+        {
+          "code": "agentspec_code_not_present",
+          "message": "Agent Spec describes the tool but intentionally does not carry its implementation code.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0"
+        }
+      ]
+    }
+  },
+  "graph_id": "urn:uuid:4086eb61-7067-5cd0-bdf2-360d05579c7a",
+  "nodes": [
+    {
+      "description": "Validate a normalized customer record.",
+      "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+      "kind": "capability",
+      "label": "validate_customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "semantic_status": "candidate",
+        "source_format": "agent-spec",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:90bd1bef-9d95-5460-a130-cf5d60927cf9",
+      "kind": "implementation",
+      "label": "Native agent-spec binding for validate_customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "agentspec_version": "26.1.0",
+          "component_type": "ServerTool",
+          "id": "urn:example:interop:agentspec:validate-customer",
+          "kind": "agent-spec-tool",
+          "parent_component_id": "urn:example:interop:agentspec:customer-agent"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+        "source_document_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+        "source_format": "agent-spec",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:46355814-33ac-513c-a6b8-538c5aaf05b2",
+      "kind": "contract",
+      "label": "customer",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://oracle.github.io/agent-spec/26.1.0/",
+        "digest": "sha256:eb1cab631f70d4fe8fc82c774c8f92fdd05d92f6ee11076791ccedd015433811",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "agentspec_property_index": 0,
+          "agentspec_tool": "validate_customer",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+          "source_document_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+          "source_format": "agent-spec",
+          "source_pointer": "/tools/0/inputs/0"
+        },
+        "schema": {
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "title": "customer",
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidGl0bGUiOiJjdXN0b21lciIsInR5cGUiOiJvYmplY3QifQ=="
+      }
+    },
+    {
+      "id": "urn:uuid:80d6c781-dbcc-59c7-b161-2712ca8ac599",
+      "kind": "contract",
+      "label": "valid",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://oracle.github.io/agent-spec/26.1.0/",
+        "digest": "sha256:4e4faec7b7c9b8c0294f72550a9426276906c41719bed916a3883710755ce259",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "agentspec_property_index": 0,
+          "agentspec_tool": "validate_customer",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+          "source_document_uri": "urn:example:ocg:interop-fixture:agent-spec-customer.json",
+          "source_format": "agent-spec",
+          "source_pointer": "/tools/0/outputs/0"
+        },
+        "schema": {
+          "title": "valid",
+          "type": "boolean"
+        },
+        "schema_uri": "data:application/json;base64,eyJ0aXRsZSI6InZhbGlkIiwidHlwZSI6ImJvb2xlYW4ifQ=="
+      }
+    }
+  ],
+  "profiles": [
+    "core"
+  ],
+  "relations": [
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:0643a35b-a9e4-5570-844b-0b825ee5f4f0",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:90bd1bef-9d95-5460-a130-cf5d60927cf9"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+      }
+    }
+  ],
+  "spec_version": "0.1.0-draft",
+  "status": "candidate",
+  "title": "Agent Spec customer_agent candidate import"
+}

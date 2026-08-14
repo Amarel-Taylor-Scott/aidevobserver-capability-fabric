@@ -1,0 +1,7 @@
+{
+  "artifact_type": "illustrative_embedding_adapter",
+  "base_model": "urn:example:ocg:example:model:general-text",
+  "base_revision": "2026-06",
+  "domain": "customer-record-normalization",
+  "training_recipe": "tuning-recipe.json"
+}

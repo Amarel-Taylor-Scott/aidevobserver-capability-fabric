@@ -1,0 +1,64 @@
+{
+  "sources": [
+    {
+      "source_id": "github.erpnext_issues",
+      "name": "ERPNext public issues",
+      "adapter": "github_issues",
+      "endpoint": "https://api.github.com/search/issues?q=workaround+is%3Aissue+repo%3Afrappe%2Ferpnext&per_page=25",
+      "fixed_hosts": [
+        "api.github.com"
+      ],
+      "access_class": "AMBER",
+      "cadence_seconds": 14400,
+      "auth_env": "GITHUB_TOKEN",
+      "auth_header": "Authorization",
+      "auth_prefix": "Bearer ",
+      "default_headers": {
+        "Accept": "application/vnd.github+json"
+      },
+      "docs_url": "https://docs.github.com/en/rest/search/search#search-issues-and-pull-requests",
+      "terms_url": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+      "policy": {
+        "access_class": "AMBER",
+        "max_bytes": 1000000,
+        "max_records": 25,
+        "excerpt_chars": 320,
+        "content_policy": "metadata_short_excerpt_and_derived_facts"
+      }
+    },
+    {
+      "source_id": "discourse.frappe",
+      "name": "Frappe and ERPNext community",
+      "adapter": "rss",
+      "endpoint": "https://discuss.frappe.io/latest.rss?order=created",
+      "fixed_hosts": [
+        "discuss.frappe.io"
+      ],
+      "access_class": "AMBER",
+      "cadence_seconds": 1800,
+      "docs_url": "https://meta.discourse.org/t/finding-discourse-rss-feeds/264134",
+      "policy": {
+        "access_class": "AMBER",
+        "max_records": 25,
+        "content_policy": "metadata_short_excerpt_and_derived_facts"
+      }
+    },
+    {
+      "source_id": "federalregister.business_friction",
+      "name": "Federal Register business-friction notices",
+      "adapter": "federal_register",
+      "endpoint": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bterm%5D=small%20business%20burden&per_page=25&order=newest",
+      "fixed_hosts": [
+        "www.federalregister.gov"
+      ],
+      "access_class": "GREEN",
+      "cadence_seconds": 86400,
+      "docs_url": "https://www.federalregister.gov/developers/documentation/api/v1",
+      "policy": {
+        "access_class": "GREEN",
+        "max_records": 25,
+        "content_policy": "public_api_response"
+      }
+    }
+  ]
+}

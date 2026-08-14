@@ -1,0 +1,66 @@
+{
+  "protocol": "mcp",
+  "protocol_version": "2025-06-18",
+  "server_id": "urn:example:interop:mcp:customer-tools",
+  "tools": [
+    {
+      "name": "normalize_customer",
+      "title": "Normalize customer",
+      "description": "Normalize a customer name and email address without changing address semantics.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "email": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "email": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "emit_customer_json",
+      "title": "Emit customer JSON",
+      "description": "Serialize an export-shaped customer record as deterministic JSON.",
+      "inputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["name", "email_address"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "email_address": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "required": ["json"],
+        "properties": {"json": {"type": "string"}},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    }
+  ]
+}

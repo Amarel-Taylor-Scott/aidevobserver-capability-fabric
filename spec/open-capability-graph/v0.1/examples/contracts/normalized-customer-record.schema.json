@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:example:ocg:contract:normalized-customer-record",
+  "type": "object",
+  "required": ["name", "email"],
+  "properties": {
+    "name": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+    "email": {"type": "string", "format": "email"}
+  },
+  "additionalProperties": false
+}

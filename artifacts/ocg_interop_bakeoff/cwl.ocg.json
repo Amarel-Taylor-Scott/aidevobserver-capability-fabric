@@ -1,0 +1,213 @@
+{
+  "$schema": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/raw/main/spec/open-capability-graph/v0.1/schemas/open-capability-graph.schema.json",
+  "actions": [
+    {
+      "capability_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:a18a7651-347c-5ed6-943d-d625dcf3b11c",
+      "implementation_ref": "urn:uuid:920049c7-d7f2-513f-aa15-416f2b7e6a22",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "cwl",
+        "source_pointer": "/"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:5742ab2a-056e-5639-8b38-5bf4d8cd1ab4",
+          "direction": "input",
+          "id": "customer",
+          "label": "customer",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/inputs/customer"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:b5613e38-492a-5e70-a40d-f13ca4ef3c3d",
+          "direction": "output",
+          "id": "json_artifact",
+          "label": "json_artifact",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/outputs/json_artifact"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    }
+  ],
+  "description": "Loss-aware cwl import. Native values are preserved; compatibility and execution authorization are not established.",
+  "extensions": {
+    "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/extensions/native-import-report": {
+      "contract_profile_claimed": false,
+      "execution_authorization": "not_established",
+      "format_reference": "https://www.commonwl.org/v1.2/Workflow.html",
+      "normalized_payload_uri": "data:application/json;base64,eyJjbGFzcyI6Ik9wZXJhdGlvbiIsImN3bFZlcnNpb24iOiJ2MS4yIiwiZG9jIjoiQW4gYWJzdHJhY3QgQ1dMIG9wZXJhdGlvbiB0aGF0IGNvbnN1bWVzIGFuIGV4cG9ydC1zaGFwZWQgY3VzdG9tZXIgYW5kIHByb2R1Y2VzIGEgSlNPTiBmaWxlLiIsImlkIjoidXJuOmV4YW1wbGU6aW50ZXJvcDpjd2w6ZW1pdC1jdXN0b21lci1qc29uIiwiaW5wdXRzIjp7ImN1c3RvbWVyIjp7InR5cGUiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbF9hZGRyZXNzIiwidHlwZSI6InN0cmluZyJ9XSwibmFtZSI6IkV4cG9ydEN1c3RvbWVyIiwidHlwZSI6InJlY29yZCJ9fX0sImxhYmVsIjoiRW1pdCBjdXN0b21lciBKU09OIiwib3V0cHV0cyI6eyJqc29uX2FydGlmYWN0Ijp7InR5cGUiOiJGaWxlIn19fQ==",
+      "planning_eligibility": "unknown",
+      "source_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+      "source_format": "cwl",
+      "source_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+      "warnings": [
+        {
+          "code": "cwl_operation_abstract",
+          "message": "CWL Operation declares an abstract operation and does not establish an executable implementation.",
+          "outcome": "unknown",
+          "source_pointer": "/"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/"
+        }
+      ]
+    }
+  },
+  "graph_id": "urn:uuid:c4f11f13-f0a2-5229-a046-19c820e86a32",
+  "nodes": [
+    {
+      "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+      "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+      "kind": "capability",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "semantic_status": "candidate",
+        "source_format": "cwl",
+        "source_pointer": "/"
+      }
+    },
+    {
+      "id": "urn:uuid:920049c7-d7f2-513f-aa15-416f2b7e6a22",
+      "kind": "implementation",
+      "label": "Native cwl binding for Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "class": "Operation",
+          "cwl_version": "v1.2",
+          "id": "urn:example:interop:cwl:emit-customer-json",
+          "kind": "cwl-record"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+        "source_document_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+        "source_format": "cwl",
+        "source_pointer": "/"
+      }
+    },
+    {
+      "id": "urn:uuid:5742ab2a-056e-5639-8b38-5bf4d8cd1ab4",
+      "kind": "contract",
+      "label": "customer",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://w3id.org/cwl/v1.2/",
+        "digest": "sha256:330328b0d7f03aab5ba88ae461ab1fecd5edc91fcc7361a9fdb905f1b5fe1b2a",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "cwl_record_class": "InputParameter",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+          "source_document_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+          "source_format": "cwl",
+          "source_pointer": "/inputs/customer"
+        },
+        "schema": {
+          "type": {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "email_address",
+                "type": "string"
+              }
+            ],
+            "name": "ExportCustomer",
+            "type": "record"
+          }
+        },
+        "schema_uri": "data:application/json;base64,eyJ0eXBlIjp7ImZpZWxkcyI6W3sibmFtZSI6Im5hbWUiLCJ0eXBlIjoic3RyaW5nIn0seyJuYW1lIjoiZW1haWxfYWRkcmVzcyIsInR5cGUiOiJzdHJpbmcifV0sIm5hbWUiOiJFeHBvcnRDdXN0b21lciIsInR5cGUiOiJyZWNvcmQifX0="
+      }
+    },
+    {
+      "id": "urn:uuid:b5613e38-492a-5e70-a40d-f13ca4ef3c3d",
+      "kind": "contract",
+      "label": "json_artifact",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://w3id.org/cwl/v1.2/",
+        "digest": "sha256:0d7c708a6820470a20ad79afe4541dcf161bdbfb435c47faa249ff9bc47c5358",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "cwl_record_class": "OutputParameter",
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+          "source_document_uri": "urn:example:ocg:interop-fixture:cwl-emit-json.json",
+          "source_format": "cwl",
+          "source_pointer": "/outputs/json_artifact"
+        },
+        "schema": {
+          "type": "File"
+        },
+        "schema_uri": "data:application/json;base64,eyJ0eXBlIjoiRmlsZSJ9"
+      }
+    }
+  ],
+  "profiles": [
+    "core"
+  ],
+  "relations": [
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:13bb689f-490b-5557-97c5-f0d7e1eaea10",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:920049c7-d7f2-513f-aa15-416f2b7e6a22"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599"
+      }
+    }
+  ],
+  "spec_version": "0.1.0-draft",
+  "status": "candidate",
+  "title": "CWL tool and operation candidate import"
+}

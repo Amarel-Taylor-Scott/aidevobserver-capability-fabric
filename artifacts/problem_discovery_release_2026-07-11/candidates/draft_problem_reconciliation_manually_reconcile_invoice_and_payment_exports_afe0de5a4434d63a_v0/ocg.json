@@ -1,0 +1,152 @@
+{
+  "actions": [
+    {
+      "capability_ref": "urn:aidevobserver:capability:reconciliation:manually_reconcile_invoice_and_payment_exports",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "target": "unverified_generated_candidate"
+        }
+      ],
+      "id": "urn:aidevobserver:action:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0",
+      "implementation_ref": "urn:aidevobserver:implementation:candidate:problem:reconciliation:manually_reconcile_invoice_and_payment_exports:afe0de5a4434d63a:v0",
+      "invariants": [],
+      "label": "Candidate reconciliation for Manually reconcile invoice and payment exports",
+      "lifecycle": "candidate",
+      "ports": [
+        {
+          "contract_ref": "urn:aidevobserver:contract:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0:input",
+          "direction": "input",
+          "id": "input",
+          "protocol": {
+            "mode": "sync"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:aidevobserver:contract:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0:output",
+          "direction": "output",
+          "id": "output",
+          "protocol": {
+            "mode": "sync"
+          },
+          "required": true
+        }
+      ],
+      "postconditions": [],
+      "preconditions": [],
+      "protocol": {
+        "mode": "sync"
+      },
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown",
+        "maximum_attempts": 1
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    }
+  ],
+  "created_at": "2026-07-11T07:16:04.266181Z",
+  "description": "Candidate primitive derived from attributed business-friction evidence.",
+  "extensions": {
+    "aidevobserver": {
+      "candidate_only": true,
+      "cluster_id": "problem.cluster.3c05820b10b73c4de8802bda",
+      "compatibility": "unknown",
+      "evidence_digests": [
+        "sha256:a50f9fd935e7666c0e7496ed345ea197205d403f0933f0e9ecc1a530a7a8085b",
+        "sha256:e300775e9e8c938569118fd627ee70ce597493065d72ec77526658c20b50085a",
+        "sha256:e3f8e54161e4585eac717272c7ccbadfd887c395251770f31e3ef11bf963b470"
+      ],
+      "execution_authorized": false,
+      "serves_truth": false,
+      "source_artifact_digest": "sha256:d79adad6572b4f2f7da7134ee3f47554438b299e2d265b25eb3980535a3afb61"
+    }
+  },
+  "graph_id": "urn:aidevobserver:graph:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0",
+  "nodes": [
+    {
+      "description": "Manually reconcile invoice and payment exports Our accounts payable team has to manually reconcile invoice exports with payment records in the ERP every day. The workaround is to export both CSV files, compare invoice identifiers, and create an exception queue by hand. We need a deterministic matched-record and exception report.",
+      "id": "urn:aidevobserver:capability:reconciliation:manually_reconcile_invoice_and_payment_exports",
+      "kind": "capability",
+      "label": "Candidate reconciliation for Manually reconcile invoice and payment exports",
+      "lifecycle": "candidate"
+    },
+    {
+      "id": "urn:aidevobserver:contract:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0:input",
+      "kind": "contract",
+      "label": "ReconciliationRequest",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:47f849b524b988d09f4a07a44dab8d90562e9dbb8b4d45f2d72d51c834efda1a",
+        "media_type": "application/schema+json",
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": true,
+          "required": [
+            "left",
+            "right",
+            "key"
+          ],
+          "title": "ReconciliationRequest",
+          "type": "object"
+        },
+        "schema_uri": "data:application/schema+json,%7B%22%24schema%22%3A%22https%3A%2F%2Fjson-schema.org%2Fdraft%2F2020-12%2Fschema%22%2C%22additionalProperties%22%3Atrue%2C%22required%22%3A%5B%22left%22%2C%22right%22%2C%22key%22%5D%2C%22title%22%3A%22ReconciliationRequest%22%2C%22type%22%3A%22object%22%7D"
+      }
+    },
+    {
+      "id": "urn:aidevobserver:contract:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0:output",
+      "kind": "contract",
+      "label": "ReconciliationReport",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:0f89a22b988743b5d1d535971281fbb8c9535cd34fd78a743f4a67c9e2ba42cb",
+        "media_type": "application/schema+json",
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": true,
+          "title": "ReconciliationReport",
+          "type": "object"
+        },
+        "schema_uri": "data:application/schema+json,%7B%22%24schema%22%3A%22https%3A%2F%2Fjson-schema.org%2Fdraft%2F2020-12%2Fschema%22%2C%22additionalProperties%22%3Atrue%2C%22title%22%3A%22ReconciliationReport%22%2C%22type%22%3A%22object%22%7D"
+      }
+    },
+    {
+      "id": "urn:aidevobserver:implementation:candidate:problem:reconciliation:manually_reconcile_invoice_and_payment_exports:afe0de5a4434d63a:v0",
+      "kind": "implementation",
+      "label": "Candidate reconciliation for Manually reconcile invoice and payment exports Python candidate",
+      "lifecycle": "candidate",
+      "metadata": {
+        "source_artifact_digest": "sha256:d79adad6572b4f2f7da7134ee3f47554438b299e2d265b25eb3980535a3afb61"
+      }
+    }
+  ],
+  "profiles": [
+    "core"
+  ],
+  "publisher": {
+    "name": "AIDevObserver Capability Fabric"
+  },
+  "relations": [
+    {
+      "direction": "source_to_target",
+      "id": "urn:aidevobserver:relation:draft-problem-reconciliation-manually-reconcile-invoice-and-payment-exports-afe0de5a4434d63a-v0:implements",
+      "kind": "implements",
+      "source": {
+        "subject_ref": "urn:aidevobserver:implementation:candidate:problem:reconciliation:manually_reconcile_invoice_and_payment_exports:afe0de5a4434d63a:v0"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:aidevobserver:capability:reconciliation:manually_reconcile_invoice_and_payment_exports"
+      }
+    }
+  ],
+  "spec_version": "0.1.0-draft",
+  "status": "candidate",
+  "title": "Candidate reconciliation for Manually reconcile invoice and payment exports"
+}

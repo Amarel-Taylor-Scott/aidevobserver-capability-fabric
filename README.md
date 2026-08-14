@@ -25,6 +25,9 @@ private workspace inventory, transcripts, credentials, or local paths.
 - Compact agent discovery output.
 - Candidate-only source-surface catalog for AI startups, repos, newsletters,
   benchmarks, launch trackers, and communities.
+- Persistent business-friction discovery loop with policy-gated public source
+  adapters, exact-byte CAS, evidence clustering, registry-gap retrieval,
+  generated candidate implementations, sandboxed fixtures, and receipts.
 - Candidate-only RapidAPI social post ingestion for Facebook source pages.
 - Candidate-only Open WebUI wrapper for direct-token or browser-context LLM calls.
 - Candidate-only local Ollama wrapper for Gemma-family coding calls.
@@ -32,6 +35,9 @@ private workspace inventory, transcripts, credentials, or local paths.
   benchmark estimates, lineage, and fitness recommendations.
 - Edge primitive catalog generator with 25k+ resolved primitive contracts,
   compatibility edges, route templates, and a compressed artifact.
+- Exploratory Open Capability Graph draft with directional contracts,
+  evidence-gated adapters, multi-space representations, portable search
+  profiles, JSON Schema, and semantic conformance checks.
 - Optional local HTTP server.
 
 Every generated candidate remains advisory:
@@ -124,6 +130,27 @@ aidevobserver-fabric factory-lineage candidate.social.facebook_rapidapi_fetch_po
 
 See [`docs/evolutionary-primitive-factory.md`](docs/evolutionary-primitive-factory.md).
 
+Discover recurring business friction and turn corroborated needs into tested,
+candidate-only primitives:
+
+```bash
+aidevobserver-fabric problem-sources --compact
+aidevobserver-fabric problem-loop \
+  --fixture examples/problem_observations.fixture.json \
+  --source github.operational_issues \
+  --source stackexchange.workflow_questions \
+  --source cfpb.complaints \
+  --cycles 1
+aidevobserver-fabric problem-status
+aidevobserver-fabric problem-reconcile
+```
+
+The same command can use bounded live public APIs by omitting `--fixture`.
+Web observations, extracted problems, cluster scores, catalog matches, and
+generated code all remain candidates. A fixture receipt never sets
+`serves_truth` or authorizes an execution edge. See
+[`docs/problem-discovery-primitive-loop.md`](docs/problem-discovery-primitive-loop.md).
+
 Generate and validate the larger edge primitive graph:
 
 ```bash
@@ -149,10 +176,36 @@ The committed ZIP artifact is
 It contains the generated raw JSONL pack. See
 [`docs/edge-primitive-catalog.md`](docs/edge-primitive-catalog.md).
 
+Validate the exploratory Open Capability Graph reference example:
+
+```bash
+python3 -m pip install -e .
+python3 scripts/check_open_capability_graph.py
+```
+
+Run the five-format interoperability bakeoff with the optional native-format
+validators (provide `wasm-tools` separately for WIT validation):
+
+```bash
+python3 -m pip install -e '.[ocg-interop]'
+python3 scripts/run_ocg_interop_bakeoff.py \
+  --wasm-tools /path/to/wasm-tools \
+  --require-native
+```
+
+The format draft is
+[`spec/open-capability-graph/v0.1/README.md`](spec/open-capability-graph/v0.1/README.md).
+The wider standards review and tradeoff analysis is
+[`docs/open-edge-and-primitive-standards-landscape-2026-07-10.md`](docs/open-edge-and-primitive-standards-landscape-2026-07-10.md).
+The executed fixture-scale interoperability report and raw receipt are
+[`docs/ocg-interoperability-bakeoff-2026-07-11.md`](docs/ocg-interoperability-bakeoff-2026-07-11.md)
+and
+[`artifacts/ocg_interop_bakeoff/receipt.json`](artifacts/ocg_interop_bakeoff/receipt.json).
+
 Generate the local published-projects URL inventory:
 
 ```bash
-python3 scripts/inventory_published_projects.py --root /home/username/code_projects/repos
+python3 scripts/inventory_published_projects.py --root /path/to/repos
 ```
 
 The generated inventory is
@@ -188,6 +241,7 @@ PrimitiveRecord
   -> CandidateBundle route context
   -> source-surface intake map
   -> social source ingestion
+  -> business-friction evidence loop + candidate primitive builder
   -> evolutionary primitive factory
   -> agent discovery fabric
   -> optional HTTP service

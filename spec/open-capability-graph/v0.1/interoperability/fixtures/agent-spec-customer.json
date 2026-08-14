@@ -1,0 +1,48 @@
+{
+  "component_type": "Agent",
+  "id": "urn:example:interop:agentspec:customer-agent",
+  "name": "customer_agent",
+  "description": "Agent Spec example containing portable customer tools.",
+  "metadata": {},
+  "inputs": [],
+  "outputs": [],
+  "llm_config": {
+    "component_type": "OpenAiCompatibleConfig",
+    "id": "urn:example:interop:agentspec:fixture-model",
+    "name": "fixture_model",
+    "description": null,
+    "metadata": {},
+    "default_generation_parameters": null,
+    "url": "https://example.invalid/v1",
+    "model_id": "fixture-model"
+  },
+  "system_prompt": "Use the declared customer tools only when their contracts match the request.",
+  "tools": [
+    {
+      "component_type": "ServerTool",
+      "id": "urn:example:interop:agentspec:validate-customer",
+      "name": "validate_customer",
+      "description": "Validate a normalized customer record.",
+      "metadata": {},
+      "inputs": [
+        {
+          "title": "customer",
+          "type": "object",
+          "required": ["name", "email"],
+          "properties": {
+            "name": {"type": "string", "minLength": 1},
+            "email": {"type": "string", "minLength": 3}
+          },
+          "additionalProperties": false
+        }
+      ],
+      "outputs": [
+        {
+          "title": "valid",
+          "type": "boolean"
+        }
+      ]
+    }
+  ],
+  "agentspec_version": "26.1.0"
+}

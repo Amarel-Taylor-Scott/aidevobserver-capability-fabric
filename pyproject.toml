@@ -8,6 +8,11 @@ version = "0.1.0"
 description = "Local-first capability registry, hybrid search, route bundles, and agent discovery fabric."
 readme = "README.md"
 requires-python = ">=3.10"
+dependencies = [
+  "jsonschema>=4.18,<5",
+  "rfc8785>=0.1.4,<0.2"
+]
+
 license = "MIT"
 authors = [
   { name = "AIDevObserver contributors" }
@@ -27,6 +32,13 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Topic :: Software Development :: Libraries :: Application Frameworks"
+]
+
+[project.optional-dependencies]
+ocg-interop = [
+  "cwl-utils>=0.42,<0.43",
+  "openapi-spec-validator>=0.9,<1",
+  "pyagentspec>=26.1,<27"
 ]
 
 [project.urls]

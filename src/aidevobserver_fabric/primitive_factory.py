@@ -118,6 +118,8 @@ class BenchmarkRecord:
     reliability_score: float
     proof_score: float
     benchmark_obligations: tuple[str, ...]
+    measurement_status: str = "estimated_not_executed"
+    executed_receipt_refs: tuple[str, ...] = ()
     candidate_only: bool = True
     serves_truth: bool = False
 
@@ -148,6 +150,8 @@ class FitnessRecord:
 
 def infer_determinism(record: PrimitiveRecord) -> str:
     effects = set(record.effects)
+    if "effects_unknown" in effects:
+        return "unknown"
     if "llm_candidate_summary" in effects:
         return "llm_assisted_candidate"
     if effects & {"external_api_call", "network_write"}:
@@ -313,6 +317,10 @@ def benchmark_record(genome: PrimitiveGenome) -> BenchmarkRecord:
     latency_class = "low"
     cost_class = "low"
     reliability = 0.82
+    if "effects_unknown" in effects:
+        latency_class = "unknown"
+        cost_class = "unknown"
+        reliability = 0.25
     if "network_read" in effects:
         latency_class = "medium"
         reliability -= 0.12
@@ -330,6 +338,7 @@ def benchmark_record(genome: PrimitiveGenome) -> BenchmarkRecord:
         "external_read": 0.72,
         "external_nondeterministic": 0.54,
         "llm_assisted_candidate": 0.36,
+        "unknown": 0.2,
     }[genome.determinism]
     proof = 0.92 if genome.trust == "verified" else 0.42
     if genome.proof_obligations:
@@ -477,4 +486,3 @@ def compact_snapshot(snapshot: dict[str, Any], limit: int = 10) -> str:
             f"{row['input_contract']}>{row['output_contract']}"
         )
     return "\n".join(lines) + "\n"
-

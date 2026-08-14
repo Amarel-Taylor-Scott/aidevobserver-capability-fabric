@@ -1,0 +1,41 @@
+{
+  "candidate_only": true,
+  "candidate_workspace_paths": [],
+  "files": {
+    "clusters.jsonl": {
+      "bytes": 60977,
+      "digest": "sha256:cb0fc84f09072cef4dec13e8dbce1b34c9449067567b915c61ef7bb34bdd5b26"
+    },
+    "coverage.jsonl": {
+      "bytes": 46666,
+      "digest": "sha256:e45995aa350b67f7834540e9bd9c5c75730ba619ba38964fea1009ccddcc3c77"
+    },
+    "factory_snapshot.json": {
+      "bytes": 542,
+      "digest": "sha256:d14299c1b5fd886d750f46860b8cce8705609fbcafa2001c2a8b875b06cf678b"
+    },
+    "observations.jsonl": {
+      "bytes": 19115,
+      "digest": "sha256:d8b6dace5fb1cf2f869b1cf686ed45bb39a8c64910881a02f6b66addfb09e5f8"
+    },
+    "primitive_candidates.jsonl": {
+      "bytes": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "receipt.json": {
+      "bytes": 1363,
+      "digest": "sha256:111f39d65b4e81b4211c6d5edfa69d2b7cdccd3d3308a53a99543391c50a89fc"
+    },
+    "signals.jsonl": {
+      "bytes": 34652,
+      "digest": "sha256:aa253701f4b9e85b089739803891fc2b668b608423347833d45e433c5fd32d83"
+    },
+    "source_attempts.jsonl": {
+      "bytes": 43162,
+      "digest": "sha256:cd064c856b494e6f1e0a5a9912c189039b8d46402f5625e1e4a2f1ea38674a55"
+    }
+  },
+  "manifest_digest": "sha256:e33b702b17986d8bade753bc896c235244d752aa4104ac76f646dba84e155983",
+  "run_id": "run:f0fa13e5-864f-43ac-8289-8a87370c5503",
+  "serves_truth": false
+}

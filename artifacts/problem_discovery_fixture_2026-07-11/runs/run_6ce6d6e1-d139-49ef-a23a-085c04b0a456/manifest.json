@@ -1,0 +1,43 @@
+{
+  "candidate_only": true,
+  "candidate_workspace_paths": [
+    "artifacts/problem_discovery_fixture_2026-07-11/candidates/draft_problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0"
+  ],
+  "files": {
+    "clusters.jsonl": {
+      "bytes": 4190,
+      "digest": "sha256:4a017fa04504fe592e7276cb3d616e3c6a7b9bf003d4888d8d95a52f542f518d"
+    },
+    "coverage.jsonl": {
+      "bytes": 2880,
+      "digest": "sha256:ad6d779877e0c0a65d01c0dd63ebabdb1cca42c72d45f37f5784a64c10d2dc17"
+    },
+    "factory_snapshot.json": {
+      "bytes": 6766,
+      "digest": "sha256:ec02e9ab5e8d4f4ae5958039adefb513ca8dea14ba6d7caabf44e3601c4e3cb6"
+    },
+    "observations.jsonl": {
+      "bytes": 2902,
+      "digest": "sha256:ddf75cebb292a75857faf46ff6439e95d7252b133be3c67a300fb9b393267ebd"
+    },
+    "primitive_candidates.jsonl": {
+      "bytes": 9499,
+      "digest": "sha256:09f72e370b28bd8ca7bc0b435917902caffc87735a76f44993a19c24be529991"
+    },
+    "receipt.json": {
+      "bytes": 1159,
+      "digest": "sha256:bb73c0bc7ad8a37d5549c299a2f9ce712facc10f0aad6380cbf353505bd27df3"
+    },
+    "signals.jsonl": {
+      "bytes": 5206,
+      "digest": "sha256:93971e96797c31fb237dea2a70204a354c3dd3bc53477c182d23109d7a0cd410"
+    },
+    "source_attempts.jsonl": {
+      "bytes": 9481,
+      "digest": "sha256:9aacf50c070efe4edc44849cb77265df0b25a40220f505c41c11643249f7628b"
+    }
+  },
+  "manifest_digest": "sha256:da91a834a3d6b5459056170cadc73b05a44a768fad75b0514d76ce00d9c8a12b",
+  "run_id": "run:6ce6d6e1-d139-49ef-a23a-085c04b0a456",
+  "serves_truth": false
+}

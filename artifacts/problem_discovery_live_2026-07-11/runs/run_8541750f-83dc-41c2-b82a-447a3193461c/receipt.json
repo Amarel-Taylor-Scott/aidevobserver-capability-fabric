@@ -1,0 +1,33 @@
+{
+  "candidate_only": true,
+  "code_digest": "sha256:bdc2972f6dcdd645b85d93d238b3e0d72ce88258df1edc16bbf0987ba35bf120",
+  "config_digest": "sha256:52ddc4a8de4a392c707a58c76d051fce7a64be06283778c6db5fa4ebdb680252",
+  "counts": {
+    "clusters": 15,
+    "clusters_build_gate_passed": 0,
+    "fixture_tests_failed": 0,
+    "fixture_tests_passed": 0,
+    "historical_signals_considered": 18,
+    "observations": 18,
+    "primitive_candidates_built": 0,
+    "signals": 18,
+    "sources_failed": 0,
+    "sources_requested": 4,
+    "sources_skipped": 0,
+    "sources_succeeded": 4
+  },
+  "finished_at": "2026-07-11T05:32:15.033109Z",
+  "loop_id": "aidevobserver.business_friction_to_primitive.v1",
+  "next_queries": [],
+  "promotion_decision": "none",
+  "receipt_digest": "sha256:fe8f9de3e16f4959cb7308197bd9a85855de99d1c4295e7cea97aff4adf0afe4",
+  "run_id": "run:8541750f-83dc-41c2-b82a-447a3193461c",
+  "serves_truth": false,
+  "source_attempt_statuses": {
+    "discourse.frappe": "complete",
+    "federalregister.business_friction": "complete",
+    "github.operational_issues": "complete",
+    "stackexchange.workflow_questions": "complete"
+  },
+  "status": "complete"
+}

@@ -1,0 +1,37 @@
+{
+  "fixture_set": "urn:example:ocg:interop-fixtures:0.1",
+  "boundary": "representative_native_documents_not_conformance_claims",
+  "sources": [
+    {
+      "format": "mcp-tools",
+      "path": "mcp-tools.json",
+      "reference": "https://modelcontextprotocol.io/specification/2025-06-18/server/tools"
+    },
+    {
+      "format": "openapi",
+      "path": "openapi-customer.json",
+      "reference": "https://spec.openapis.org/oas/v3.1.1.html"
+    },
+    {
+      "format": "cwl",
+      "path": "cwl-emit-json.json",
+      "reference": "https://www.commonwl.org/v1.2/Workflow.html"
+    },
+    {
+      "format": "wit",
+      "path": "customer.wit",
+      "normalized_path": "customer.wit.json",
+      "normalizer": "wasm-tools component wit --json",
+      "normalizer_version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)",
+      "normalizer_binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+      "normalizer_binary_size_bytes": 19172248,
+      "normalizer_binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+      "reference": "https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md"
+    },
+    {
+      "format": "agent-spec",
+      "path": "agent-spec-customer.json",
+      "reference": "https://github.com/oracle/agent-spec"
+    }
+  ]
+}

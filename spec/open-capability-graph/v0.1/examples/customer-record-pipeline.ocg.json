@@ -1,0 +1,843 @@
+{
+  "$schema": "../schemas/open-capability-graph.schema.json",
+  "spec_version": "0.1.0-draft",
+  "graph_id": "urn:example:ocg:customer-record-pipeline",
+  "title": "Customer record normalization and export example",
+  "description": "An executed three-action example showing directional contracts, a verified adapter, parallel edges, scoped evidence, three embedding spaces, and an engine-neutral hybrid search profile.",
+  "status": "reviewed",
+  "profiles": ["core", "contract", "evidence", "retrieval"],
+  "created_at": "2026-07-11T00:45:00Z",
+  "updated_at": "2026-07-11T01:44:28Z",
+  "publisher": {
+    "name": "AIDevObserver Capability Fabric",
+    "identifier": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric"
+  },
+  "namespaces": {
+    "ocg": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/",
+    "example": "urn:example:ocg:"
+  },
+  "nodes": [
+    {
+      "id": "urn:example:ocg:capability:normalize-customer",
+      "kind": "capability",
+      "label": "Normalize customer record",
+      "description": "Normalize a human-entered name and email without changing the address semantics.",
+      "aliases": ["clean contact data", "standardize customer identity"],
+      "tags": ["customer", "normalization", "pure"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:capability:adapt-customer-export",
+      "kind": "capability",
+      "label": "Adapt normalized customer for export",
+      "description": "Rename the email field while preserving all represented information.",
+      "tags": ["adapter", "customer", "lossless"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:capability:emit-json",
+      "kind": "capability",
+      "label": "Emit deterministic JSON",
+      "description": "Serialize an export record as stable compact JSON.",
+      "tags": ["json", "serialization", "pure"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:contract:raw-customer-record",
+      "kind": "contract",
+      "label": "Raw customer record",
+      "lifecycle": "active",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:43061589b748417aa3e5ba5615264eadbe2d5d6036af63423bad7dba1e745cd4",
+        "schema_uri": "contracts/raw-customer-record.schema.json",
+        "media_type": "application/schema+json",
+        "encoding": "utf-8"
+      }
+    },
+    {
+      "id": "urn:example:ocg:contract:normalized-customer-record",
+      "kind": "contract",
+      "label": "Normalized customer record",
+      "lifecycle": "active",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:06870363cb53b8c0ab243e3548c51b1490d80295813b37311d083d454575c19d",
+        "schema_uri": "contracts/normalized-customer-record.schema.json",
+        "media_type": "application/schema+json",
+        "encoding": "utf-8"
+      }
+    },
+    {
+      "id": "urn:example:ocg:contract:export-customer-record",
+      "kind": "contract",
+      "label": "Export customer record",
+      "lifecycle": "active",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:7163c39a7be9688f8827c8a1037f816bac9978b4b6dd5beef69ea0d194370d3f",
+        "schema_uri": "contracts/export-customer-record.schema.json",
+        "media_type": "application/schema+json",
+        "encoding": "utf-8"
+      }
+    },
+    {
+      "id": "urn:example:ocg:contract:json-artifact",
+      "kind": "contract",
+      "label": "JSON artifact",
+      "lifecycle": "active",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:96230c266daea7b4e134279a8ad0817b5b307700c66b42af92fab8132a86353a",
+        "schema_uri": "contracts/json-artifact.schema.json",
+        "media_type": "application/schema+json",
+        "encoding": "utf-8"
+      }
+    },
+    {
+      "id": "urn:example:ocg:contract:validation-error",
+      "kind": "contract",
+      "label": "Validation error",
+      "lifecycle": "active",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:a41f01e6776c4dfc647196b31c9f72b027956359d5bdffd3ec10cc1b640e6fb4",
+        "schema_uri": "contracts/validation-error.schema.json",
+        "media_type": "application/schema+json",
+        "encoding": "utf-8"
+      }
+    },
+    {
+      "id": "urn:example:ocg:implementation:normalize-customer-python",
+      "kind": "implementation",
+      "label": "Python customer normalizer",
+      "version": "1.0.0",
+      "digest": "sha256:d47864e2dead78f6f1c1b1d00ff4346f9a8f3401999f927955377a2af5706244",
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:implementation:export-customer-python",
+      "kind": "implementation",
+      "label": "Python export adapter",
+      "version": "1.0.0",
+      "digest": "sha256:32ad4d371337ba59a75324d1236206694f62308e26164da724592251a88fd007",
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:implementation:emit-json-python",
+      "kind": "implementation",
+      "label": "Python deterministic JSON emitter",
+      "version": "1.0.0",
+      "digest": "sha256:19fc9ad1e595c9feede28d7cbe1f95bf3b386498154dc7ad8d643e08b320a35d",
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:environment:python-3.14",
+      "kind": "environment",
+      "label": "Python 3.14 test environment",
+      "lifecycle": "active",
+      "metadata": {
+        "runtime": "CPython",
+        "version": "3.14.4",
+        "platform": "linux"
+      }
+    },
+    {
+      "id": "urn:example:ocg:policy:verified-compatibility-only",
+      "kind": "policy",
+      "label": "Verified compatibility only",
+      "description": "Search may retrieve candidates, but planning eligibility requires a verified direct join or a verified adapter route; execution authorization is out of scope for v0.1.",
+      "lifecycle": "active"
+    }
+  ],
+  "actions": [
+    {
+      "id": "urn:example:ocg:action:normalize-customer",
+      "label": "Normalize customer",
+      "capability_ref": "urn:example:ocg:capability:normalize-customer",
+      "implementation_ref": "urn:example:ocg:implementation:normalize-customer-python",
+      "ports": [
+        {
+          "id": "record-in",
+          "label": "Unnormalized customer",
+          "direction": "input",
+          "contract_ref": "urn:example:ocg:contract:raw-customer-record",
+          "required": true,
+          "protocol": {"mode": "sync"}
+        },
+        {
+          "id": "record-out",
+          "label": "Normalized customer",
+          "direction": "output",
+          "contract_ref": "urn:example:ocg:contract:normalized-customer-record",
+          "required": true,
+          "protocol": {"mode": "sync"}
+        }
+      ],
+      "preconditions": [],
+      "postconditions": [],
+      "invariants": [],
+      "effects": [],
+      "protocol": {"mode": "sync"},
+      "retry": {"idempotency": "idempotent", "automatic_retry": true, "maximum_attempts": 2},
+      "transaction": {"mode": "none"},
+      "artifact_refs": ["urn:example:ocg:artifact:normalize-customer-python"],
+      "evidence_refs": ["urn:example:ocg:evidence:pipeline-functional-test"],
+      "environment_refs": ["urn:example:ocg:environment:python-3.14"],
+      "policy_refs": ["urn:example:ocg:policy:verified-compatibility-only"],
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:action:adapt-customer-export",
+      "label": "Adapt normalized customer for export",
+      "capability_ref": "urn:example:ocg:capability:adapt-customer-export",
+      "implementation_ref": "urn:example:ocg:implementation:export-customer-python",
+      "ports": [
+        {
+          "id": "record-in",
+          "direction": "input",
+          "contract_ref": "urn:example:ocg:contract:normalized-customer-record",
+          "required": true,
+          "protocol": {"mode": "sync"}
+        },
+        {
+          "id": "record-out",
+          "direction": "output",
+          "contract_ref": "urn:example:ocg:contract:export-customer-record",
+          "required": true,
+          "protocol": {"mode": "sync"}
+        }
+      ],
+      "preconditions": [],
+      "postconditions": [],
+      "invariants": [],
+      "effects": [],
+      "protocol": {"mode": "sync"},
+      "retry": {"idempotency": "idempotent", "automatic_retry": true, "maximum_attempts": 2},
+      "transaction": {"mode": "none"},
+      "artifact_refs": ["urn:example:ocg:artifact:export-customer-python"],
+      "evidence_refs": ["urn:example:ocg:evidence:adapter-functional-test"],
+      "environment_refs": ["urn:example:ocg:environment:python-3.14"],
+      "policy_refs": ["urn:example:ocg:policy:verified-compatibility-only"],
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:action:emit-json",
+      "label": "Emit JSON artifact",
+      "capability_ref": "urn:example:ocg:capability:emit-json",
+      "implementation_ref": "urn:example:ocg:implementation:emit-json-python",
+      "ports": [
+        {
+          "id": "record-in",
+          "direction": "input",
+          "contract_ref": "urn:example:ocg:contract:export-customer-record",
+          "required": true,
+          "protocol": {"mode": "sync"}
+        },
+        {
+          "id": "artifact-out",
+          "direction": "output",
+          "contract_ref": "urn:example:ocg:contract:json-artifact",
+          "required": true,
+          "protocol": {"mode": "sync", "media_types": ["application/json"]}
+        }
+      ],
+      "preconditions": [],
+      "postconditions": [],
+      "invariants": [],
+      "effects": [],
+      "protocol": {"mode": "sync"},
+      "retry": {"idempotency": "idempotent", "automatic_retry": true, "maximum_attempts": 2},
+      "transaction": {"mode": "none"},
+      "artifact_refs": ["urn:example:ocg:artifact:emit-json-python"],
+      "evidence_refs": ["urn:example:ocg:evidence:pipeline-functional-test"],
+      "environment_refs": ["urn:example:ocg:environment:python-3.14"],
+      "policy_refs": ["urn:example:ocg:policy:verified-compatibility-only"],
+      "lifecycle": "verified"
+    }
+  ],
+  "relations": [
+    {
+      "id": "urn:example:ocg:relation:normalize-implements",
+      "kind": "implements",
+      "source": {"subject_ref": "urn:example:ocg:implementation:normalize-customer-python"},
+      "target": {"subject_ref": "urn:example:ocg:capability:normalize-customer"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "evidence_refs": ["urn:example:ocg:evidence:pipeline-functional-test"]
+    },
+    {
+      "id": "urn:example:ocg:relation:adapter-implements",
+      "kind": "implements",
+      "source": {"subject_ref": "urn:example:ocg:implementation:export-customer-python"},
+      "target": {"subject_ref": "urn:example:ocg:capability:adapt-customer-export"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "evidence_refs": ["urn:example:ocg:evidence:adapter-functional-test"]
+    },
+    {
+      "id": "urn:example:ocg:relation:emit-implements",
+      "kind": "implements",
+      "source": {"subject_ref": "urn:example:ocg:implementation:emit-json-python"},
+      "target": {"subject_ref": "urn:example:ocg:capability:emit-json"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "evidence_refs": ["urn:example:ocg:evidence:pipeline-functional-test"]
+    },
+    {
+      "id": "urn:example:ocg:relation:normalize-to-adapter-compatible",
+      "kind": "compatibility",
+      "source": {"subject_ref": "urn:example:ocg:action:normalize-customer", "port_id": "record-out"},
+      "target": {"subject_ref": "urn:example:ocg:action:adapt-customer-export", "port_id": "record-in"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "compatibility": {
+        "relationship": "identical",
+        "mechanism": "direct",
+        "lossiness": "none",
+        "assurance": ["deterministically_checked"],
+        "join_decision": "eligible_direct",
+        "source_contract_digest": "sha256:06870363cb53b8c0ab243e3548c51b1490d80295813b37311d083d454575c19d",
+        "target_contract_digest": "sha256:06870363cb53b8c0ab243e3548c51b1490d80295813b37311d083d454575c19d",
+        "checker_ref": "urn:example:ocg:artifact:ocg-conformance-checker",
+        "checker_digest": "sha256:9d1887f8743b572eb763736562541a78c19a8bee4a7ef47a5bf28f4829d18bd8",
+        "explanation": "The producer and consumer reference the same immutable native contract digest."
+      },
+      "evidence_refs": [
+        "urn:example:ocg:evidence:normalized-contract-identity",
+        "urn:example:ocg:evidence:pipeline-functional-test",
+        "urn:example:ocg:evidence:adapter-functional-test"
+      ],
+      "measures": [
+        {
+          "metric": "urn:example:ocg:metric:contract-byte-identity",
+          "value": true,
+          "provenance": "measured",
+          "procedure_ref": "urn:example:ocg:procedure:contract-digest-equality-v1",
+          "objective": "informational",
+          "evidence_refs": ["urn:example:ocg:evidence:normalized-contract-identity"],
+          "observed_at": "2026-07-11T00:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "urn:example:ocg:relation:normalize-to-adapter-flow",
+      "kind": "flow",
+      "source": {"subject_ref": "urn:example:ocg:action:normalize-customer", "port_id": "record-out"},
+      "target": {"subject_ref": "urn:example:ocg:action:adapt-customer-export", "port_id": "record-in"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "evidence_refs": ["urn:example:ocg:evidence:pipeline-functional-test"]
+    },
+    {
+      "id": "urn:example:ocg:relation:adapter-to-emitter-compatible",
+      "kind": "compatibility",
+      "source": {"subject_ref": "urn:example:ocg:action:adapt-customer-export", "port_id": "record-out"},
+      "target": {"subject_ref": "urn:example:ocg:action:emit-json", "port_id": "record-in"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "compatibility": {
+        "relationship": "identical",
+        "mechanism": "direct",
+        "lossiness": "none",
+        "assurance": ["deterministically_checked"],
+        "join_decision": "eligible_direct",
+        "source_contract_digest": "sha256:7163c39a7be9688f8827c8a1037f816bac9978b4b6dd5beef69ea0d194370d3f",
+        "target_contract_digest": "sha256:7163c39a7be9688f8827c8a1037f816bac9978b4b6dd5beef69ea0d194370d3f",
+        "checker_ref": "urn:example:ocg:artifact:ocg-conformance-checker",
+        "checker_digest": "sha256:9d1887f8743b572eb763736562541a78c19a8bee4a7ef47a5bf28f4829d18bd8",
+        "explanation": "The producer and consumer reference the same immutable native contract digest."
+      },
+      "evidence_refs": [
+        "urn:example:ocg:evidence:export-contract-identity",
+        "urn:example:ocg:evidence:adapter-functional-test",
+        "urn:example:ocg:evidence:pipeline-functional-test"
+      ]
+    },
+    {
+      "id": "urn:example:ocg:relation:normalized-to-export-adapter",
+      "kind": "adapter",
+      "source": {"subject_ref": "urn:example:ocg:contract:normalized-customer-record"},
+      "target": {"subject_ref": "urn:example:ocg:contract:export-customer-record"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "adapter_ref": "urn:example:ocg:adapter:normalized-to-export",
+      "evidence_refs": ["urn:example:ocg:evidence:adapter-functional-test"],
+      "measures": [
+        {
+          "metric": "urn:example:ocg:metric:field-information-loss-count",
+          "value": 0,
+          "provenance": "measured",
+          "procedure_ref": "urn:example:ocg:procedure:adapter-field-preservation-test-v1",
+          "unit": "urn:example:ocg:unit:count",
+          "objective": "minimize",
+          "evidence_refs": ["urn:example:ocg:evidence:adapter-functional-test"],
+          "observed_at": "2026-07-11T00:45:00Z"
+        }
+      ]
+    },
+    {
+      "id": "urn:example:ocg:relation:normalize-to-emitter-requires-adapter",
+      "kind": "compatibility",
+      "source": {"subject_ref": "urn:example:ocg:action:normalize-customer", "port_id": "record-out"},
+      "target": {"subject_ref": "urn:example:ocg:action:emit-json", "port_id": "record-in"},
+      "direction": "source_to_target",
+      "status": "verified",
+      "compatibility": {
+        "relationship": "transformable",
+        "mechanism": "adapter",
+        "lossiness": "total_lossless",
+        "assurance": ["deterministically_checked", "behaviorally_qualified"],
+        "join_decision": "requires_adapter",
+        "source_contract_digest": "sha256:06870363cb53b8c0ab243e3548c51b1490d80295813b37311d083d454575c19d",
+        "target_contract_digest": "sha256:7163c39a7be9688f8827c8a1037f816bac9978b4b6dd5beef69ea0d194370d3f",
+        "checker_ref": "urn:example:ocg:artifact:ocg-conformance-checker",
+        "checker_digest": "sha256:9d1887f8743b572eb763736562541a78c19a8bee4a7ef47a5bf28f4829d18bd8",
+        "adapter_ref": "urn:example:ocg:adapter:normalized-to-export",
+        "explanation": "The values are not directly contract-identical; the verified field-renaming adapter is required."
+      },
+      "evidence_refs": [
+        "urn:example:ocg:evidence:adapter-functional-test",
+        "urn:example:ocg:evidence:pipeline-functional-test"
+      ]
+    },
+    {
+      "id": "urn:example:ocg:relation:tuned-derived-from-general",
+      "kind": "derives_from",
+      "source": {"subject_ref": "urn:example:ocg:representation:normalize-intent-tuned"},
+      "target": {"subject_ref": "urn:example:ocg:representation:normalize-intent-general"},
+      "direction": "source_to_target",
+      "status": "candidate",
+      "evidence_refs": ["urn:example:ocg:evidence:embedding-tuning-lineage"]
+    }
+  ],
+  "adapters": [
+    {
+      "id": "urn:example:ocg:adapter:normalized-to-export",
+      "source_contract_ref": "urn:example:ocg:contract:normalized-customer-record",
+      "target_contract_ref": "urn:example:ocg:contract:export-customer-record",
+      "classification": "total_lossless",
+      "operations": [
+        {"op": "rename", "from": "$.email", "to": "$.email_address"}
+      ],
+      "action_ref": "urn:example:ocg:action:adapt-customer-export",
+      "evidence_refs": ["urn:example:ocg:evidence:adapter-functional-test"],
+      "lifecycle": "verified"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "urn:example:ocg:artifact:normalize-customer-python",
+      "digest": "sha256:d47864e2dead78f6f1c1b1d00ff4346f9a8f3401999f927955377a2af5706244",
+      "media_type": "text/x-python",
+      "size_bytes": 406,
+      "locators": [{"uri": "implementations/normalize_customer.py", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:implementation:normalize-customer-python", "urn:example:ocg:action:normalize-customer"],
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:artifact:export-customer-python",
+      "digest": "sha256:32ad4d371337ba59a75324d1236206694f62308e26164da724592251a88fd007",
+      "media_type": "text/x-python",
+      "size_bytes": 198,
+      "locators": [{"uri": "implementations/export_customer.py", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:implementation:export-customer-python", "urn:example:ocg:action:adapt-customer-export"],
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:artifact:emit-json-python",
+      "digest": "sha256:19fc9ad1e595c9feede28d7cbe1f95bf3b386498154dc7ad8d643e08b320a35d",
+      "media_type": "text/x-python",
+      "size_bytes": 275,
+      "locators": [{"uri": "implementations/emit_json.py", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:implementation:emit-json-python", "urn:example:ocg:action:emit-json"],
+      "lifecycle": "verified"
+    },
+    {
+      "id": "urn:example:ocg:artifact:normalize-intent-view",
+      "digest": "sha256:bf3dd0e6da4b70a56be2be7d1df3fe4a0b6a0b232ed79a3338583fb97a534bda",
+      "media_type": "text/plain",
+      "size_bytes": 90,
+      "locators": [{"uri": "views/normalize-customer-intent.txt", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:capability:normalize-customer"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:normalize-effects-view",
+      "digest": "sha256:73ac55df701f49dfd79a4cc56ba4f0e01dc3650d7584964c7734ee35b633f884",
+      "media_type": "text/plain",
+      "size_bytes": 111,
+      "locators": [{"uri": "views/normalize-customer-effects.txt", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:capability:normalize-customer"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:embedding-training-examples",
+      "digest": "sha256:a67a64f0eb23d19fab60e4cb5ed03f4afb6263e21e4c5718897c47addb6b0d30",
+      "media_type": "application/x-ndjson",
+      "size_bytes": 379,
+      "locators": [{"uri": "embeddings/training-examples.jsonl", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:representation:normalize-intent-tuned"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:embedding-tuning-recipe",
+      "digest": "sha256:b9f28ce761bb7ab35791ee903a909daa9a743cf930b42a8ac953a4f1ed6b05a2",
+      "media_type": "application/json",
+      "size_bytes": 186,
+      "locators": [{"uri": "embeddings/tuning-recipe.json", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:representation:normalize-intent-tuned"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:embedding-domain-adapter",
+      "digest": "sha256:3cd154740505cb5d5ac911af7e05b84a9ab7034987f5580d69293342f3b20777",
+      "media_type": "application/json",
+      "size_bytes": 236,
+      "locators": [{"uri": "embeddings/domain-adapter.json", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:representation:normalize-intent-tuned"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:general-intent-projection-recipe",
+      "digest": "sha256:72fa32f6c9a0e71aee7e3460c13a7b1b645be53c3f6191a1ee8691fe1845d92e",
+      "media_type": "application/json",
+      "size_bytes": 206,
+      "locators": [{"uri": "embeddings/general-intent-recipe.json", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:representation:normalize-intent-general"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:domain-intent-projection-recipe",
+      "digest": "sha256:bdfd517f3b8be7da2b93c83047781f7dc034a13a6d4b28e6e5378b97a927a89d",
+      "media_type": "application/json",
+      "size_bytes": 208,
+      "locators": [{"uri": "embeddings/domain-intent-recipe.json", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:representation:normalize-intent-tuned"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:behavior-multivector-projection-recipe",
+      "digest": "sha256:cf57dc51336811d54f7ca4dce738a4bb67a5bea174cd462bbfea87f470570eab",
+      "media_type": "application/json",
+      "size_bytes": 251,
+      "locators": [{"uri": "embeddings/behavior-multivector-recipe.json", "priority": 0}],
+      "subject_refs": ["urn:example:ocg:representation:normalize-effects-multivector"],
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:artifact:ocg-conformance-checker",
+      "digest": "sha256:9d1887f8743b572eb763736562541a78c19a8bee4a7ef47a5bf28f4829d18bd8",
+      "media_type": "text/x-python",
+      "size_bytes": 69653,
+      "locators": [
+        {
+          "uri": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/blob/main/src/aidevobserver_fabric/ocg_conformance.py",
+          "priority": 0
+        }
+      ],
+      "subject_refs": [
+        "urn:example:ocg:relation:normalize-to-adapter-compatible",
+        "urn:example:ocg:relation:adapter-to-emitter-compatible",
+        "urn:example:ocg:relation:normalize-to-emitter-requires-adapter"
+      ],
+      "lifecycle": "verified"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "urn:example:ocg:evidence:pipeline-functional-test",
+      "subject_refs": [
+        "urn:example:ocg:action:normalize-customer",
+        "urn:example:ocg:action:adapt-customer-export",
+        "urn:example:ocg:action:emit-json",
+        "urn:example:ocg:implementation:normalize-customer-python",
+        "urn:example:ocg:implementation:export-customer-python",
+        "urn:example:ocg:implementation:emit-json-python",
+        "urn:example:ocg:artifact:normalize-customer-python",
+        "urn:example:ocg:artifact:export-customer-python",
+        "urn:example:ocg:artifact:emit-json-python"
+      ],
+      "subject_digests": [
+        {"subject_ref": "urn:example:ocg:action:normalize-customer", "digest": "sha256:05faeb7b3f08e7cb6c8959b7f057844664cdab64f39fb90d823ecd28d8fe3c76", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:action:adapt-customer-export", "digest": "sha256:213f3e8643b5fb3913060f725e2329f18a483dc829f0d1008b6e9c4997fdea35", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:action:emit-json", "digest": "sha256:a0bf3b8284e50947c0013a90c44311ccc8ca44fe356ac701bd2c00a45a882d7e", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:implementation:normalize-customer-python", "digest": "sha256:cf09c81f7553d4e50f6808b20a7a30dd99f6867d07acf29fdc2865ce0915ddbf", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:implementation:export-customer-python", "digest": "sha256:b28fa2d05d0141b83602740bb53ddfda318088169f046cf70f924111d1dd6bb0", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:implementation:emit-json-python", "digest": "sha256:8d0e55e080f9ffdd08f36a3d8bfc61f2cc2172edea5482cd57412fb60ba29bc2", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:artifact:normalize-customer-python", "digest": "sha256:639adab360efb3816510feb676ebed1bf21d03b2581510c3d2697583d2495939", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:artifact:export-customer-python", "digest": "sha256:7a5ce18cd0fbd399ca299f479267d8c793edc456d278a8fa34c52678c5a77732", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:artifact:emit-json-python", "digest": "sha256:5fce9a8e898d72efc895b4eb3cfacab886dfb7fa09d88cd2a365f73d32f50b3a", "canonicalization": "rfc8785"}
+      ],
+      "claim_type": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/claims/action-contract-conformance",
+      "predicate_type": "urn:example:ocg:evidence:unittest-result:0.1",
+      "result": "pass",
+      "tool": {"name": "python-unittest", "version": "3.14.4"},
+      "measures": [
+        {"metric": "urn:example:ocg:metric:executed-example-count", "value": 1, "provenance": "declared", "unit": "urn:example:ocg:unit:count", "objective": "maximize"}
+      ],
+      "issuer": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric",
+      "observed_at": "2026-07-11T00:45:00Z",
+      "coverage_and_gaps": {"covers": ["happy-path transformation", "deterministic JSON output"], "does_not_claim": ["universal input correctness", "email deliverability"]}
+    },
+    {
+      "id": "urn:example:ocg:evidence:adapter-functional-test",
+      "subject_refs": [
+        "urn:example:ocg:adapter:normalized-to-export",
+        "urn:example:ocg:action:adapt-customer-export",
+        "urn:example:ocg:implementation:export-customer-python",
+        "urn:example:ocg:artifact:export-customer-python",
+        "urn:example:ocg:relation:normalize-to-emitter-requires-adapter"
+      ],
+      "subject_digests": [
+        {
+          "subject_ref": "urn:example:ocg:adapter:normalized-to-export",
+          "digest": "sha256:c829e96b420873b469c825321ef9a5c4fc77df8759ffb07dda13ab6f5ae30efe",
+          "canonicalization": "rfc8785"
+        },
+        {"subject_ref": "urn:example:ocg:action:adapt-customer-export", "digest": "sha256:213f3e8643b5fb3913060f725e2329f18a483dc829f0d1008b6e9c4997fdea35", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:implementation:export-customer-python", "digest": "sha256:b28fa2d05d0141b83602740bb53ddfda318088169f046cf70f924111d1dd6bb0", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:artifact:export-customer-python", "digest": "sha256:7a5ce18cd0fbd399ca299f479267d8c793edc456d278a8fa34c52678c5a77732", "canonicalization": "rfc8785"},
+        {"subject_ref": "urn:example:ocg:relation:normalize-to-emitter-requires-adapter", "digest": "sha256:d18ee072ad5e275ed166d8b0dd27864bcea6ed366cf90b9f093c317b27f995c6", "canonicalization": "rfc8785"}
+      ],
+      "claim_type": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/claims/adapter-conformance",
+      "predicate_type": "urn:example:ocg:evidence:unittest-result:0.1",
+      "result": "pass",
+      "contract_digest": "sha256:7163c39a7be9688f8827c8a1037f816bac9978b4b6dd5beef69ea0d194370d3f",
+      "artifact_digest": "sha256:32ad4d371337ba59a75324d1236206694f62308e26164da724592251a88fd007",
+      "tool": {"name": "python-unittest", "version": "3.14.4"},
+      "issuer": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric",
+      "observed_at": "2026-07-11T00:45:00Z",
+      "coverage_and_gaps": {"covers": ["name preservation", "email-to-email_address rename"], "does_not_claim": ["all possible Unicode behavior"]}
+    },
+    {
+      "id": "urn:example:ocg:evidence:normalized-contract-identity",
+      "subject_refs": ["urn:example:ocg:relation:normalize-to-adapter-compatible"],
+      "subject_digests": [
+        {
+          "subject_ref": "urn:example:ocg:relation:normalize-to-adapter-compatible",
+          "digest": "sha256:8c0643811c78eb247aa9808eccf80800eec1820025c24e653118ec316d870b05",
+          "canonicalization": "rfc8785"
+        }
+      ],
+      "claim_type": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/claims/contract-identity",
+      "result": "pass",
+      "contract_digest": "sha256:06870363cb53b8c0ab243e3548c51b1490d80295813b37311d083d454575c19d",
+      "tool": {"name": "ocg-conformance", "version": "0.1.0-draft", "digest": "sha256:9d1887f8743b572eb763736562541a78c19a8bee4a7ef47a5bf28f4829d18bd8"},
+      "issuer": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric",
+      "observed_at": "2026-07-11T00:45:00Z"
+    },
+    {
+      "id": "urn:example:ocg:evidence:export-contract-identity",
+      "subject_refs": ["urn:example:ocg:relation:adapter-to-emitter-compatible"],
+      "subject_digests": [
+        {
+          "subject_ref": "urn:example:ocg:relation:adapter-to-emitter-compatible",
+          "digest": "sha256:dfb00e9c9833ebb7d33e649043d64ab4e002015acd09a6833f18cf59e0e609be",
+          "canonicalization": "rfc8785"
+        }
+      ],
+      "claim_type": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/claims/contract-identity",
+      "result": "pass",
+      "contract_digest": "sha256:7163c39a7be9688f8827c8a1037f816bac9978b4b6dd5beef69ea0d194370d3f",
+      "tool": {"name": "ocg-conformance", "version": "0.1.0-draft", "digest": "sha256:9d1887f8743b572eb763736562541a78c19a8bee4a7ef47a5bf28f4829d18bd8"},
+      "issuer": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric",
+      "observed_at": "2026-07-11T00:45:00Z"
+    },
+    {
+      "id": "urn:example:ocg:evidence:embedding-tuning-lineage",
+      "subject_refs": [
+        "urn:example:ocg:representation:normalize-intent-tuned",
+        "urn:example:ocg:artifact:embedding-training-examples",
+        "urn:example:ocg:artifact:embedding-tuning-recipe",
+        "urn:example:ocg:artifact:embedding-domain-adapter"
+      ],
+      "claim_type": "urn:example:ocg:claim:embedding-lineage-recorded",
+      "result": "pass",
+      "tool": {"name": "ocg-conformance", "version": "0.1.0-draft"},
+      "issuer": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric",
+      "observed_at": "2026-07-11T00:45:00Z",
+      "coverage_and_gaps": {"covers": ["artifact identity and lineage"], "does_not_claim": ["retrieval quality", "model training execution"]}
+    }
+  ],
+  "representations": [
+    {
+      "id": "urn:example:ocg:representation:normalize-intent-lexical",
+      "subject_ref": "urn:example:ocg:capability:normalize-customer",
+      "view_kind": "urn:example:ocg:view:intent",
+      "source_digest": "sha256:bf3dd0e6da4b70a56be2be7d1df3fe4a0b6a0b232ed79a3338583fb97a534bda",
+      "modality": "text",
+      "encoding": "lexical",
+      "text": "Normalize a customer name and email into a stable validated record for downstream export.",
+      "lifecycle": "active"
+    },
+    {
+      "id": "urn:example:ocg:representation:normalize-intent-general",
+      "subject_ref": "urn:example:ocg:capability:normalize-customer",
+      "view_kind": "urn:example:ocg:view:intent",
+      "source_digest": "sha256:bf3dd0e6da4b70a56be2be7d1df3fe4a0b6a0b232ed79a3338583fb97a534bda",
+      "modality": "text",
+      "encoding": "dense_vector",
+      "projection_recipe": {
+        "id": "urn:example:ocg:projection:general-intent-v1",
+        "digest": "sha256:72fa32f6c9a0e71aee7e3460c13a7b1b645be53c3f6191a1ee8691fe1845d92e"
+      },
+      "embedding": {
+        "space_id": "urn:example:ocg:embedding-space:general-text-2026-06",
+        "model": {"id": "urn:example:ocg:model:general-text", "revision": "2026-06", "task": "symmetric"},
+        "dimensions": 4,
+        "dtype": "float32",
+        "normalization": "none",
+        "distance": "cosine",
+        "generation": {"generated_at": "2026-07-11T00:45:00Z", "generator": "illustrative-fixed-vector"},
+        "vector": [0.72, 0.31, -0.18, 0.59]
+      },
+      "lifecycle": "active",
+      "metadata": {"illustrative_vector": true}
+    },
+    {
+      "id": "urn:example:ocg:representation:normalize-intent-tuned",
+      "subject_ref": "urn:example:ocg:capability:normalize-customer",
+      "view_kind": "urn:example:ocg:view:intent",
+      "source_digest": "sha256:bf3dd0e6da4b70a56be2be7d1df3fe4a0b6a0b232ed79a3338583fb97a534bda",
+      "modality": "text",
+      "encoding": "dense_vector",
+      "projection_recipe": {
+        "id": "urn:example:ocg:projection:domain-intent-v1",
+        "digest": "sha256:bdfd517f3b8be7da2b93c83047781f7dc034a13a6d4b28e6e5378b97a927a89d"
+      },
+      "embedding": {
+        "space_id": "urn:example:ocg:embedding-space:customer-domain-2026-07",
+        "model": {
+          "id": "urn:example:ocg:model:customer-domain-text",
+          "revision": "2026-07-adapter-1",
+          "task": "symmetric",
+          "base_model_ref": "urn:example:ocg:model:general-text",
+          "tuning": {
+            "adapter_digest": "sha256:3cd154740505cb5d5ac911af7e05b84a9ab7034987f5580d69293342f3b20777",
+            "training_data_digest": "sha256:a67a64f0eb23d19fab60e4cb5ed03f4afb6263e21e4c5718897c47addb6b0d30",
+            "training_recipe_digest": "sha256:b9f28ce761bb7ab35791ee903a909daa9a743cf930b42a8ac953a4f1ed6b05a2",
+            "evaluation_refs": ["urn:example:ocg:evidence:embedding-tuning-lineage"]
+          }
+        },
+        "dimensions": 4,
+        "dtype": "float32",
+        "normalization": "none",
+        "distance": "cosine",
+        "generation": {"generated_at": "2026-07-11T00:45:00Z", "generator": "illustrative-fixed-vector"},
+        "vector": [0.81, 0.24, -0.12, 0.51]
+      },
+      "evaluation_refs": ["urn:example:ocg:evidence:embedding-tuning-lineage"],
+      "lifecycle": "candidate",
+      "metadata": {"illustrative_vector": true, "training_executed": false}
+    },
+    {
+      "id": "urn:example:ocg:representation:normalize-effects-multivector",
+      "subject_ref": "urn:example:ocg:action:normalize-customer",
+      "view_kind": "urn:example:ocg:view:effects-and-behavior",
+      "source_digest": "sha256:73ac55df701f49dfd79a4cc56ba4f0e01dc3650d7584964c7734ee35b633f884",
+      "modality": "text",
+      "encoding": "multivector",
+      "projection_recipe": {
+        "id": "urn:example:ocg:projection:behavior-multivector-v1",
+        "digest": "sha256:cf57dc51336811d54f7ca4dce738a4bb67a5bea174cd462bbfea87f470570eab"
+      },
+      "embedding": {
+        "space_id": "urn:example:ocg:embedding-space:behavior-multivector-2026-06",
+        "model": {"id": "urn:example:ocg:model:behavior-text", "revision": "2026-06", "task": "document"},
+        "dimensions": 4,
+        "dtype": "float32",
+        "normalization": "none",
+        "distance": "cosine",
+        "pooling": "late-interaction-maxsim",
+        "generation": {"generated_at": "2026-07-11T00:45:00Z", "generator": "illustrative-fixed-vector"},
+        "vector": [[0.91, 0.03, 0.16, -0.22], [0.84, -0.08, 0.25, -0.19]]
+      },
+      "lifecycle": "active",
+      "metadata": {"illustrative_vector": true}
+    },
+    {
+      "id": "urn:example:ocg:representation:normalize-graph-features",
+      "subject_ref": "urn:example:ocg:action:normalize-customer",
+      "view_kind": "urn:example:ocg:view:local-contract-graph",
+      "source_digest": "sha256:06870363cb53b8c0ab243e3548c51b1490d80295813b37311d083d454575c19d",
+      "modality": "graph",
+      "encoding": "graph_features",
+      "features": {"input_ports": 1, "output_ports": 1, "error_ports": 0, "declared_effects": 0},
+      "lifecycle": "active"
+    }
+  ],
+  "search_profiles": [
+    {
+      "id": "urn:example:ocg:search-profile:hybrid-capability-discovery",
+      "version": "0.1.0",
+      "created_at": "2026-07-11T00:45:00Z",
+      "description": "Retrieve candidates through lexical, general-vector, tuned-vector, behavior-multivector, and graph stages; fuse ranks without treating scores as compatibility evidence.",
+      "status": "candidate",
+      "hard_gates": [
+        {"field": "lifecycle", "operator": "not_in", "value": ["revoked", "rejected"]}
+      ],
+      "stages": [
+        {
+          "id": "lexical",
+          "kind": "lexical",
+          "representation_refs": ["urn:example:ocg:representation:normalize-intent-lexical"],
+          "query_view": "urn:example:ocg:view:intent",
+          "candidate_limit": 200
+        },
+        {
+          "id": "general-dense",
+          "kind": "dense_vector",
+          "representation_refs": ["urn:example:ocg:representation:normalize-intent-general"],
+          "query_view": "urn:example:ocg:view:intent",
+          "candidate_limit": 200
+        },
+        {
+          "id": "domain-tuned-dense",
+          "kind": "dense_vector",
+          "representation_refs": ["urn:example:ocg:representation:normalize-intent-tuned"],
+          "query_view": "urn:example:ocg:view:intent",
+          "candidate_limit": 200,
+          "parameters": {"enabled_when": "space_available"}
+        },
+        {
+          "id": "behavior-multivector",
+          "kind": "multivector",
+          "representation_refs": ["urn:example:ocg:representation:normalize-effects-multivector"],
+          "query_view": "urn:example:ocg:view:effects-and-behavior",
+          "candidate_limit": 100
+        },
+        {
+          "id": "contract-graph",
+          "kind": "graph",
+          "representation_refs": ["urn:example:ocg:representation:normalize-graph-features"],
+          "query_view": "urn:example:ocg:view:local-contract-graph",
+          "candidate_limit": 100
+        }
+      ],
+      "fusion": {
+        "method": "rrf",
+        "inputs": [
+          {"stage_ref": "lexical", "weight": 1.0},
+          {"stage_ref": "general-dense", "weight": 0.8},
+          {"stage_ref": "domain-tuned-dense", "weight": 1.2},
+          {"stage_ref": "behavior-multivector", "weight": 0.7},
+          {"stage_ref": "contract-graph", "weight": 1.1}
+        ],
+        "parameters": {"rrf_k": 60, "weights_are_query_preferences_not_truth": true}
+      },
+      "eligibility_policy_ref": "urn:example:ocg:policy:verified-compatibility-only",
+      "output": {
+        "limit": 20,
+        "diversify_by": ["implementation_ref", "delivery_mode"],
+        "include_fields": ["id", "label", "lifecycle", "contract_refs", "evidence_refs"]
+      }
+    }
+  ],
+  "extensions": {
+    "example:notes": {
+      "vectors": "Illustrative fixed values demonstrate metadata and conformance only; no retrieval-quality claim is made.",
+      "execution_boundary": "Only compatibility relations with explicit decisions participate in admission."
+    }
+  }
+}

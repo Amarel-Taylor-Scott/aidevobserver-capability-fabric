@@ -1,0 +1,1 @@
+Normalize a customer name and email into a stable validated record for downstream export.

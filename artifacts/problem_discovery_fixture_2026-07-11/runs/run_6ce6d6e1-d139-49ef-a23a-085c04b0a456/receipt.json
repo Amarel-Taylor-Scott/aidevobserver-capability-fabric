@@ -1,0 +1,34 @@
+{
+  "candidate_only": true,
+  "code_digest": "sha256:caed68f80e9d47673ed553a7f0c0177b21fa661061e25b19991eacd3d057faf2",
+  "config_digest": "sha256:22ae2c78abe1a5c0fb96467d8346ad5852adc11802386d71872cbb0327337e76",
+  "counts": {
+    "clusters": 1,
+    "clusters_build_gate_passed": 1,
+    "fixture_tests_failed": 0,
+    "fixture_tests_passed": 1,
+    "historical_signals_considered": 3,
+    "observations": 3,
+    "primitive_candidates_built": 1,
+    "signals": 3,
+    "sources_failed": 0,
+    "sources_requested": 3,
+    "sources_skipped": 0,
+    "sources_succeeded": 3
+  },
+  "finished_at": "2026-07-11T05:31:22.029072Z",
+  "loop_id": "aidevobserver.business_friction_to_primitive.v1",
+  "next_queries": [
+    "reconciliation account day deterministic"
+  ],
+  "promotion_decision": "none",
+  "receipt_digest": "sha256:238f30b17b15aedc94d342a590aa27d4c955ea94985406538b58696aa2f43992",
+  "run_id": "run:6ce6d6e1-d139-49ef-a23a-085c04b0a456",
+  "serves_truth": false,
+  "source_attempt_statuses": {
+    "cfpb.complaints": "complete",
+    "github.operational_issues": "complete",
+    "stackexchange.workflow_questions": "complete"
+  },
+  "status": "complete"
+}

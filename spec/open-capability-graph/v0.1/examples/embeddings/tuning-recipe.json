@@ -1,0 +1,8 @@
+{
+  "method": "contrastive_adapter",
+  "base_model": "urn:example:ocg:example:model:general-text",
+  "base_revision": "2026-06",
+  "epochs": 2,
+  "learning_rate": 0.0001,
+  "seed": 17
+}

@@ -1,0 +1,22 @@
+{
+  "candidate_only": true,
+  "cluster_id": "problem.cluster.3c05820b10b73c4de8802bda",
+  "evidence_digests": [
+    "sha256:a50f9fd935e7666c0e7496ed345ea197205d403f0933f0e9ecc1a530a7a8085b",
+    "sha256:e300775e9e8c938569118fd627ee70ce597493065d72ec77526658c20b50085a",
+    "sha256:e3f8e54161e4585eac717272c7ccbadfd887c395251770f31e3ef11bf963b470"
+  ],
+  "interpretation_status": "candidate",
+  "problem_statement": "Manually reconcile invoice and payment exports Our accounts payable team has to manually reconcile invoice exports with payment records in the ERP every day. The workaround is to export both CSV files, compare invoice identifiers, and create an exception queue by hand. We need a deterministic matched-record and exception report.",
+  "serves_truth": false,
+  "source_classes": [
+    "consumer_complaint",
+    "software_issue",
+    "technical_question"
+  ],
+  "source_refs": [
+    "https://github.com/frappe/erpnext/issues/4101",
+    "https://stackoverflow.com/questions/82002/reconcile-invoices-payments",
+    "https://www.consumerfinance.gov/data-research/consumer-complaints/search/detail/73003"
+  ]
+}

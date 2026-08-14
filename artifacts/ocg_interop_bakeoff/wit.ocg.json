@@ -1,0 +1,401 @@
+{
+  "$schema": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/raw/main/spec/open-capability-graph/v0.1/schemas/open-capability-graph.schema.json",
+  "actions": [
+    {
+      "capability_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "description": "Imported WIT function customer-normalization.normalize-customer candidate.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:53287dfe-4e6e-5b83-b098-1978de2dd3d7",
+      "implementation_ref": "urn:uuid:e805388d-b632-5174-940c-27dd2ee0b0f8",
+      "label": "normalize-customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "wit",
+        "source_pointer": "/interfaces/0/functions/normalize-customer"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:68e61942-2975-5b0a-96ff-416eaec323fb",
+          "direction": "input",
+          "id": "customer",
+          "label": "customer",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/interfaces/0/functions/normalize-customer/params/0"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:0e41cd1e-38eb-53b5-afc0-be8f3c50272d",
+          "direction": "output",
+          "id": "result",
+          "label": "normalize-customer result",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/interfaces/0/functions/normalize-customer/result"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+      "id": "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c",
+      "lifecycle": "candidate",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "data:application/json;base64,eyJpbnRlcmZhY2VzIjpbeyJmdW5jdGlvbnMiOnsibm9ybWFsaXplLWN1c3RvbWVyIjp7ImtpbmQiOiJmcmVlc3RhbmRpbmciLCJuYW1lIjoibm9ybWFsaXplLWN1c3RvbWVyIiwicGFyYW1zIjpbeyJuYW1lIjoiY3VzdG9tZXIiLCJ0eXBlIjowfV0sInJlc3VsdCI6Mn19LCJuYW1lIjoiY3VzdG9tZXItbm9ybWFsaXphdGlvbiIsInBhY2thZ2UiOjAsInR5cGVzIjp7Im5vcm1hbGl6ZWQtY3VzdG9tZXIiOjEsInJhdy1jdXN0b21lciI6MH19XSwicGFja2FnZXMiOlt7ImludGVyZmFjZXMiOnsiY3VzdG9tZXItbm9ybWFsaXphdGlvbiI6MH0sIm5hbWUiOiJleGFtcGxlOmN1c3RvbWVyQDAuMS4wIiwid29ybGRzIjp7fX1dLCJ0eXBlcyI6W3sia2luZCI6eyJyZWNvcmQiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbCIsInR5cGUiOiJzdHJpbmcifV19fSwibmFtZSI6InJhdy1jdXN0b21lciIsIm93bmVyIjp7ImludGVyZmFjZSI6MH19LHsia2luZCI6eyJyZWNvcmQiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbCIsInR5cGUiOiJzdHJpbmcifV19fSwibmFtZSI6Im5vcm1hbGl6ZWQtY3VzdG9tZXIiLCJvd25lciI6eyJpbnRlcmZhY2UiOjB9fSx7ImtpbmQiOnsicmVzdWx0Ijp7ImVyciI6InN0cmluZyIsIm9rIjoxfX0sIm5hbWUiOm51bGwsIm93bmVyIjpudWxsfV0sIndvcmxkcyI6W119"
+        }
+      ],
+      "media_type": "application/json",
+      "metadata": {
+        "normalizer": {
+          "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+          "binary_size_bytes": 19172248,
+          "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+          "id": "wasm-tools component wit --json",
+          "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+        },
+        "role": "normalized-interface-projection"
+      },
+      "size_bytes": 738
+    },
+    {
+      "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+      "id": "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2",
+      "lifecycle": "candidate",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "urn:example:ocg:interop-fixture:customer.wit"
+        }
+      ],
+      "media_type": "text/wit",
+      "metadata": {
+        "role": "authoritative-raw-wit-source"
+      },
+      "size_bytes": 326
+    },
+    {
+      "digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+      "id": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a",
+      "lifecycle": "candidate",
+      "locators": [
+        {
+          "priority": 0,
+          "uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux"
+        }
+      ],
+      "media_type": "application/octet-stream",
+      "metadata": {
+        "role": "wit-normalizer-binary",
+        "tool": "wasm-tools component wit --json",
+        "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+      },
+      "size_bytes": 19172248
+    }
+  ],
+  "description": "Loss-aware wit import. Native values are preserved; compatibility and execution authorization are not established.",
+  "extensions": {
+    "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/extensions/native-import-report": {
+      "contract_profile_claimed": false,
+      "execution_authorization": "not_established",
+      "format_reference": "https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md",
+      "normalized_payload_uri": "data:application/json;base64,eyJpbnRlcmZhY2VzIjpbeyJmdW5jdGlvbnMiOnsibm9ybWFsaXplLWN1c3RvbWVyIjp7ImtpbmQiOiJmcmVlc3RhbmRpbmciLCJuYW1lIjoibm9ybWFsaXplLWN1c3RvbWVyIiwicGFyYW1zIjpbeyJuYW1lIjoiY3VzdG9tZXIiLCJ0eXBlIjowfV0sInJlc3VsdCI6Mn19LCJuYW1lIjoiY3VzdG9tZXItbm9ybWFsaXphdGlvbiIsInBhY2thZ2UiOjAsInR5cGVzIjp7Im5vcm1hbGl6ZWQtY3VzdG9tZXIiOjEsInJhdy1jdXN0b21lciI6MH19XSwicGFja2FnZXMiOlt7ImludGVyZmFjZXMiOnsiY3VzdG9tZXItbm9ybWFsaXphdGlvbiI6MH0sIm5hbWUiOiJleGFtcGxlOmN1c3RvbWVyQDAuMS4wIiwid29ybGRzIjp7fX1dLCJ0eXBlcyI6W3sia2luZCI6eyJyZWNvcmQiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbCIsInR5cGUiOiJzdHJpbmcifV19fSwibmFtZSI6InJhdy1jdXN0b21lciIsIm93bmVyIjp7ImludGVyZmFjZSI6MH19LHsia2luZCI6eyJyZWNvcmQiOnsiZmllbGRzIjpbeyJuYW1lIjoibmFtZSIsInR5cGUiOiJzdHJpbmcifSx7Im5hbWUiOiJlbWFpbCIsInR5cGUiOiJzdHJpbmcifV19fSwibmFtZSI6Im5vcm1hbGl6ZWQtY3VzdG9tZXIiLCJvd25lciI6eyJpbnRlcmZhY2UiOjB9fSx7ImtpbmQiOnsicmVzdWx0Ijp7ImVyciI6InN0cmluZyIsIm9rIjoxfX0sIm5hbWUiOm51bGwsIm93bmVyIjpudWxsfV0sIndvcmxkcyI6W119",
+      "planning_eligibility": "unknown",
+      "source_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+      "source_format": "wit",
+      "source_provenance": {
+        "authority": "informational summary; artifact records, typed relations, and native-contract artifact references are the machine-verifiable provenance view",
+        "normalized_projection": {
+          "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+          "media_type": "application/json",
+          "serialization": "stdlib-json-sort-keys-v1",
+          "uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection"
+        },
+        "normalizer": {
+          "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+          "binary_size_bytes": 19172248,
+          "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+          "id": "wasm-tools component wit --json",
+          "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+        },
+        "raw_source": {
+          "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+          "media_type": "text/wit",
+          "uri": "urn:example:ocg:interop-fixture:customer.wit"
+        }
+      },
+      "source_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+      "warnings": [
+        {
+          "code": "wit_result_not_split",
+          "message": "WIT result<ok,err> is preserved as one native output contract; no OCG error edge is inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/interfaces/0/functions/normalize-customer/result"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/interfaces/0/functions/normalize-customer"
+        },
+        {
+          "code": "wit_behavior_not_defined",
+          "message": "WIT establishes interface types, not behavioral compatibility or execution admission.",
+          "outcome": "unknown",
+          "source_pointer": "/interfaces/0/functions/normalize-customer"
+        }
+      ]
+    }
+  },
+  "graph_id": "urn:uuid:b71d2bf2-0706-576c-8a23-d76dab5c0baf",
+  "nodes": [
+    {
+      "description": "Imported WIT function customer-normalization.normalize-customer candidate.",
+      "id": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+      "kind": "capability",
+      "label": "normalize-customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "semantic_status": "candidate",
+        "source_format": "wit",
+        "source_pointer": "/interfaces/0/functions/normalize-customer"
+      }
+    },
+    {
+      "id": "urn:uuid:e805388d-b632-5174-940c-27dd2ee0b0f8",
+      "kind": "implementation",
+      "label": "Native wit binding for normalize-customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "function": "normalize-customer",
+          "function_kind": "freestanding",
+          "interface": "customer-normalization",
+          "kind": "wit-interface-function",
+          "package": "example:customer@0.1.0"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+        "source_document_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+        "source_format": "wit",
+        "source_pointer": "/interfaces/0/functions/normalize-customer"
+      }
+    },
+    {
+      "id": "urn:uuid:68e61942-2975-5b0a-96ff-416eaec323fb",
+      "kind": "contract",
+      "label": "customer",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md",
+        "digest": "sha256:2c0947e1b518c0b7c8c436a09d72fa0cb18408e2c84e3e7295a97ad077a09c64",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "wit-resolved-type-projection",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+          "source_document_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+          "source_format": "wit",
+          "source_pointer": "/interfaces/0/functions/normalize-customer/params/0",
+          "source_provenance": {
+            "authority": "informational summary; artifact records, typed relations, and native-contract artifact references are the machine-verifiable provenance view",
+            "normalized_projection": {
+              "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+              "media_type": "application/json",
+              "serialization": "stdlib-json-sort-keys-v1",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection"
+            },
+            "normalizer": {
+              "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+              "binary_size_bytes": 19172248,
+              "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+              "id": "wasm-tools component wit --json",
+              "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+            },
+            "raw_source": {
+              "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+              "media_type": "text/wit",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit"
+            }
+          },
+          "wit_function": "normalize-customer",
+          "wit_interface": "customer-normalization"
+        },
+        "normalizer_artifact_ref": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a",
+        "schema": {
+          "resolved_type": {
+            "kind": {
+              "record": {
+                "fields": [
+                  {
+                    "name": "name",
+                    "type": "string"
+                  },
+                  {
+                    "name": "email",
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "name": "raw-customer",
+            "owner": {
+              "interface": 0
+            }
+          },
+          "type_ref": 0
+        },
+        "schema_uri": "data:application/json;base64,eyJyZXNvbHZlZF90eXBlIjp7ImtpbmQiOnsicmVjb3JkIjp7ImZpZWxkcyI6W3sibmFtZSI6Im5hbWUiLCJ0eXBlIjoic3RyaW5nIn0seyJuYW1lIjoiZW1haWwiLCJ0eXBlIjoic3RyaW5nIn1dfX0sIm5hbWUiOiJyYXctY3VzdG9tZXIiLCJvd25lciI6eyJpbnRlcmZhY2UiOjB9fSwidHlwZV9yZWYiOjB9",
+        "source_artifact_refs": [
+          "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c",
+          "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2"
+        ]
+      }
+    },
+    {
+      "id": "urn:uuid:0e41cd1e-38eb-53b5-afc0-be8f3c50272d",
+      "kind": "contract",
+      "label": "normalize-customer result",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://github.com/WebAssembly/component-model/blob/main/design/mvp/WIT.md",
+        "digest": "sha256:fe98ddb89159a32a0ac4ac3464a1ac40fc1afb16e5e62502d0ab6496fe2e7fca",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "wit-resolved-type-projection",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+          "source_document_uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection",
+          "source_format": "wit",
+          "source_pointer": "/interfaces/0/functions/normalize-customer/result",
+          "source_provenance": {
+            "authority": "informational summary; artifact records, typed relations, and native-contract artifact references are the machine-verifiable provenance view",
+            "normalized_projection": {
+              "digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+              "media_type": "application/json",
+              "serialization": "stdlib-json-sort-keys-v1",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit#wasm-tools-json-projection"
+            },
+            "normalizer": {
+              "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+              "binary_size_bytes": 19172248,
+              "binary_uri": "urn:example:ocg:tool-artifact:wasm-tools-1.253.0-x86_64-linux",
+              "id": "wasm-tools component wit --json",
+              "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+            },
+            "raw_source": {
+              "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+              "media_type": "text/wit",
+              "uri": "urn:example:ocg:interop-fixture:customer.wit"
+            }
+          },
+          "wit_function": "normalize-customer",
+          "wit_interface": "customer-normalization"
+        },
+        "normalizer_artifact_ref": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a",
+        "schema": {
+          "resolved_type": {
+            "kind": {
+              "result": {
+                "err": "string",
+                "ok": 1
+              }
+            },
+            "name": null,
+            "owner": null
+          },
+          "type_ref": 2
+        },
+        "schema_uri": "data:application/json;base64,eyJyZXNvbHZlZF90eXBlIjp7ImtpbmQiOnsicmVzdWx0Ijp7ImVyciI6InN0cmluZyIsIm9rIjoxfX0sIm5hbWUiOm51bGwsIm93bmVyIjpudWxsfSwidHlwZV9yZWYiOjJ9",
+        "source_artifact_refs": [
+          "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c",
+          "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2"
+        ]
+      }
+    }
+  ],
+  "profiles": [
+    "core"
+  ],
+  "relations": [
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:f0153d44-ac1c-5c12-a475-7439d741a04c",
+      "kind": "derives_from",
+      "metadata": {
+        "planning_eligibility": "unknown"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:d3b5a57e-0112-52bb-b0b0-68579067ebd2"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:8e3f2c2a-631c-5a70-9eac-ed416d1110b4",
+      "kind": "depends_on",
+      "metadata": {
+        "planning_eligibility": "unknown"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:1fe0145c-91f2-5d53-97f3-956fb35fbf8c"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:cd8c96dc-fbcf-565a-8223-188e143fdc1a"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:b5688762-9d32-5f6b-83cb-18c5f0c47dc6",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:e805388d-b632-5174-940c-27dd2ee0b0f8"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+      }
+    }
+  ],
+  "spec_version": "0.1.0-draft",
+  "status": "candidate",
+  "title": "WIT example:customer@0.1.0 candidate import"
+}

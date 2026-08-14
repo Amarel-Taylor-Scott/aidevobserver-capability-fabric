@@ -1,0 +1,316 @@
+{
+  "actor": "business software operator",
+  "archetype": "reconciliation",
+  "build_gate": {
+    "eligible": true,
+    "reasons": []
+  },
+  "candidate_only": true,
+  "capability_id": "urn:aidevobserver:capability:reconciliation:manually_reconcile_invoice_and_payment_exports",
+  "cluster_id": "problem.cluster.3c05820b10b73c4de8802bda",
+  "coverage": {
+    "candidate_only": true,
+    "cluster_id": "problem.cluster.3c05820b10b73c4de8802bda",
+    "error": null,
+    "execution_authorized": false,
+    "matches": [
+      {
+        "candidate": true,
+        "effects": [
+          "audit_log_write",
+          "database_write_optional",
+          "network_write_optional",
+          "queue_read",
+          "queue_write_optional"
+        ],
+        "input_edge": "Packaged[api_integration.csv_table]+ExecutionPolicy+ProjectContext+QueueDeliveryPolicy",
+        "output_edge": "Receipt[api_integration.csv_table]+ExecutionReceipt+QueueWorkerArtifact",
+        "primitive_id": "prim:api_integration.csv_table.execute_action.queue_worker@candidate",
+        "proof_requirements": [
+          "audit_receipt_schema_test",
+          "dead_letter_route_test",
+          "idempotency_test",
+          "retry_policy_test",
+          "sandbox_smoke_test",
+          "state_diff_test"
+        ],
+        "reasons": [
+          "term_overlap:6"
+        ],
+        "runtime_targets": [
+          "queue_worker"
+        ],
+        "score": 0.130435,
+        "serves_truth": false,
+        "title": "Execute CSV table for API integration as Queue worker"
+      },
+      {
+        "candidate": true,
+        "effects": [
+          "artifact_write",
+          "log_read_optional",
+          "queue_read",
+          "queue_write_optional"
+        ],
+        "input_edge": "Receipt[api_integration.csv_table]+ObservationPolicy+ProjectContext+QueueDeliveryPolicy",
+        "output_edge": "Monitor[api_integration.csv_table]+Scorecard+QueueWorkerArtifact",
+        "primitive_id": "prim:api_integration.csv_table.observe_report.queue_worker@candidate",
+        "proof_requirements": [
+          "dead_letter_route_test",
+          "idempotency_test",
+          "negative_memory_check",
+          "retry_policy_test",
+          "scorecard_recompute",
+          "telemetry_schema_test"
+        ],
+        "reasons": [
+          "term_overlap:6"
+        ],
+        "runtime_targets": [
+          "queue_worker"
+        ],
+        "score": 0.130435,
+        "serves_truth": false,
+        "title": "Observe And Report CSV table for API integration as Queue worker"
+      },
+      {
+        "candidate": true,
+        "effects": [
+          "audit_log_write",
+          "database_write_optional",
+          "network_write_optional",
+          "queue_read",
+          "queue_write_optional"
+        ],
+        "input_edge": "Packaged[async_workflows.csv_table]+ExecutionPolicy+ProjectContext+QueueDeliveryPolicy",
+        "output_edge": "Receipt[async_workflows.csv_table]+ExecutionReceipt+QueueWorkerArtifact",
+        "primitive_id": "prim:async_workflows.csv_table.execute_action.queue_worker@candidate",
+        "proof_requirements": [
+          "audit_receipt_schema_test",
+          "dead_letter_route_test",
+          "idempotency_test",
+          "retry_policy_test",
+          "sandbox_smoke_test",
+          "state_diff_test"
+        ],
+        "reasons": [
+          "term_overlap:6"
+        ],
+        "runtime_targets": [
+          "queue_worker"
+        ],
+        "score": 0.130435,
+        "serves_truth": false,
+        "title": "Execute CSV table for Async workflows as Queue worker"
+      }
+    ],
+    "outcome": "retrieval_overlap",
+    "query": "Manually reconcile invoice and payment exports Our accounts payable team has to manually reconcile invoice exports with payment records in the ERP every day. The workaround is to export both CSV files, compare invoice identifiers, and create an exception queue by hand. We need a deterministic matched-record and exception report. business software operator Manually reconcile invoice and payment exports reconciliation matcher_diff",
+    "registry_snapshot_digest": "sha256:b667efcfa7669cdd18266079a9d266f3a46c608fbcaad3f14eff99ca2320e69f",
+    "semantic_compatibility": "unknown",
+    "serves_truth": false
+  },
+  "draft_id": "draft.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.afe0de5a4434d63a.v0",
+  "evidence_digests": [
+    "sha256:a50f9fd935e7666c0e7496ed345ea197205d403f0933f0e9ecc1a530a7a8085b",
+    "sha256:e300775e9e8c938569118fd627ee70ce597493065d72ec77526658c20b50085a",
+    "sha256:e3f8e54161e4585eac717272c7ccbadfd887c395251770f31e3ef11bf963b470"
+  ],
+  "implementation_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.afe0de5a4434d63a.v0",
+  "input_contract": "ReconciliationRequest",
+  "label": "Candidate reconciliation for Manually reconcile invoice and payment exports",
+  "opportunity": {
+    "assessment_id": "problem.assessment.5c6bc63aed456fe499e68f1d",
+    "build_gate_passed": true,
+    "build_gate_reasons": [],
+    "candidate_only": true,
+    "cluster_id": "problem.cluster.3c05820b10b73c4de8802bda",
+    "profile_digest": "sha256:1c23e726511851fa44b8feae3ece9e943970430f8153bb83bb9beb56a572c3f1",
+    "queue_components": [
+      [
+        "actor_clarity",
+        1.0,
+        0.05,
+        0.05
+      ],
+      [
+        "buyer_intent",
+        0.0,
+        0.1,
+        0.0
+      ],
+      [
+        "contract_clarity",
+        1.0,
+        0.1,
+        0.1
+      ],
+      [
+        "evidence_strength",
+        0.6,
+        0.14,
+        0.084
+      ],
+      [
+        "friction_confidence",
+        0.607143,
+        0.05,
+        0.03035715
+      ],
+      [
+        "impact_coverage",
+        0.0,
+        0.03,
+        0.0
+      ],
+      [
+        "momentum",
+        null,
+        0.05,
+        0.0
+      ],
+      [
+        "oracle_clarity",
+        1.0,
+        0.15,
+        0.15
+      ],
+      [
+        "severity",
+        null,
+        0.1,
+        0.0
+      ],
+      [
+        "solution_gap",
+        null,
+        0.05,
+        0.0
+      ],
+      [
+        "source_diversity",
+        1.0,
+        0.1,
+        0.1
+      ],
+      [
+        "workflow_clarity",
+        1.0,
+        0.08,
+        0.08
+      ],
+      [
+        "penalty:contradiction_pressure",
+        0.0,
+        0.15,
+        -0.0
+      ]
+    ],
+    "queue_formula": "clamp_0_1(sum(weight*known_value; unknown contributes 0) - sum(penalty_weight*known_value))",
+    "queue_score": 0.594357,
+    "score_vector": [
+      [
+        "signal_count",
+        3.0
+      ],
+      [
+        "evidence_count",
+        3.0
+      ],
+      [
+        "source_class_count",
+        3.0
+      ],
+      [
+        "contradiction_count",
+        0.0
+      ],
+      [
+        "budgeted_procurement_count",
+        0.0
+      ],
+      [
+        "budget_total",
+        null
+      ],
+      [
+        "quantified_impact_total",
+        null
+      ],
+      [
+        "evidence_strength",
+        0.6
+      ],
+      [
+        "source_diversity",
+        1.0
+      ],
+      [
+        "buyer_intent",
+        0.0
+      ],
+      [
+        "severity",
+        null
+      ],
+      [
+        "momentum",
+        null
+      ],
+      [
+        "solution_gap",
+        null
+      ],
+      [
+        "actor_clarity",
+        1.0
+      ],
+      [
+        "workflow_clarity",
+        1.0
+      ],
+      [
+        "contract_clarity",
+        1.0
+      ],
+      [
+        "oracle_clarity",
+        1.0
+      ],
+      [
+        "friction_confidence",
+        0.607143
+      ],
+      [
+        "impact_coverage",
+        0.0
+      ],
+      [
+        "contradiction_pressure",
+        0.0
+      ]
+    ],
+    "serves_truth": false,
+    "unknown_dimensions": [
+      "budget_total",
+      "momentum",
+      "quantified_impact_total",
+      "severity",
+      "solution_gap"
+    ]
+  },
+  "output_contract": "ReconciliationReport",
+  "problem_statement": "Manually reconcile invoice and payment exports Our accounts payable team has to manually reconcile invoice exports with payment records in the ERP every day. The workaround is to export both CSV files, compare invoice identifiers, and create an exception queue by hand. We need a deterministic matched-record and exception report.",
+  "serves_truth": false,
+  "source_classes": [
+    "consumer_complaint",
+    "software_issue",
+    "technical_question"
+  ],
+  "source_refs": [
+    "https://github.com/frappe/erpnext/issues/4101",
+    "https://stackoverflow.com/questions/82002/reconcile-invoices-payments",
+    "https://www.consumerfinance.gov/data-research/consumer-complaints/search/detail/73003"
+  ],
+  "workflow": "Manually reconcile invoice and payment exports"
+}

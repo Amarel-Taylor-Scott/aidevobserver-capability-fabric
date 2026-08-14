@@ -1,0 +1,66 @@
+{
+  "worlds": [],
+  "interfaces": [
+    {
+      "name": "customer-normalization",
+      "types": {
+        "raw-customer": 0,
+        "normalized-customer": 1
+      },
+      "functions": {
+        "normalize-customer": {
+          "name": "normalize-customer",
+          "kind": "freestanding",
+          "params": [
+            {
+              "name": "customer",
+              "type": 0
+            }
+          ],
+          "result": 2
+        }
+      },
+      "package": 0
+    }
+  ],
+  "types": [
+    {
+      "name": "raw-customer",
+      "kind": {
+        "record": {
+          "fields": [
+            {"name": "name", "type": "string"},
+            {"name": "email", "type": "string"}
+          ]
+        }
+      },
+      "owner": {"interface": 0}
+    },
+    {
+      "name": "normalized-customer",
+      "kind": {
+        "record": {
+          "fields": [
+            {"name": "name", "type": "string"},
+            {"name": "email", "type": "string"}
+          ]
+        }
+      },
+      "owner": {"interface": 0}
+    },
+    {
+      "name": null,
+      "kind": {
+        "result": {"ok": 1, "err": "string"}
+      },
+      "owner": null
+    }
+  ],
+  "packages": [
+    {
+      "name": "example:customer@0.1.0",
+      "interfaces": {"customer-normalization": 0},
+      "worlds": {}
+    }
+  ]
+}

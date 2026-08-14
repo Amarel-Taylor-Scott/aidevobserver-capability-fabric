@@ -1,0 +1,38 @@
+{
+  "candidate_only": true,
+  "code_digest": "sha256:16980287d68e6112b36fabec0772123ddb50b8d45523d2b159d5e9a9135783f3",
+  "config_digest": "sha256:4087efb2b6649d28d574892be2d93f10b69cfb166c9f316106b94eda818dc109",
+  "counts": {
+    "clusters": 16,
+    "clusters_build_gate_passed": 0,
+    "fixture_tests_failed": 0,
+    "fixture_tests_passed": 0,
+    "historical_signals_considered": 19,
+    "observations": 0,
+    "primitive_candidates_built": 0,
+    "signals": 19,
+    "sources_failed": 0,
+    "sources_requested": 4,
+    "sources_skipped": 4,
+    "sources_succeeded": 0
+  },
+  "finished_at": "2026-07-11T07:16:30.629755Z",
+  "loop_id": "aidevobserver.business_friction_to_primitive.v1",
+  "next_queries": [
+    "missing integration care drugs electronic exchange",
+    "manual workflow download endpoint net now",
+    "manual workflow increase input keyboard mention",
+    "missing integration airbyte airbytehq bigquery blocked"
+  ],
+  "promotion_decision": "none",
+  "receipt_digest": "sha256:9269f2d26a55fed0325ed4cfdb956a42f5b1f27f15cf4e825c5c8ae5ebb3c37e",
+  "run_id": "run:1ed42183-b92b-410e-a3ea-5d82c6fedd08",
+  "serves_truth": false,
+  "source_attempt_statuses": {
+    "discourse.frappe": "not_due_or_leased",
+    "federalregister.business_friction": "not_due_or_leased",
+    "github.operational_issues": "not_due_or_leased",
+    "stackexchange.workflow_questions": "not_due_or_leased"
+  },
+  "status": "complete"
+}

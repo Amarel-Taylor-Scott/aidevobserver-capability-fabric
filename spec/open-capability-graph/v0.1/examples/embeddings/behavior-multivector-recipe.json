@@ -1,0 +1,6 @@
+{
+  "recipe_id": "urn:example:ocg:projection:behavior-multivector-v1",
+  "source_view": "urn:example:ocg:view:effects-and-behavior",
+  "steps": ["utf8", "sentence-segmentation", "behavior-text-encoder"],
+  "output_role": "document-late-interaction"
+}

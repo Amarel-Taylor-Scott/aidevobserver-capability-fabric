@@ -1,0 +1,41 @@
+{
+  "candidate_only": true,
+  "candidate_workspace_paths": [],
+  "files": {
+    "clusters.jsonl": {
+      "bytes": 57512,
+      "digest": "sha256:cc284112dcbc22644c0dd25184581539ed3e58bb2af48c2fabae32cfb3266259"
+    },
+    "coverage.jsonl": {
+      "bytes": 42897,
+      "digest": "sha256:76f633b0303c542dbfab6c0b614b64ca52773d327a9f53cca600ae1e634d5330"
+    },
+    "factory_snapshot.json": {
+      "bytes": 542,
+      "digest": "sha256:d14299c1b5fd886d750f46860b8cce8705609fbcafa2001c2a8b875b06cf678b"
+    },
+    "observations.jsonl": {
+      "bytes": 19115,
+      "digest": "sha256:d8b6dace5fb1cf2f869b1cf686ed45bb39a8c64910881a02f6b66addfb09e5f8"
+    },
+    "primitive_candidates.jsonl": {
+      "bytes": 0,
+      "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "receipt.json": {
+      "bytes": 1167,
+      "digest": "sha256:96eb3eeba98f1982fd17112d11c9151316204b666b157db6c7ede26bc488ade6"
+    },
+    "signals.jsonl": {
+      "bytes": 34745,
+      "digest": "sha256:453b230143b094dfeab1e6909733e33ff3ee344ae0dcee57cec26bc9d994906f"
+    },
+    "source_attempts.jsonl": {
+      "bytes": 43164,
+      "digest": "sha256:d6b2813356518c7776c78e69eb0d02e829ea16e44445da57f70cbcb047b791f3"
+    }
+  },
+  "manifest_digest": "sha256:38b8a5e581a81ede000a9360872fe7a86726995e22ce3b038903b012f6042c5d",
+  "run_id": "run:8541750f-83dc-41c2-b82a-447a3193461c",
+  "serves_truth": false
+}

@@ -1,0 +1,9 @@
+{
+  "candidate_only": true,
+  "error": {
+    "class": "IntegrityError",
+    "digest": "sha256:679cbf38ca5a34dd88682b03256add27368cac96ae596fbf9386a8230b81f7e4"
+  },
+  "run_id": "run:32b7458b-4b02-42ac-919b-e951c3bb6b1d",
+  "serves_truth": false
+}

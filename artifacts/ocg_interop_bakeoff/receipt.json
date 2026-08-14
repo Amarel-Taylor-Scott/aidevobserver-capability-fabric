@@ -1,0 +1,3326 @@
+{
+  "boundary": {
+    "inventory_is_not_execution": true,
+    "learned_embeddings_executed": false,
+    "planning_eligibility": "unknown",
+    "search_scores_authorize_execution": false,
+    "structural_compatibility_authorizes_execution": false
+  },
+  "compatibility_bakeoff": {
+    "case_composition": {
+      "cross_format_pairs": 5,
+      "fixture_authored_labels": true,
+      "independent_validation_set": false,
+      "same_format_negative_controls": 1
+    },
+    "default_held_out": {
+      "benchmark_id": "ocg-json-schema-held-out-v0.1",
+      "case_count": 15,
+      "cases": [
+        {
+          "case_id": "safe-identical-closed-object",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "safe",
+          "latency_ms": 1.981237,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "safe-integer-refinement",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "safe",
+          "latency_ms": 0.639832,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "safe-enum-subset",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "safe",
+          "latency_ms": 0.57951,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "safe-consumer-nullability",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "safe",
+          "latency_ms": 0.67264,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "incompatible-required-field",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer may omit consumer-required property 'id'"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 1.749066,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "incompatible-additional-properties",
+          "correct": true,
+          "counterexample_reasons": [
+            "$/additionalProperties: producer permits undeclared properties, but consumer forbids them"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 1.029641,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "incompatible-enum",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer finite value 'blue' is rejected by consumer"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 0.646817,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "incompatible-range",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer number lower bound >= -1 is wider than consumer lower bound >= 0"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 0.622286,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "incompatible-nullability",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer admits JSON type 'null', which consumer rejects"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 0.598515,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "incompatible-units",
+          "correct": true,
+          "counterexample_reasons": [
+            "port metadata: producer unit='m' differs from consumer unit='s'"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 0.584771,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "incompatible-semantics",
+          "correct": true,
+          "counterexample_reasons": [
+            "port metadata: producer semantic concepts ['urn:example:customer-id'] differ from consumer concepts ['urn:example:invoice-id']"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 0.555446,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "retrieval-cannot-override-required-field",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer may omit consumer-required property 'id'"
+          ],
+          "description": "",
+          "expected": "incompatible",
+          "latency_ms": 1.290583,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "unknown-pattern",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "unknown",
+          "latency_ms": 0.017871,
+          "predicted": "unknown",
+          "reasons": [
+            "unsupported schema or port-metadata features require abstention"
+          ]
+        },
+        {
+          "case_id": "unknown-combinator",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "unknown",
+          "latency_ms": 0.012571,
+          "predicted": "unknown",
+          "reasons": [
+            "unsupported schema or port-metadata features require abstention"
+          ]
+        },
+        {
+          "case_id": "unknown-missing-unit",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "",
+          "expected": "unknown",
+          "latency_ms": 0.575206,
+          "predicted": "unknown",
+          "reasons": [
+            "port metadata: consumer requires unit='m', but producer does not declare it"
+          ]
+        }
+      ],
+      "checker": {
+        "id": "ocg-json-schema-directional-subset",
+        "version": "0.1.0"
+      },
+      "generated_at": "2026-07-11T04:51:42.586613+00:00",
+      "label_counts": {
+        "incompatible": 8,
+        "safe": 4,
+        "unknown": 3
+      },
+      "latency_ms": {
+        "max": 1.981237,
+        "mean": 0.7703994666666667,
+        "p50": 0.622286,
+        "p95": 1.981237
+      },
+      "metrics": {
+        "abstention_rate": 0.2,
+        "exact_accuracy": 1.0,
+        "incompatible_recall": 1.0,
+        "safe_edge_precision": 1.0,
+        "unsafe_safe_edges": 0
+      },
+      "prediction_counts": {
+        "incompatible": 8,
+        "safe": 4,
+        "unknown": 3
+      }
+    },
+    "interoperability_explicit_json_schema_projections": {
+      "benchmark_id": "ocg-interoperability-projection-pairs-v0.1",
+      "case_count": 6,
+      "cases": [
+        {
+          "case_id": "mcp-normalized-to-openapi-normalized",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "Explicit JSON Schema projection selected by the benchmark.",
+          "expected": "safe",
+          "latency_ms": 2.323401,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "openapi-export-to-mcp-emitter",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "Manually selected OpenAPI 200/application-json ExportCustomer component projection. This does not qualify response-status selection or the whole operation.",
+          "expected": "safe",
+          "latency_ms": 2.102174,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "mcp-normalized-to-mcp-export-emitter",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer may omit consumer-required property 'email_address'",
+            "$/properties/email: producer may emit property 'email', but consumer forbids it"
+          ],
+          "description": "Property-name mismatch: the producer may omit required email_address and emits email, which the closed consumer schema forbids.",
+          "expected": "incompatible",
+          "latency_ms": 2.156684,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "mcp-normalized-to-agent-spec-validator",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "Agent Spec property uses a JSON Schema-shaped property contract.",
+          "expected": "safe",
+          "latency_ms": 2.252637,
+          "predicted": "safe",
+          "reasons": [
+            "all producer-admitted values satisfy the consumer constraints in the supported subset",
+            "retrieval metadata did not participate in the decision"
+          ]
+        },
+        {
+          "case_id": "openapi-error-to-mcp-emitter",
+          "correct": true,
+          "counterexample_reasons": [
+            "$: producer may omit consumer-required property 'email_address'",
+            "$: producer may omit consumer-required property 'name'",
+            "$/properties/code: producer may emit property 'code', but consumer forbids it",
+            "$/properties/message: producer may emit property 'message', but consumer forbids it"
+          ],
+          "description": "Manually selected OpenAPI 422/application-json ValidationError component cannot satisfy an export customer input.",
+          "expected": "incompatible",
+          "latency_ms": 2.045268,
+          "predicted": "incompatible",
+          "reasons": [
+            "producer admits a value or meaning rejected by the consumer"
+          ]
+        },
+        {
+          "case_id": "openapi-unresolved-export-ref-to-mcp-emitter",
+          "correct": true,
+          "counterexample_reasons": [],
+          "description": "The raw OpenAPI 200/application-json payload is an unresolved $ref. The conservative subset must abstain rather than infer the target component.",
+          "expected": "unknown",
+          "latency_ms": 0.021,
+          "predicted": "unknown",
+          "reasons": [
+            "unsupported schema or port-metadata features require abstention"
+          ]
+        }
+      ],
+      "checker": {
+        "id": "ocg-json-schema-directional-subset",
+        "version": "0.1.0"
+      },
+      "generated_at": "2026-07-11T04:51:42.597872+00:00",
+      "label_counts": {
+        "incompatible": 2,
+        "safe": 3,
+        "unknown": 1
+      },
+      "latency_ms": {
+        "max": 2.323401,
+        "mean": 1.8168606666666667,
+        "p50": 2.129429,
+        "p95": 2.323401
+      },
+      "metrics": {
+        "abstention_rate": 0.16666666666666666,
+        "exact_accuracy": 1.0,
+        "incompatible_recall": 1.0,
+        "safe_edge_precision": 1.0,
+        "unsafe_safe_edges": 0
+      },
+      "prediction_counts": {
+        "incompatible": 2,
+        "safe": 3,
+        "unknown": 1
+      }
+    },
+    "projection_boundary": "Interoperability cases use benchmark-selected JSON Schema views. The importers did not infer or authorize these mappings.",
+    "unassessed_native_dialects": [
+      "cwl",
+      "wit"
+    ]
+  },
+  "generated_at": "2026-07-11T04:51:43.016426Z",
+  "imports": [
+    {
+      "execution_authorization": "not_established",
+      "planning_eligibility": "unknown",
+      "record_counts": {
+        "actions": 2,
+        "adapters": 0,
+        "artifacts": 0,
+        "embedding_spaces": 0,
+        "evidence": 0,
+        "nodes": 8,
+        "records": 12,
+        "relations": 2,
+        "representations": 0,
+        "search_profiles": 0
+      },
+      "schema_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "semantic_validation": {
+        "counts": {
+          "actions": 2,
+          "adapters": 0,
+          "artifacts": 0,
+          "embedding_spaces": 0,
+          "evidence": 0,
+          "nodes": 8,
+          "records": 12,
+          "relations": 2,
+          "representations": 0,
+          "search_profiles": 0
+        },
+        "currently_eligible": null,
+        "eligibility_errors": [],
+        "eligibility_evaluated": false,
+        "errors": [],
+        "evaluated_at": "2026-07-11T04:51:42.528235Z",
+        "schema_validation": "not_requested",
+        "valid": true,
+        "validated_profiles": [
+          "core"
+        ],
+        "warnings": []
+      },
+      "source_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+      "source_format": "mcp-tools",
+      "warning_count": 4,
+      "warnings": [
+        {
+          "code": "mcp_annotations_not_guarantees",
+          "message": "MCP ToolAnnotations are preserved as source hints but do not establish effects or idempotency.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0/annotations"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0"
+        },
+        {
+          "code": "mcp_annotations_not_guarantees",
+          "message": "MCP ToolAnnotations are preserved as source hints but do not establish effects or idempotency.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/1/annotations"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/1"
+        }
+      ]
+    },
+    {
+      "execution_authorization": "not_established",
+      "planning_eligibility": "unknown",
+      "record_counts": {
+        "actions": 1,
+        "adapters": 0,
+        "artifacts": 0,
+        "embedding_spaces": 0,
+        "evidence": 0,
+        "nodes": 4,
+        "records": 6,
+        "relations": 1,
+        "representations": 0,
+        "search_profiles": 0
+      },
+      "schema_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "semantic_validation": {
+        "counts": {
+          "actions": 1,
+          "adapters": 0,
+          "artifacts": 0,
+          "embedding_spaces": 0,
+          "evidence": 0,
+          "nodes": 4,
+          "records": 6,
+          "relations": 1,
+          "representations": 0,
+          "search_profiles": 0
+        },
+        "currently_eligible": null,
+        "eligibility_errors": [],
+        "eligibility_evaluated": false,
+        "errors": [],
+        "evaluated_at": "2026-07-11T04:51:42.529496Z",
+        "schema_validation": "not_requested",
+        "valid": true,
+        "validated_profiles": [
+          "core"
+        ],
+        "warnings": []
+      },
+      "source_digest": "sha256:d8d60c1b09e7c432b21f4506d9ee8653679128835353375909c655a58d449dce",
+      "source_format": "openapi",
+      "warning_count": 6,
+      "warnings": [
+        {
+          "code": "openapi_serialization_not_resolved",
+          "message": "Parameter styles, encodings, media negotiation, and runtime expressions are preserved but not resolved.",
+          "outcome": "unknown",
+          "source_pointer": "/paths/~1customers~1export/post"
+        },
+        {
+          "code": "openapi_response_selection_unknown",
+          "message": "Multiple/default response branches are preserved; no single output branch is asserted.",
+          "outcome": "unknown",
+          "source_pointer": "/paths/~1customers~1export/post/responses"
+        },
+        {
+          "code": "openapi_ref_unresolved",
+          "message": "OpenAPI reference '#/components/schemas/NormalizedCustomer' is preserved but was not resolved.",
+          "outcome": "unknown",
+          "source_pointer": "/paths/~1customers~1export/post/requestBody/content/application~1json/schema/$ref"
+        },
+        {
+          "code": "openapi_ref_unresolved",
+          "message": "OpenAPI reference '#/components/schemas/ExportCustomer' is preserved but was not resolved.",
+          "outcome": "unknown",
+          "source_pointer": "/paths/~1customers~1export/post/responses/200/content/application~1json/schema/$ref"
+        },
+        {
+          "code": "openapi_ref_unresolved",
+          "message": "OpenAPI reference '#/components/schemas/ValidationError' is preserved but was not resolved.",
+          "outcome": "unknown",
+          "source_pointer": "/paths/~1customers~1export/post/responses/422/content/application~1json/schema/$ref"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/paths/~1customers~1export/post"
+        }
+      ]
+    },
+    {
+      "execution_authorization": "not_established",
+      "planning_eligibility": "unknown",
+      "record_counts": {
+        "actions": 1,
+        "adapters": 0,
+        "artifacts": 0,
+        "embedding_spaces": 0,
+        "evidence": 0,
+        "nodes": 4,
+        "records": 6,
+        "relations": 1,
+        "representations": 0,
+        "search_profiles": 0
+      },
+      "schema_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "semantic_validation": {
+        "counts": {
+          "actions": 1,
+          "adapters": 0,
+          "artifacts": 0,
+          "embedding_spaces": 0,
+          "evidence": 0,
+          "nodes": 4,
+          "records": 6,
+          "relations": 1,
+          "representations": 0,
+          "search_profiles": 0
+        },
+        "currently_eligible": null,
+        "eligibility_errors": [],
+        "eligibility_evaluated": false,
+        "errors": [],
+        "evaluated_at": "2026-07-11T04:51:42.530660Z",
+        "schema_validation": "not_requested",
+        "valid": true,
+        "validated_profiles": [
+          "core"
+        ],
+        "warnings": []
+      },
+      "source_digest": "sha256:b4d8a81b7af5cf7f1c2703dfa858d350a27c92794f901c13aaeb84620f40ea9b",
+      "source_format": "cwl",
+      "warning_count": 2,
+      "warnings": [
+        {
+          "code": "cwl_operation_abstract",
+          "message": "CWL Operation declares an abstract operation and does not establish an executable implementation.",
+          "outcome": "unknown",
+          "source_pointer": "/"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/"
+        }
+      ]
+    },
+    {
+      "execution_authorization": "not_established",
+      "planning_eligibility": "unknown",
+      "record_counts": {
+        "actions": 1,
+        "adapters": 0,
+        "artifacts": 3,
+        "embedding_spaces": 0,
+        "evidence": 0,
+        "nodes": 4,
+        "records": 11,
+        "relations": 3,
+        "representations": 0,
+        "search_profiles": 0
+      },
+      "schema_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "semantic_validation": {
+        "counts": {
+          "actions": 1,
+          "adapters": 0,
+          "artifacts": 3,
+          "embedding_spaces": 0,
+          "evidence": 0,
+          "nodes": 4,
+          "records": 11,
+          "relations": 3,
+          "representations": 0,
+          "search_profiles": 0
+        },
+        "currently_eligible": null,
+        "eligibility_errors": [],
+        "eligibility_evaluated": false,
+        "errors": [],
+        "evaluated_at": "2026-07-11T04:51:42.532687Z",
+        "schema_validation": "not_requested",
+        "valid": true,
+        "validated_profiles": [
+          "core"
+        ],
+        "warnings": []
+      },
+      "source_digest": "sha256:88011fdd4be5b8f3e41010aed4d2dd431c07ca30667d01014506330b3963d7ee",
+      "source_format": "wit",
+      "warning_count": 3,
+      "warnings": [
+        {
+          "code": "wit_result_not_split",
+          "message": "WIT result<ok,err> is preserved as one native output contract; no OCG error edge is inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/interfaces/0/functions/normalize-customer/result"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/interfaces/0/functions/normalize-customer"
+        },
+        {
+          "code": "wit_behavior_not_defined",
+          "message": "WIT establishes interface types, not behavioral compatibility or execution admission.",
+          "outcome": "unknown",
+          "source_pointer": "/interfaces/0/functions/normalize-customer"
+        }
+      ]
+    },
+    {
+      "execution_authorization": "not_established",
+      "planning_eligibility": "unknown",
+      "record_counts": {
+        "actions": 1,
+        "adapters": 0,
+        "artifacts": 0,
+        "embedding_spaces": 0,
+        "evidence": 0,
+        "nodes": 4,
+        "records": 6,
+        "relations": 1,
+        "representations": 0,
+        "search_profiles": 0
+      },
+      "schema_validation": {
+        "errors": [],
+        "valid": true
+      },
+      "semantic_validation": {
+        "counts": {
+          "actions": 1,
+          "adapters": 0,
+          "artifacts": 0,
+          "embedding_spaces": 0,
+          "evidence": 0,
+          "nodes": 4,
+          "records": 6,
+          "relations": 1,
+          "representations": 0,
+          "search_profiles": 0
+        },
+        "currently_eligible": null,
+        "eligibility_errors": [],
+        "eligibility_evaluated": false,
+        "errors": [],
+        "evaluated_at": "2026-07-11T04:51:42.534123Z",
+        "schema_validation": "not_requested",
+        "valid": true,
+        "validated_profiles": [
+          "core"
+        ],
+        "warnings": []
+      },
+      "source_digest": "sha256:8bf8dc65d38a88262aa0e3140846cd1f35ebadab4403585f2b5bd41a6c444ed7",
+      "source_format": "agent-spec",
+      "warning_count": 2,
+      "warnings": [
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0"
+        },
+        {
+          "code": "agentspec_code_not_present",
+          "message": "Agent Spec describes the tool but intentionally does not carry its implementation code.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0"
+        }
+      ]
+    }
+  ],
+  "inputs": {
+    "closure_boundary": "Exact fixture, schema, and local module bytes are bound here. Python package RECORD/METADATA fingerprints and the wasm-tools binary digest are recorded separately; this is not a complete environment lock or wheel provenance claim.",
+    "fixtures": [
+      {
+        "bytes": 1384,
+        "digest": "sha256:e5a96f1447b089115ce4e8a4091154e7b02243aeea066dd5039aed228e99c576",
+        "name": "agent-spec-customer.json"
+      },
+      {
+        "bytes": 326,
+        "digest": "sha256:f84e5eff794275407997645d00511bd920c749a07ea2ce1bad9af2e4268e6209",
+        "name": "customer.wit"
+      },
+      {
+        "bytes": 1298,
+        "digest": "sha256:679862b4f322458dce79caf61628069bae037d840005ed867954cfe24e8d21f3",
+        "name": "customer.wit.json"
+      },
+      {
+        "bytes": 557,
+        "digest": "sha256:08b325b083ccaf33295c22ccdb469f38c6d7773d422233dca943ae182412d3ea",
+        "name": "cwl-emit-json.json"
+      },
+      {
+        "bytes": 1327,
+        "digest": "sha256:6ae974f34f2bedb7359c07cb6228a524944084e545c2c0fede56476131593cb3",
+        "name": "manifest.json"
+      },
+      {
+        "bytes": 2114,
+        "digest": "sha256:93f55e16a55e78a86e983b21af0806500de77498b45dfab3dcecbfb2b06907fa",
+        "name": "mcp-tools.json"
+      },
+      {
+        "bytes": 1942,
+        "digest": "sha256:9651ee82ff2c9bda5632ca6305a789b50ab07e533b657465322cc72df521f20c",
+        "name": "openapi-customer.json"
+      }
+    ],
+    "implementation_modules": [
+      {
+        "bytes": 38846,
+        "digest": "sha256:8b18d57a95c1905e4ef993511eba0f84e001ffa8bf0d22acd28c4321aedcdfbd",
+        "name": "ocg_compatibility.py"
+      },
+      {
+        "bytes": 73423,
+        "digest": "sha256:0329d6bd2cc4f8430afbfbab3aa923b2c4b52cea865c3045a025f493e16f4989",
+        "name": "ocg_conformance.py"
+      },
+      {
+        "bytes": 61500,
+        "digest": "sha256:364e079f284287e8464d8e22ae324df14106639526415fbfd1a223de119e5ed6",
+        "name": "ocg_importers.py"
+      },
+      {
+        "bytes": 47890,
+        "digest": "sha256:49d77d454ff72edbda8b69b60c3eacc83634094d0641940d44d8d5c97915f5a2",
+        "name": "ocg_interop.py"
+      },
+      {
+        "bytes": 48281,
+        "digest": "sha256:53ac4fa95a1c0eb8b09c04daed98eaf33515a1ecdc847360d735efbe0d7f9d47",
+        "name": "ocg_search_bakeoff.py"
+      }
+    ],
+    "ocg_schema": {
+      "bytes": 43713,
+      "digest": "sha256:98c0b60e40dfb7039bcf346f7ac54e74091ce753d2bf8441c0e6564bbc7e67f7",
+      "name": "open-capability-graph.schema.json"
+    }
+  },
+  "merged_graph": {
+    "counts": {
+      "actions": 6,
+      "adapters": 0,
+      "artifacts": 6,
+      "embedding_spaces": 3,
+      "evidence": 0,
+      "nodes": 24,
+      "records": 69,
+      "relations": 8,
+      "representations": 24,
+      "search_profiles": 1
+    },
+    "retrieval_projection_count": 24,
+    "schema_validation": {
+      "errors": [],
+      "valid": true
+    },
+    "semantic_validation": {
+      "counts": {
+        "actions": 6,
+        "adapters": 0,
+        "artifacts": 6,
+        "embedding_spaces": 3,
+        "evidence": 0,
+        "nodes": 24,
+        "records": 69,
+        "relations": 8,
+        "representations": 24,
+        "search_profiles": 1
+      },
+      "currently_eligible": null,
+      "eligibility_errors": [],
+      "eligibility_evaluated": false,
+      "errors": [],
+      "evaluated_at": "2026-07-11T04:51:42.556043Z",
+      "schema_validation": "not_requested",
+      "valid": true,
+      "validated_profiles": [
+        "core",
+        "retrieval"
+      ],
+      "warnings": []
+    },
+    "source_format_count": 5,
+    "vector_space_count": 3
+  },
+  "native_validation": {
+    "aggregate_kind": "heterogeneous-native-format-checks",
+    "all_available": true,
+    "all_passed": true,
+    "validators": {
+      "agent_spec": {
+        "check_kind": "deserialize-and-model-validate",
+        "installed_record_digest": "sha256:602ca3640922c8c43e7ac6a841283fd24a745dfd39d3209d63acf6ee1ed23322",
+        "metadata_digest": "sha256:2aebdd12f2794436830282a3a87e0a1825f15fbbf7b8774ecc528064cacf12a4",
+        "scope": "complete committed Agent Spec fixture",
+        "status": "passed",
+        "tool_count": 1,
+        "validator": "pyagentspec.Agent.from_json",
+        "version": "26.1.2"
+      },
+      "cwl": {
+        "check_kind": "parse",
+        "installed_record_digest": "sha256:a37ff76b045c6c26b4da3df7cf86e2866f9e29d7a4d75e26a9d5e3d5f64f79d3",
+        "metadata_digest": "sha256:2b5464627dcb01b203fe9a607c0c69db44b5cad87103d84230540bb0a7787130",
+        "parsed_type": "Operation",
+        "scope": "complete committed CWL fixture",
+        "status": "passed",
+        "validator": "cwl-utils.parser",
+        "version": "0.42"
+      },
+      "mcp": {
+        "check_kind": "json-schema-metaschema",
+        "installed_record_digest": "sha256:14f8d6c4ec011af59f3b8475d473b8b844cbfa020602f9ecc2bf66bc810012de",
+        "metadata_digest": "sha256:05b189866ca98a96da3934bf6b83687ced3ff85325273b77e16b705f6d8b26d2",
+        "scope": "four tool schemas (input and output for two tools); no official MCP document validator claimed",
+        "status": "passed",
+        "validator": "jsonschema.Draft202012Validator.check_schema",
+        "version": "4.26.0"
+      },
+      "openapi": {
+        "check_kind": "full-document-validation",
+        "installed_record_digest": "sha256:e945b624b04bd9e33228552a324e1fb732c57d4fd406b5747a1bfcd444e99e90",
+        "metadata_digest": "sha256:52e6672f9f16d61ade2291b93faeffa3372719cb342ab57f26bc49a2ee656f9e",
+        "scope": "complete committed OpenAPI fixture",
+        "status": "passed",
+        "validator": "openapi-spec-validator",
+        "version": "0.9.0"
+      },
+      "wit": {
+        "binary_digest": "sha256:4781d5b7e1d6cedcd8f2384cf6578f4ed7022d305a6e580bde902c32756ca661",
+        "binary_size_bytes": 19172248,
+        "check_kind": "parse-normalize-and-compare",
+        "normalized_projection_matches_fixture": true,
+        "normalizer_provenance_matches_manifest": true,
+        "scope": "raw WIT parses and normalized JSON exactly matches committed projection",
+        "status": "passed",
+        "validator": "wasm-tools component wit --json",
+        "version": "wasm-tools 1.253.0 (c799bb87b 2026-07-07)"
+      }
+    }
+  },
+  "receipt_version": "ocg-interoperability-bakeoff/0.1",
+  "search_bakeoff": {
+    "aggregate": {
+      "reference": {
+        "mean_recall_at_returned_k": 1.0,
+        "mean_reciprocal_rank": 1.0,
+        "top1_accuracy": 1.0
+      },
+      "sqlite_fts5": {
+        "mean_recall_at_returned_k": 1.0,
+        "mean_reciprocal_rank": 1.0,
+        "top1_accuracy": 1.0
+      }
+    },
+    "backend_agreement": {
+      "exact_order_match_rate": 0.25,
+      "mean_absolute_rank_displacement": 0.20833333333325,
+      "rank_displacement_observed_query_fraction": 1.0,
+      "top1_match_rate": 1.0
+    },
+    "backends": [
+      "reference",
+      "sqlite_fts5"
+    ],
+    "candidate_only": true,
+    "execution_authorization": "not_evaluated",
+    "learned_embeddings_executed": false,
+    "mean_backend_jaccard": 0.8,
+    "portability_scope": {
+      "full_stack_backend_independence": false,
+      "independent_components": [
+        "lexical candidate generation"
+      ],
+      "shared_components": [
+        "structured filtering",
+        "explicit dense vector scoring",
+        "explicit sparse vector scoring",
+        "rank fusion",
+        "output projection"
+      ]
+    },
+    "queries": [
+      {
+        "backend_metrics": {
+          "reference": {
+            "hit_count": 2,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 2,
+            "top1_relevant": true
+          },
+          "sqlite_fts5": {
+            "hit_count": 2,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 2,
+            "top1_relevant": true
+          }
+        },
+        "bakeoff": {
+          "agreement": {
+            "candidate_only": true,
+            "common_prefix_length": 2,
+            "eligibility_evaluated": false,
+            "exact_order_match": false,
+            "intersection_count": 3,
+            "jaccard": 0.6,
+            "left_backend": "reference",
+            "left_count": 4,
+            "mean_absolute_rank_displacement": 0.333333333333,
+            "only_left": [
+              "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+            ],
+            "only_right": [
+              "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+            ],
+            "overlap_at_returned_k": 0.75,
+            "right_backend": "sqlite_fts5",
+            "right_count": 4,
+            "top1_match": true,
+            "union_count": 5
+          },
+          "candidate_only": true,
+          "eligibility_evaluated": false,
+          "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+          "query": "normalize customer name and email",
+          "runs": {
+            "reference": {
+              "backend": "reference",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "normalize customer name and email",
+              "receipt": {
+                "backend": {
+                  "id": "python-reference-scan",
+                  "version": "3.14.4"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.559227Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "python-token-scan",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.687563,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "per-query execution without a separately materialized index"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:535e1ec97748504d6968994eba49d55a73820e261e3b5de4fad28f14287e3ff9",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:70ea5e727ba86213fa978e514c6d87430503b6ca3e6ab3a4d9395d622a69b721"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:5f336288d4b050d4c4ce6ac5b15e9b6edaa0deba1cbed25fcfc6b70490844017"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:9322a8e8a4eaec0b0dbda7fb44e42be2640e0517a1f4565540208bc27445d7ce"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "python-token-scan",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.232973,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.122913,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.099898,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.126311,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Normalize a customer name and email address without changing address semantics.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "label": "Normalize customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.835842721281,
+                    "lexical": 1.0,
+                    "token-sparse": 0.734846925501,
+                    "word-hash": 0.734846929166
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "cwl",
+                    "source_pointer": "/"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.051310483871,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.323417123634,
+                    "lexical": 0.4,
+                    "token-sparse": 0.302636387641,
+                    "word-hash": 0.510112789206
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050112734488,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.245647979071,
+                    "lexical": 0.2,
+                    "token-sparse": 0.249136437033,
+                    "word-hash": 0.474341649546
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Imported WIT function customer-normalization.normalize-customer candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                  "label": "normalize-customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "wit",
+                    "source_pointer": "/interfaces/0/functions/normalize-customer"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.049979339657,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.603267985656,
+                    "lexical": 0.4,
+                    "token-sparse": 0.062017367551,
+                    "word-hash": 0.0
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            },
+            "sqlite_fts5": {
+              "backend": "sqlite_fts5",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "normalize customer name and email",
+              "receipt": {
+                "backend": {
+                  "id": "sqlite-fts5",
+                  "version": "3.46.1"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.561465Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "sqlite-fts5-match-bm25",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.857996,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "cold per-query execution; sqlite includes in-memory FTS5 index construction"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:535e1ec97748504d6968994eba49d55a73820e261e3b5de4fad28f14287e3ff9",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:70ea5e727ba86213fa978e514c6d87430503b6ca3e6ab3a4d9395d622a69b721"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:5f336288d4b050d4c4ce6ac5b15e9b6edaa0deba1cbed25fcfc6b70490844017"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:9322a8e8a4eaec0b0dbda7fb44e42be2640e0517a1f4565540208bc27445d7ce"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                  "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "sqlite-fts5-match-bm25",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.108835,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.116177,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.098649,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.135836,
+                    "returned_ids": [
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Normalize a customer name and email address without changing address semantics.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "label": "Normalize customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.835842721281,
+                    "lexical": 5.432439673565,
+                    "token-sparse": 0.734846925501,
+                    "word-hash": 0.734846929166
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "cwl",
+                    "source_pointer": "/"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.051054467486,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.323417123634,
+                    "lexical": 0.772355796275,
+                    "token-sparse": 0.302636387641,
+                    "word-hash": 0.510112789206
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Imported WIT function customer-normalization.normalize-customer candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                  "label": "normalize-customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "wit",
+                    "source_pointer": "/interfaces/0/functions/normalize-customer"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050235356042,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.603267985656,
+                    "lexical": 1.085692039214,
+                    "token-sparse": 0.062017367551,
+                    "word-hash": 0.0
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Validate a normalized customer record.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "label": "validate_customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "agent-spec",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050148809524,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.331710315224,
+                    "lexical": 1.905803e-06,
+                    "token-sparse": 0.240965798671,
+                    "word-hash": 0.401609664451
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            }
+          },
+          "search_scores_authorize_execution": false
+        },
+        "query": "normalize customer name and email",
+        "query_id": "normalize-customer",
+        "relevant_ids": [
+          "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+          "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+        ]
+      },
+      {
+        "backend_metrics": {
+          "reference": {
+            "hit_count": 1,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 1,
+            "top1_relevant": true
+          },
+          "sqlite_fts5": {
+            "hit_count": 1,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 1,
+            "top1_relevant": true
+          }
+        },
+        "bakeoff": {
+          "agreement": {
+            "candidate_only": true,
+            "common_prefix_length": 4,
+            "eligibility_evaluated": false,
+            "exact_order_match": true,
+            "intersection_count": 4,
+            "jaccard": 1.0,
+            "left_backend": "reference",
+            "left_count": 4,
+            "mean_absolute_rank_displacement": 0.0,
+            "only_left": [],
+            "only_right": [],
+            "overlap_at_returned_k": 1.0,
+            "right_backend": "sqlite_fts5",
+            "right_count": 4,
+            "top1_match": true,
+            "union_count": 4
+          },
+          "candidate_only": true,
+          "eligibility_evaluated": false,
+          "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+          "query": "adapt normalized customer to export field vocabulary",
+          "runs": {
+            "reference": {
+              "backend": "reference",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "adapt normalized customer to export field vocabulary",
+              "receipt": {
+                "backend": {
+                  "id": "python-reference-scan",
+                  "version": "3.14.4"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.563495Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "python-token-scan",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.541307,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "per-query execution without a separately materialized index"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:184e24d527d6be4c0f26a1e06e7dc38e07ad4cb687e78554b67a7e0bfe19bf9b",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:c2cf090f594e23f1b240d9f1138b861dc95bdb34b768e77d4348249f7dbc4536"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:671543e69036dc60da93430636d8602202d9a45a89518e11a9d17629aaf34b1f"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:6242abb162612aa1a341f0db61f665b41177f787d3e8017b96350990f8ce1d11"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "python-token-scan",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.136196,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.106129,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.107035,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.114547,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Imported POST /customers/export OpenAPI operation candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "label": "Adapt a normalized customer to the export field vocabulary",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "openapi",
+                    "source_pointer": "/paths/~1customers~1export/post"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.825145101746,
+                    "lexical": 1.0,
+                    "token-sparse": 0.811997942075,
+                    "word-hash": 0.848892974524
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Validate a normalized customer record.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "label": "validate_customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "agent-spec",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.051108870968,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.619578213466,
+                    "lexical": 0.285714285714,
+                    "token-sparse": 0.339422116651,
+                    "word-hash": 0.203653269991
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "cwl",
+                    "source_pointer": "/"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050510137264,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.438938112844,
+                    "lexical": 0.285714285714,
+                    "token-sparse": 0.182696020284,
+                    "word-hash": 0.117579279334
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.04997002997,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.348337618153,
+                    "lexical": 0.285714285714,
+                    "token-sparse": 0.210558719767,
+                    "word-hash": -0.033407669121
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            },
+            "sqlite_fts5": {
+              "backend": "sqlite_fts5",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "adapt normalized customer to export field vocabulary",
+              "receipt": {
+                "backend": {
+                  "id": "sqlite-fts5",
+                  "version": "3.46.1"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.565733Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "sqlite-fts5-match-bm25",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.856463,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "cold per-query execution; sqlite includes in-memory FTS5 index construction"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:184e24d527d6be4c0f26a1e06e7dc38e07ad4cb687e78554b67a7e0bfe19bf9b",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:c2cf090f594e23f1b240d9f1138b861dc95bdb34b768e77d4348249f7dbc4536"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:671543e69036dc60da93430636d8602202d9a45a89518e11a9d17629aaf34b1f"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:6242abb162612aa1a341f0db61f665b41177f787d3e8017b96350990f8ce1d11"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "sqlite-fts5-match-bm25",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.113262,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.123722,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.101282,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.115908,
+                    "returned_ids": [
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Imported POST /customers/export OpenAPI operation candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "label": "Adapt a normalized customer to the export field vocabulary",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "openapi",
+                    "source_pointer": "/paths/~1customers~1export/post"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.825145101746,
+                    "lexical": 8.947870533612,
+                    "token-sparse": 0.811997942075,
+                    "word-hash": 0.848892974524
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Validate a normalized customer record.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "label": "validate_customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "agent-spec",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.051612903226,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.619578213466,
+                    "lexical": 0.933048898916,
+                    "token-sparse": 0.339422116651,
+                    "word-hash": 0.203653269991
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "cwl",
+                    "source_pointer": "/"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050006105006,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.438938112844,
+                    "lexical": 3.046685e-06,
+                    "token-sparse": 0.182696020284,
+                    "word-hash": 0.117579279334
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.04997002997,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.348337618153,
+                    "lexical": 3.196426e-06,
+                    "token-sparse": 0.210558719767,
+                    "word-hash": -0.033407669121
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            }
+          },
+          "search_scores_authorize_execution": false
+        },
+        "query": "adapt normalized customer to export field vocabulary",
+        "query_id": "adapt-for-export",
+        "relevant_ids": [
+          "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d"
+        ]
+      },
+      {
+        "backend_metrics": {
+          "reference": {
+            "hit_count": 2,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 2,
+            "top1_relevant": true
+          },
+          "sqlite_fts5": {
+            "hit_count": 2,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 2,
+            "top1_relevant": true
+          }
+        },
+        "bakeoff": {
+          "agreement": {
+            "candidate_only": true,
+            "common_prefix_length": 3,
+            "eligibility_evaluated": false,
+            "exact_order_match": false,
+            "intersection_count": 3,
+            "jaccard": 0.6,
+            "left_backend": "reference",
+            "left_count": 4,
+            "mean_absolute_rank_displacement": 0.0,
+            "only_left": [
+              "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+            ],
+            "only_right": [
+              "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+            ],
+            "overlap_at_returned_k": 0.75,
+            "right_backend": "sqlite_fts5",
+            "right_count": 4,
+            "top1_match": true,
+            "union_count": 5
+          },
+          "candidate_only": true,
+          "eligibility_evaluated": false,
+          "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+          "query": "serialize export customer as deterministic json",
+          "runs": {
+            "reference": {
+              "backend": "reference",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "serialize export customer as deterministic json",
+              "receipt": {
+                "backend": {
+                  "id": "python-reference-scan",
+                  "version": "3.14.4"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.568173Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "python-token-scan",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.726667,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "per-query execution without a separately materialized index"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:4274e1285a5f03a6c2bd6f9b2709cc29642400ee83ac5d6f2ace84ce9c70a108",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:2e15eecba439ee625e0c1c9608baf299f7484245cf0bb67b11d2d86e59fe7e41"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:c70ba00c8ac718c1fc7f6f271a1f1af7bf428feb93de8956cef4ea2114a02264"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:da769f241d5d1724d4a421bbe57eabff64d73757b60f09fc3f216eabbd598c61"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "python-token-scan",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.16397,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.204148,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.106117,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.154772,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.604875801351,
+                    "lexical": 1.0,
+                    "token-sparse": 0.682288238382,
+                    "word-hash": 0.530330075296
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "cwl",
+                    "source_pointer": "/"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.051459293395,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.265401755686,
+                    "lexical": 0.5,
+                    "token-sparse": 0.355201665094,
+                    "word-hash": 0.414780685102
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Imported POST /customers/export OpenAPI operation candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "label": "Adapt a normalized customer to the export field vocabulary",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "openapi",
+                    "source_pointer": "/paths/~1customers~1export/post"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050947260625,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.4758161125,
+                    "lexical": 0.333333333333,
+                    "token-sparse": 0.292352676846,
+                    "word-hash": 0.280744962537
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Normalize a customer name and email address without changing address semantics.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "label": "Normalize customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.049663461538,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.185775705442,
+                    "lexical": 0.166666666667,
+                    "token-sparse": 0.223606802617,
+                    "word-hash": 0.091287104466
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            },
+            "sqlite_fts5": {
+              "backend": "sqlite_fts5",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "serialize export customer as deterministic json",
+              "receipt": {
+                "backend": {
+                  "id": "sqlite-fts5",
+                  "version": "3.46.1"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.570581Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "sqlite-fts5-match-bm25",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.893693,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "cold per-query execution; sqlite includes in-memory FTS5 index construction"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:4274e1285a5f03a6c2bd6f9b2709cc29642400ee83ac5d6f2ace84ce9c70a108",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:2e15eecba439ee625e0c1c9608baf299f7484245cf0bb67b11d2d86e59fe7e41"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:c70ba00c8ac718c1fc7f6f271a1f1af7bf428feb93de8956cef4ea2114a02264"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:da769f241d5d1724d4a421bbe57eabff64d73757b60f09fc3f216eabbd598c61"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "sqlite-fts5-match-bm25",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.112185,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.115952,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.119006,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.112468,
+                    "returned_ids": [
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.604875801351,
+                    "lexical": 6.405434800524,
+                    "token-sparse": 0.682288238382,
+                    "word-hash": 0.530330075296
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "cwl",
+                    "source_pointer": "/"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.051459293395,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.265401755686,
+                    "lexical": 1.018449737821,
+                    "token-sparse": 0.355201665094,
+                    "word-hash": 0.414780685102
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Imported POST /customers/export OpenAPI operation candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "label": "Adapt a normalized customer to the export field vocabulary",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "openapi",
+                    "source_pointer": "/paths/~1customers~1export/post"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050947260625,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.4758161125,
+                    "lexical": 3.263424e-06,
+                    "token-sparse": 0.292352676846,
+                    "word-hash": 0.280744962537
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Validate a normalized customer record.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "label": "validate_customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "agent-spec",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.049283216783,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.185134390053,
+                    "lexical": 1.905803e-06,
+                    "token-sparse": 0.219970672532,
+                    "word-hash": 0.26940795304
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            }
+          },
+          "search_scores_authorize_execution": false
+        },
+        "query": "serialize export customer as deterministic json",
+        "query_id": "emit-json",
+        "relevant_ids": [
+          "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+          "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599"
+        ]
+      },
+      {
+        "backend_metrics": {
+          "reference": {
+            "hit_count": 1,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 1,
+            "top1_relevant": true
+          },
+          "sqlite_fts5": {
+            "hit_count": 1,
+            "recall_at_returned_k": 1.0,
+            "reciprocal_rank": 1.0,
+            "relevant_count": 1,
+            "top1_relevant": true
+          }
+        },
+        "bakeoff": {
+          "agreement": {
+            "candidate_only": true,
+            "common_prefix_length": 2,
+            "eligibility_evaluated": false,
+            "exact_order_match": false,
+            "intersection_count": 4,
+            "jaccard": 1.0,
+            "left_backend": "reference",
+            "left_count": 4,
+            "mean_absolute_rank_displacement": 0.5,
+            "only_left": [],
+            "only_right": [],
+            "overlap_at_returned_k": 1.0,
+            "right_backend": "sqlite_fts5",
+            "right_count": 4,
+            "top1_match": true,
+            "union_count": 4
+          },
+          "candidate_only": true,
+          "eligibility_evaluated": false,
+          "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+          "query": "validate a normalized customer record",
+          "runs": {
+            "reference": {
+              "backend": "reference",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "validate a normalized customer record",
+              "receipt": {
+                "backend": {
+                  "id": "python-reference-scan",
+                  "version": "3.14.4"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.572598Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "python-token-scan",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.534068,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "per-query execution without a separately materialized index"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:f4e529162028668d0705eaaeb036bdab0a095622fb2497e500aadc3e479e7a05",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:7f3543707907def788d146ac1f29be2834c85da64022d9660fd6f67760d1015e"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:7768f6421815aa442a61b5512c9187cf4987868afc89a9919c12af43e4a85c0a"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:fe0a3f5d4e759658d6c8f7a38f6cc1bd1b52f57c9b4419fb0b10cdf5da17fb62"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "python-token-scan",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.136913,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.114603,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.096607,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.10782,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Validate a normalized customer record.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "label": "validate_customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "agent-spec",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.884671754182,
+                    "lexical": 1.0,
+                    "token-sparse": 0.883541261793,
+                    "word-hash": 0.883541261793
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Imported POST /customers/export OpenAPI operation candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "label": "Adapt a normalized customer to the export field vocabulary",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "openapi",
+                    "source_pointer": "/paths/~1customers~1export/post"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050863759896,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.525660703452,
+                    "lexical": 0.6,
+                    "token-sparse": 0.384307566057,
+                    "word-hash": 0.313882410287
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Normalize a customer name and email address without changing address semantics.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "label": "Normalize customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050198412698,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.416407732814,
+                    "lexical": 0.4,
+                    "token-sparse": 0.326598635037,
+                    "word-hash": 0.449073123009
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.05007716298,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.129441207462,
+                    "lexical": 0.4,
+                    "token-sparse": 0.332181918266,
+                    "word-hash": 0.513870120064
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            },
+            "sqlite_fts5": {
+              "backend": "sqlite_fts5",
+              "candidate_only": true,
+              "count": 4,
+              "eligibility_evaluated": false,
+              "profile_id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+              "query": "validate a normalized customer record",
+              "receipt": {
+                "backend": {
+                  "id": "sqlite-fts5",
+                  "version": "3.46.1"
+                },
+                "candidate_only": true,
+                "eligibility_evaluated": false,
+                "executed_at": "2026-07-11T04:51:42.574823Z",
+                "execution_scope": {
+                  "full_stack_backend_independence": false,
+                  "fusion": "shared-python-profile-fusion",
+                  "lexical": "sqlite-fts5-match-bm25",
+                  "vector_scoring": "shared-python-explicit-vector-comparison"
+                },
+                "index_snapshot": "sha256:6f68f47b529ae86b3cd088ab0c5c767f0543a044d3d52e8e581889d529ed4629",
+                "latency_ms": 0.832858,
+                "latency_scope": {
+                  "cross_backend_performance_comparable": false,
+                  "stage": "individual stage timing excludes shared setup and fusion",
+                  "total": "cold per-query execution; sqlite includes in-memory FTS5 index construction"
+                },
+                "parameters": {
+                  "fusion": {
+                    "inputs": [
+                      {
+                        "stage_ref": "lexical",
+                        "weight": 1.0
+                      },
+                      {
+                        "stage_ref": "word-hash",
+                        "weight": 0.8
+                      },
+                      {
+                        "stage_ref": "char-hash",
+                        "weight": 0.6
+                      },
+                      {
+                        "stage_ref": "token-sparse",
+                        "weight": 0.8
+                      }
+                    ],
+                    "method": "rrf",
+                    "parameters": {
+                      "raw_cross_space_scores_are_not_mixed": true,
+                      "rrf_k": 60,
+                      "weights_are_query_preferences_not_truth": true
+                    }
+                  },
+                  "hard_gates": [
+                    {
+                      "field": "lifecycle",
+                      "operator": "not_in",
+                      "value": [
+                        "revoked",
+                        "rejected"
+                      ]
+                    }
+                  ],
+                  "output": {
+                    "include_fields": [
+                      "label",
+                      "description",
+                      "lifecycle",
+                      "metadata"
+                    ],
+                    "limit": 4
+                  },
+                  "request_filters": []
+                },
+                "profile": {
+                  "digest": "sha256:38f22d8bdcbf0ce5dc5ac67361812e0896f39e8462014c4caca57c04566a709c",
+                  "id": "urn:example:ocg:search-profile:interop-hybrid-v1",
+                  "version": "0.1.0"
+                },
+                "query_digest": "sha256:f4e529162028668d0705eaaeb036bdab0a095622fb2497e500aadc3e479e7a05",
+                "query_vectors": {
+                  "char-hash": {
+                    "space_id": "urn:example:ocg:space:projection:820f3128656e0e9f80d30abc01ee644bec733b3fc2eae53ec7ef2d4aa9d34b1f",
+                    "vector_digest": "sha256:7f3543707907def788d146ac1f29be2834c85da64022d9660fd6f67760d1015e"
+                  },
+                  "token-sparse": {
+                    "space_id": "urn:example:ocg:space:projection:e4072796a60526f14691f9771e4fd31e14714d92ce1c2849bc522e2812c14ee3",
+                    "vector_digest": "sha256:7768f6421815aa442a61b5512c9187cf4987868afc89a9919c12af43e4a85c0a"
+                  },
+                  "word-hash": {
+                    "space_id": "urn:example:ocg:space:projection:cf79a08741691fc2d5262da3a4f713c5be2996fed8f321fb7b132dd733cb5f4f",
+                    "vector_digest": "sha256:fe0a3f5d4e759658d6c8f7a38f6cc1bd1b52f57c9b4419fb0b10cdf5da17fb62"
+                  }
+                },
+                "receipt_version": "ocg-search-receipt/0.1",
+                "returned_ids": [
+                  "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+                ],
+                "search_scores_authorize_execution": false,
+                "stages": [
+                  {
+                    "backend_operation": "sqlite-fts5-match-bm25",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "lexical",
+                    "latency_ms": 0.107534,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "lexical",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.111427,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "word-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "dense_vector",
+                    "latency_ms": 0.097524,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+                    ],
+                    "stage_id": "char-hash",
+                    "status": "executed"
+                  },
+                  {
+                    "backend_operation": "python-explicit-vector-comparison",
+                    "candidate_count": 6,
+                    "examined": 6,
+                    "kind": "sparse_vector",
+                    "latency_ms": 0.10931,
+                    "returned_ids": [
+                      "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                      "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                      "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                      "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                      "urn:uuid:71151d08-7724-5879-a552-f80c1ee87599",
+                      "urn:uuid:8a08abfa-5d8d-5736-bd0d-f752c2ccb581"
+                    ],
+                    "stage_id": "token-sparse",
+                    "status": "executed"
+                  }
+                ]
+              },
+              "results": [
+                {
+                  "candidate_only": true,
+                  "description": "Validate a normalized customer record.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995",
+                  "label": "validate_customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "agent-spec",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.052459016393,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.884671754182,
+                    "lexical": 4.262170921567,
+                    "token-sparse": 0.883541261793,
+                    "word-hash": 0.883541261793
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Imported POST /customers/export OpenAPI operation candidate.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:b19ef411-ee8c-5637-8a24-7934f172f95d",
+                  "label": "Adapt a normalized customer to the export field vocabulary",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "openapi",
+                    "source_pointer": "/paths/~1customers~1export/post"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050863759896,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.525660703452,
+                    "lexical": 0.909166631173,
+                    "token-sparse": 0.384307566057,
+                    "word-hash": 0.313882410287
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Serialize an export-shaped customer record as deterministic JSON.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+                  "label": "Emit customer JSON",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/1"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050565563469,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.129441207462,
+                    "lexical": 0.803818716443,
+                    "token-sparse": 0.332181918266,
+                    "word-hash": 0.513870120064
+                  }
+                },
+                {
+                  "candidate_only": true,
+                  "description": "Normalize a customer name and email address without changing address semantics.",
+                  "execution_authorized": false,
+                  "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+                  "label": "Normalize customer",
+                  "lifecycle": "candidate",
+                  "metadata": {
+                    "retrieval_projection_boundary": "candidate_generation_only",
+                    "semantic_status": "candidate",
+                    "source_format": "mcp-tools",
+                    "source_pointer": "/tools/0"
+                  },
+                  "planning_eligibility": "not_evaluated",
+                  "search_score": 0.050198412698,
+                  "serves_truth": false,
+                  "stage_scores": {
+                    "char-hash": 0.416407732814,
+                    "lexical": 3.196426e-06,
+                    "token-sparse": 0.326598635037,
+                    "word-hash": 0.449073123009
+                  }
+                }
+              ],
+              "search_scores_authorize_execution": false
+            }
+          },
+          "search_scores_authorize_execution": false
+        },
+        "query": "validate a normalized customer record",
+        "query_id": "validate-customer",
+        "relevant_ids": [
+          "urn:uuid:ad606230-e36a-51a5-bef9-e012d754a995"
+        ]
+      }
+    ],
+    "query_count": 4
+  }
+}

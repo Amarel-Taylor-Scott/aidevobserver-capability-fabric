@@ -1,0 +1,22 @@
+{
+  "cwlVersion": "v1.2",
+  "class": "Operation",
+  "id": "urn:example:interop:cwl:emit-customer-json",
+  "label": "Emit customer JSON",
+  "doc": "An abstract CWL operation that consumes an export-shaped customer and produces a JSON file.",
+  "inputs": {
+    "customer": {
+      "type": {
+        "type": "record",
+        "name": "ExportCustomer",
+        "fields": [
+          {"name": "name", "type": "string"},
+          {"name": "email_address", "type": "string"}
+        ]
+      }
+    }
+  },
+  "outputs": {
+    "json_artifact": {"type": "File"}
+  }
+}

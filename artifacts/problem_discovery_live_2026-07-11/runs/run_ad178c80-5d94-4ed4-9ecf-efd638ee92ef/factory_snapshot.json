@@ -1,0 +1,25 @@
+{
+  "benchmarks": [],
+  "candidate_only": true,
+  "counts": {
+    "benchmarks": 0,
+    "crossovers": 0,
+    "fitness": 0,
+    "genomes": 0,
+    "mutations": 0,
+    "observations": 0
+  },
+  "crossovers": [],
+  "factory_id": "factory.aidevobserver.evolutionary_primitive.v0",
+  "fitness": [],
+  "genomes": [],
+  "measurement_boundary": {
+    "benchmark_records": "estimated_not_executed",
+    "candidate_only": true,
+    "execution_receipts": 0,
+    "serves_truth": false
+  },
+  "mutations": [],
+  "observations": [],
+  "serves_truth": false
+}

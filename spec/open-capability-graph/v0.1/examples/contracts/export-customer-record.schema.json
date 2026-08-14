@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:example:ocg:contract:export-customer-record",
+  "type": "object",
+  "required": ["name", "email_address"],
+  "properties": {
+    "name": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+    "email_address": {"type": "string", "format": "email"}
+  },
+  "additionalProperties": false
+}

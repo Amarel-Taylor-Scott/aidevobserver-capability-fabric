@@ -1,0 +1,72 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Customer Export API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/customers/export": {
+      "post": {
+        "operationId": "adapt_customer_for_export",
+        "summary": "Adapt a normalized customer to the export field vocabulary",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {"$ref": "#/components/schemas/NormalizedCustomer"}
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Export-shaped customer",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ExportCustomer"}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failure",
+            "content": {
+              "application/json": {
+                "schema": {"$ref": "#/components/schemas/ValidationError"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NormalizedCustomer": {
+        "type": "object",
+        "required": ["name", "email"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "email": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": false
+      },
+      "ExportCustomer": {
+        "type": "object",
+        "required": ["name", "email_address"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "email_address": {"type": "string", "minLength": 3}
+        },
+        "additionalProperties": false
+      },
+      "ValidationError": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": {"type": "string"},
+          "message": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

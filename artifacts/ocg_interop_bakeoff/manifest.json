@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "bytes": 9629,
+      "digest": "sha256:ac5de540fc1624f264f127ffba9096f64718661b8066a32b38cbe17ee357157c",
+      "path": "agent-spec.ocg.json"
+    },
+    {
+      "bytes": 8417,
+      "digest": "sha256:67589463ca39ff01a83eb06d8c0d0ac0ed6a31bd6e9e611dcef8801127c8a789",
+      "path": "cwl.ocg.json"
+    },
+    {
+      "bytes": 18198,
+      "digest": "sha256:414c14faf345349f4a78c13e2ee89d40e7ed136f73ad0594df09d361dcdf5fe5",
+      "path": "mcp-tools.ocg.json"
+    },
+    {
+      "bytes": 102469,
+      "digest": "sha256:9ed5dc9c311ab43df20559f49573bfb70a9eecc5fd2e28541c157bea63aa12ee",
+      "path": "merged-retrieval-graph.ocg.json"
+    },
+    {
+      "bytes": 12672,
+      "digest": "sha256:bdc6e4f13c23ee1f2644426daff533e043e72e729c560f2e9ea2144a60e0ef87",
+      "path": "openapi.ocg.json"
+    },
+    {
+      "bytes": 18327,
+      "digest": "sha256:335ff759870b532a86f41d20f520c64ecc6c74561e8deb0417e9b4f0ae3cf207",
+      "path": "wit.ocg.json"
+    },
+    {
+      "bytes": 140779,
+      "digest": "sha256:a51ea21c866849bff0222b8046a1d5c368df40ee5a7a27bbd5f86bc32aca816c",
+      "path": "receipt.json"
+    }
+  ],
+  "manifest_version": "ocg-interoperability-artifacts/0.1"
+}

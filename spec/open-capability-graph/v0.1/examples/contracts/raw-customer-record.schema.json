@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:example:ocg:contract:raw-customer-record",
+  "type": "object",
+  "required": ["full_name", "email"],
+  "properties": {
+    "full_name": {"type": "string", "minLength": 1, "pattern": ".*\\S.*"},
+    "email": {
+      "type": "string",
+      "pattern": "^\\s*[^\\s@]+@[^\\s@]+\\s*$",
+      "description": "An email address that may contain surrounding whitespace. Local-part case is significant."
+    }
+  },
+  "additionalProperties": false
+}

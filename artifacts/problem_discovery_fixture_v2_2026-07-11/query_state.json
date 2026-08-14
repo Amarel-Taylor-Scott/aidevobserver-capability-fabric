@@ -1,0 +1,24 @@
+{
+  "candidate_only": true,
+  "loop_id": "aidevobserver.business_friction_to_primitive.v1",
+  "queries": [
+    "\"manual process\"",
+    "\"double entry\"",
+    "workaround invoice order inventory",
+    "\"takes hours\"",
+    "\"missing API\"",
+    "\"failed to sync\"",
+    "duplicate invoice payment customer",
+    "reconciliation manual exception",
+    "approval bottleneck delay",
+    "reporting burden recordkeeping burden",
+    "legacy system migration export",
+    "false positive manual triage",
+    "reconciliation account deterministic erp"
+  ],
+  "query_count": 13,
+  "serves_truth": false,
+  "source_run_id": "run:75d8de85-0eea-462c-8c2a-2fb74652a88d",
+  "state_digest": "sha256:756f325988b8014a57ebe8ea9cbb43977433f921ced746e980719bf0d5d730db",
+  "updated_at": "2026-07-11T05:36:33.156798Z"
+}

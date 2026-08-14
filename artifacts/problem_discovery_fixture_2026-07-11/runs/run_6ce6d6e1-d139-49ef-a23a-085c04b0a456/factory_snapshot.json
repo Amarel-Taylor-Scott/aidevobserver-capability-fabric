@@ -1,0 +1,170 @@
+{
+  "benchmarks": [
+    {
+      "benchmark_id": "bench.problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0.v0",
+      "benchmark_obligations": [
+        "domain_fixture_review",
+        "negative_fixture",
+        "hidden_oracle",
+        "effect_declaration",
+        "source_evidence_review"
+      ],
+      "candidate_only": true,
+      "cost_class": "unknown",
+      "determinism_score": 0.2,
+      "executed_receipt_refs": [],
+      "latency_class": "unknown",
+      "measurement_status": "estimated_not_executed",
+      "primitive_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.51804f967272de65.v0",
+      "proof_score": 0.42,
+      "reliability_score": 0.25,
+      "serves_truth": false
+    }
+  ],
+  "candidate_only": true,
+  "counts": {
+    "benchmarks": 1,
+    "crossovers": 0,
+    "fitness": 1,
+    "genomes": 1,
+    "mutations": 3,
+    "observations": 1
+  },
+  "crossovers": [],
+  "factory_id": "factory.aidevobserver.evolutionary_primitive.v0",
+  "fitness": [
+    {
+      "candidate_only": true,
+      "correctness_score": 0.5,
+      "cost_penalty": 0.12,
+      "determinism_score": 0.2,
+      "failure_penalty": 0.18,
+      "fitness_id": "fit.problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0.v0",
+      "latency_penalty": 0.12,
+      "primitive_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.51804f967272de65.v0",
+      "proof_score": 0.42,
+      "recommendation": "prioritize_determinization",
+      "reliability_score": 0.25,
+      "reuse_score": 0.25,
+      "score": 0.0,
+      "serves_truth": false
+    }
+  ],
+  "genomes": [
+    {
+      "cache": "content_hash",
+      "candidate_only": true,
+      "determinism": "unknown",
+      "dna_hash": "sha256:9b825818c381f923983360b4a8a55e9739831e85695b69a7d13ce9ab0dfe1991",
+      "effects": [
+        "effects_unknown"
+      ],
+      "input_contract": "ReconciliationRequest",
+      "label": "Candidate reconciliation for Manually reconcile invoice and payment exports",
+      "memory": "artifact_ref",
+      "mutators": [
+        "deterministic_rewrite",
+        "map_sequence",
+        "schema_gate"
+      ],
+      "output_contract": "ReconciliationReport",
+      "primitive_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.51804f967272de65.v0",
+      "promotion_blockers": [
+        "candidate_problem_interpretation",
+        "domain_expert_review_missing",
+        "effects_not_verified",
+        "production_execution_receipts_missing"
+      ],
+      "proof_obligations": [
+        "domain_fixture_review",
+        "negative_fixture",
+        "hidden_oracle",
+        "effect_declaration",
+        "source_evidence_review"
+      ],
+      "readiness": "R2_problem_evidence",
+      "serves_truth": false,
+      "source_refs": [
+        "https://github.com/frappe/erpnext/issues/4101",
+        "https://stackoverflow.com/questions/82002/reconcile-invoices-payments",
+        "https://www.consumerfinance.gov/data-research/consumer-complaints/search/detail/73003"
+      ],
+      "trust": "candidate"
+    }
+  ],
+  "measurement_boundary": {
+    "benchmark_records": "estimated_not_executed",
+    "candidate_only": true,
+    "execution_receipts": 1,
+    "serves_truth": false
+  },
+  "mutations": [
+    {
+      "auto_apply_policy": "manual_review",
+      "cache_delta": "preserve",
+      "candidate_only": true,
+      "contract_after": "ReconciliationRequest>ReconciliationReport",
+      "contract_before": "ReconciliationRequest>ReconciliationReport",
+      "effect_delta": "remove_or_reduce_llm",
+      "memory_delta": "preserve",
+      "mutation_id": "mut.problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0.deterministic_rewrite.v0",
+      "parent_primitive_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.51804f967272de65.v0",
+      "proof_obligations": [
+        "golden_fixture_equivalence",
+        "false_positive_control"
+      ],
+      "serves_truth": false,
+      "status": "candidate",
+      "tool": "deterministic_rewrite"
+    },
+    {
+      "auto_apply_policy": "auto_if_parent_verified_and_pure",
+      "cache_delta": "preserve",
+      "candidate_only": true,
+      "contract_after": "list[ReconciliationRequest]>list[ReconciliationReport]",
+      "contract_before": "ReconciliationRequest>ReconciliationReport",
+      "effect_delta": "preserve",
+      "memory_delta": "preserve",
+      "mutation_id": "mut.problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0.map_sequence.v0",
+      "parent_primitive_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.51804f967272de65.v0",
+      "proof_obligations": [
+        "singleton_equivalence",
+        "order_preserved",
+        "error_mapping_preserved"
+      ],
+      "serves_truth": false,
+      "status": "candidate",
+      "tool": "map_sequence"
+    },
+    {
+      "auto_apply_policy": "manual_review",
+      "cache_delta": "preserve",
+      "candidate_only": true,
+      "contract_after": "ReconciliationRequest>Validated[ReconciliationReport]",
+      "contract_before": "ReconciliationRequest>ReconciliationReport",
+      "effect_delta": "preserve",
+      "memory_delta": "preserve",
+      "mutation_id": "mut.problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0.schema_gate.v0",
+      "parent_primitive_id": "candidate.problem.reconciliation.manually_reconcile_invoice_and_payment_exports.51804f967272de65.v0",
+      "proof_obligations": [
+        "schema_validation",
+        "negative_fixture"
+      ],
+      "serves_truth": false,
+      "status": "candidate",
+      "tool": "schema_gate"
+    }
+  ],
+  "observations": [
+    {
+      "candidate_only": true,
+      "extracted_problem": "Need capability for Manually reconcile invoice and payment exports Our accounts payable team has to manually reconcile invoice exports with payment records in the ERP every day. The workaround is to export both CSV files, compare invoice identifiers, and create an exception queue by hand. We need a deterministic matched-record and exception report. business software operator Manually reconcile invoice and payment exports reconciliation",
+      "observation_id": "obs.problem_reconciliation_manually_reconcile_invoice_and_payment_exports_51804f967272de65_v0",
+      "serves_truth": false,
+      "signal": "registry_seed",
+      "source_ref": "https://github.com/frappe/erpnext/issues/4101",
+      "summary": "Candidate reconciliation for Manually reconcile invoice and payment exports maps ReconciliationRequest to ReconciliationReport"
+    }
+  ],
+  "serves_truth": false
+}

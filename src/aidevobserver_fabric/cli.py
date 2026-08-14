@@ -6,7 +6,18 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import edge_catalog, fabric, hybrid, ollama, openwebui, primitive_factory, registry, social_ingest, source_surfaces
+from . import (
+    edge_catalog,
+    fabric,
+    hybrid,
+    ollama,
+    openwebui,
+    primitive_factory,
+    problem_loop,
+    registry,
+    social_ingest,
+    source_surfaces,
+)
 
 
 def default_db(path: str | None) -> Path:
@@ -85,6 +96,59 @@ def cmd_sources(args: argparse.Namespace) -> int:
     else:
         print(source_surfaces.as_json(records), end="")
     return 0
+
+
+def cmd_problem_sources(args: argparse.Namespace) -> int:
+    sources = (
+        problem_loop.load_source_specs(Path(args.source_config))
+        if args.source_config
+        else problem_loop.DEFAULT_SOURCE_SPECS
+    )
+    data = problem_loop.source_catalog(compact=args.compact, sources=sources)
+    if isinstance(data, str):
+        print(data, end="")
+    else:
+        print(fabric.canonical_json(data), end="")
+    return 0
+
+
+def _problem_loop_config(args: argparse.Namespace) -> problem_loop.LoopConfig:
+    return problem_loop.LoopConfig(
+        output_root=Path(args.output_root),
+        source_ids=tuple(args.source or ()),
+        source_config=Path(args.source_config) if args.source_config else None,
+        max_items=args.max_items,
+        timeout_seconds=args.timeout,
+        build_limit=args.build_limit,
+        minimum_cluster_similarity=args.minimum_similarity,
+        execute_candidate_tests=not args.no_execute_tests,
+        candidate_test_timeout=args.candidate_test_timeout,
+    )
+
+
+def cmd_problem_loop(args: argparse.Namespace) -> int:
+    config = _problem_loop_config(args)
+    fixtures = problem_loop.load_fixture_map(Path(args.fixture) if args.fixture else None)
+    result = problem_loop.run_loop(
+        config,
+        fixture_map=fixtures,
+        cycles=args.cycles,
+        interval_seconds=args.interval_seconds,
+        max_runtime_seconds=args.max_runtime_seconds,
+    )
+    print(fabric.canonical_json(result), end="")
+    return 1 if result["receipts"] and all(row["status"] == "failed" for row in result["receipts"]) else 0
+
+
+def cmd_problem_status(args: argparse.Namespace) -> int:
+    print(fabric.canonical_json(problem_loop.loop_status(Path(args.output_root))), end="")
+    return 0
+
+
+def cmd_problem_reconcile(args: argparse.Namespace) -> int:
+    result = problem_loop.loop_reconcile(Path(args.output_root))
+    print(fabric.canonical_json(result), end="")
+    return 0 if result["clean"] else 1
 
 
 def _edge_location(args: argparse.Namespace) -> edge_catalog.CatalogLocation:
@@ -406,6 +470,44 @@ def build_parser() -> argparse.ArgumentParser:
     sources.add_argument("--limit", type=int, help="limit returned source records")
     sources.add_argument("--compact", action="store_true")
     sources.set_defaults(func=cmd_sources)
+
+    problem_sources = sub.add_parser(
+        "problem-sources",
+        help="print policy-approved business-friction source adapters",
+    )
+    problem_sources.add_argument("--compact", action="store_true")
+    problem_sources.add_argument("--source-config", help="validated JSON source portfolio")
+    problem_sources.set_defaults(func=cmd_problem_sources)
+
+    problem_run = sub.add_parser(
+        "problem-loop",
+        help="discover public business friction and build receipt-bound candidate primitives",
+    )
+    problem_run.add_argument("--output-root", default=str(problem_loop.DEFAULT_OUTPUT_ROOT))
+    problem_run.add_argument("--source", action="append", help="source ID; repeat to select several")
+    problem_run.add_argument("--source-config", help="validated JSON source portfolio")
+    problem_run.add_argument("--fixture", help="offline JSON fixture keyed by source ID")
+    problem_run.add_argument("--cycles", type=int, default=1)
+    problem_run.add_argument("--interval-seconds", type=float, default=0.0)
+    problem_run.add_argument("--max-runtime-seconds", type=float)
+    problem_run.add_argument("--max-items", type=int, default=20)
+    problem_run.add_argument("--timeout", type=float, default=15.0)
+    problem_run.add_argument("--build-limit", type=int, default=10)
+    problem_run.add_argument("--minimum-similarity", type=float, default=0.30)
+    problem_run.add_argument("--candidate-test-timeout", type=float, default=20.0)
+    problem_run.add_argument("--no-execute-tests", action="store_true")
+    problem_run.set_defaults(func=cmd_problem_loop)
+
+    problem_status = sub.add_parser("problem-status", help="print durable problem-loop state")
+    problem_status.add_argument("--output-root", default=str(problem_loop.DEFAULT_OUTPUT_ROOT))
+    problem_status.set_defaults(func=cmd_problem_status)
+
+    problem_reconcile = sub.add_parser(
+        "problem-reconcile",
+        help="audit problem-loop ledger and CAS without deleting or repairing data",
+    )
+    problem_reconcile.add_argument("--output-root", default=str(problem_loop.DEFAULT_OUTPUT_ROOT))
+    problem_reconcile.set_defaults(func=cmd_problem_reconcile)
 
     def add_edge_catalog_args(command: argparse.ArgumentParser) -> None:
         command.add_argument("--catalog-dir", default=str(edge_catalog.DEFAULT_CATALOG_DIR))

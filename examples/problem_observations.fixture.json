@@ -1,0 +1,72 @@
+{
+  "sources": {
+    "github.operational_issues": {
+      "items": [
+        {
+          "id": 91001,
+          "node_id": "I_business_friction_fixture_1",
+          "number": 4101,
+          "repository_url": "https://api.github.com/repos/frappe/erpnext",
+          "html_url": "https://github.com/frappe/erpnext/issues/4101",
+          "title": "Manually reconcile invoice and payment exports",
+          "body": "Our accounts payable team has to manually reconcile invoice exports with payment records in the ERP every day. The workaround is to export both CSV files, compare invoice identifiers, and create an exception queue by hand. We need a deterministic matched-record and exception report.",
+          "state": "open",
+          "comments": 8,
+          "created_at": "2026-06-01T12:00:00Z",
+          "updated_at": "2026-07-10T12:00:00Z",
+          "labels": [
+            {
+              "name": "feature-request"
+            }
+          ],
+          "reactions": {
+            "total_count": 6
+          }
+        }
+      ]
+    },
+    "stackexchange.workflow_questions": {
+      "items": [
+        {
+          "question_id": 82002,
+          "link": "https://stackoverflow.com/questions/82002/reconcile-invoices-payments",
+          "title": "Manually reconcile invoice exports and payment records",
+          "body": "Our accounts payable team must manually reconcile invoice exports with payment records from an ERP each day. We compare identifiers in spreadsheets and then prepare a matched-record list and exception queue. How can this become a deterministic reconciliation report?",
+          "tags": [
+            "erp",
+            "reconciliation",
+            "csv"
+          ],
+          "score": 14,
+          "view_count": 1300,
+          "answer_count": 1,
+          "is_answered": false,
+          "creation_date": 1782914400,
+          "last_activity_date": 1783778400
+        }
+      ],
+      "quota_remaining": 9999
+    },
+    "cfpb.complaints": {
+      "hits": {
+        "hits": [
+          {
+            "_id": "73003",
+            "_source": {
+              "complaint_id": "73003",
+              "product": "Money transfer",
+              "issue": "Manually reconcile invoice and payment exports",
+              "complaint_what_happened": "Our accounts payable team manually reconciles invoice exports with payment records from the ERP every day. Staff compare invoice identifiers in CSV files and build a matched-record list plus exception queue. The desired output is a deterministic reconciliation report.",
+              "date_received": "2026-07-09",
+              "company": "Fixture Financial Services",
+              "company_response": "In progress",
+              "timely": "Yes",
+              "submitted_via": "Web",
+              "state": "NY"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

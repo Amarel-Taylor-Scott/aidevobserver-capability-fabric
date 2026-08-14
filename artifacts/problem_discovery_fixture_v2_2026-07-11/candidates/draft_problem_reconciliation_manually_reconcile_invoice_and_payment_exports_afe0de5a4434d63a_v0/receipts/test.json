@@ -1,0 +1,42 @@
+{
+  "artifact_digest": "sha256:d79adad6572b4f2f7da7134ee3f47554438b299e2d265b25eb3980535a3afb61",
+  "candidate_only": true,
+  "claim_type": "fixture_contract_test",
+  "command": [
+    "/home/username/code_projects/repos/aidevobserver-capability-fabric/.venv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "contract_digests": [
+    "sha256:06fe767d0d28c9a3b2dac7145aeec9f207fb9ed280ab2a703929e8ba8a47cff8",
+    "sha256:373df1f46cf78ac7a5a0c298acfb04260aaed0b21cbf8feb968f1860bd41ce17"
+  ],
+  "environment": {
+    "implementation": "CPython",
+    "platform": "Linux-7.0.0-22-generic-x86_64-with-glibc2.43",
+    "python": "3.11.15"
+  },
+  "environment_digest": "sha256:fcf72b3848311c1af8c2824eff995adde9a65eb25befb0b41c8c9bd41cb0e19f",
+  "error": null,
+  "finished_at": "2026-07-11T05:36:33.137858Z",
+  "fixture_digests": [
+    "sha256:c623e94522ce5df5b5e56539f99ac9e62fa3f4b885877b68adc1de65bb858c03",
+    "sha256:ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  ],
+  "promotion_decision": "none",
+  "receipt_id": "receipt.test.draft_problem_reconciliation_manually_reconcile_invoice_and_payment_exports_afe0de5a4434d63a_v0",
+  "result": "pass",
+  "returncode": 0,
+  "scope": "generated_positive_and_negative_fixtures_only",
+  "serves_truth": false,
+  "started_at": "2026-07-11T05:36:33.083726Z",
+  "stderr_bytes": 334,
+  "stderr_digest": "sha256:64d777d462101a80227ab1b85fc2e9d4585f38269bb323fd269f8034bce7956e",
+  "stdout_bytes": 0,
+  "stdout_digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "test_digest": "sha256:14cdb53bbad697e1b068c1ae4226a389f9e99fb5f221740707cfc9e338b5d98d"
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:example:ocg:contract:json-artifact",
+  "type": "object",
+  "required": ["media_type", "body"],
+  "properties": {
+    "media_type": {"const": "application/json"},
+    "body": {"type": "string"}
+  },
+  "additionalProperties": false
+}

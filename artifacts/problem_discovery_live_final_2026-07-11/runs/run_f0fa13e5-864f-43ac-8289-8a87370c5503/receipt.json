@@ -1,0 +1,38 @@
+{
+  "candidate_only": true,
+  "code_digest": "sha256:52f8ae941130e914439fe4af959de893ce42e481ef660c93e5e3844be7f9d8f0",
+  "config_digest": "sha256:413497182c6efc1b4cc78670f31177d5a7a43befcbbff3c3666665c903245c45",
+  "counts": {
+    "clusters": 16,
+    "clusters_build_gate_passed": 0,
+    "fixture_tests_failed": 0,
+    "fixture_tests_passed": 0,
+    "historical_signals_considered": 0,
+    "observations": 18,
+    "primitive_candidates_built": 0,
+    "signals": 18,
+    "sources_failed": 0,
+    "sources_requested": 4,
+    "sources_skipped": 0,
+    "sources_succeeded": 4
+  },
+  "finished_at": "2026-07-11T05:41:03.654371Z",
+  "loop_id": "aidevobserver.business_friction_to_primitive.v1",
+  "next_queries": [
+    "missing integration act advantage affordable",
+    "manual workflow already automation best",
+    "manual workflow all continually doing",
+    "missing integration 36303 airbyte airbytehq"
+  ],
+  "promotion_decision": "none",
+  "receipt_digest": "sha256:b67634933c7623da81e4f0693ea8e70b150b52c16382d69eb3bd515def85e4eb",
+  "run_id": "run:f0fa13e5-864f-43ac-8289-8a87370c5503",
+  "serves_truth": false,
+  "source_attempt_statuses": {
+    "discourse.frappe": "complete",
+    "federalregister.business_friction": "complete",
+    "github.operational_issues": "complete",
+    "stackexchange.workflow_questions": "complete"
+  },
+  "status": "complete"
+}

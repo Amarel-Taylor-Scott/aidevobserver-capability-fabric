@@ -1,0 +1,421 @@
+{
+  "$schema": "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/raw/main/spec/open-capability-graph/v0.1/schemas/open-capability-graph.schema.json",
+  "actions": [
+    {
+      "capability_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "description": "Normalize a customer name and email address without changing address semantics.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:6b5fe223-4fa9-529e-8c60-8dd91c3f46d6",
+      "implementation_ref": "urn:uuid:a18f2c1e-ac7a-5cca-b789-1aaf6050ba89",
+      "label": "Normalize customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/0"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:7dde9441-9826-5e5f-ba24-73ed95ec18b8",
+          "direction": "input",
+          "id": "input",
+          "label": "Normalize customer input",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/inputSchema"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:b7f933e5-7006-58ec-a713-9eb715a5cc6c",
+          "direction": "output",
+          "id": "output",
+          "label": "Normalize customer structured output",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/0/outputSchema"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    },
+    {
+      "capability_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "description": "Serialize an export-shaped customer record as deterministic JSON.",
+      "effects": [
+        {
+          "certainty": "unknown",
+          "kind": "custom",
+          "metadata": {
+            "reason": "native import does not establish a complete effect set"
+          }
+        }
+      ],
+      "id": "urn:uuid:d0dfa7d9-e62b-55a3-bd26-07b7f6c3db59",
+      "implementation_ref": "urn:uuid:7431aa8f-a5d5-5473-a309-dd46e52bee42",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "effects": "unknown",
+        "planning_eligibility": "unknown",
+        "postconditions": "unknown",
+        "preconditions": "unknown",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/1"
+      },
+      "ports": [
+        {
+          "contract_ref": "urn:uuid:a6ff34fd-7c17-5028-b8fe-02dd5b2e318a",
+          "direction": "input",
+          "id": "input",
+          "label": "Emit customer JSON input",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/1/inputSchema"
+          },
+          "required": true
+        },
+        {
+          "contract_ref": "urn:uuid:85215dcf-8746-581f-ae7a-8ee32d3b45b9",
+          "direction": "output",
+          "id": "output",
+          "label": "Emit customer JSON structured output",
+          "metadata": {
+            "semantic_status": "native-preserved",
+            "source_pointer": "/tools/1/outputSchema"
+          },
+          "required": true
+        }
+      ],
+      "retry": {
+        "automatic_retry": false,
+        "idempotency": "unknown"
+      },
+      "transaction": {
+        "mode": "unknown"
+      }
+    }
+  ],
+  "description": "Loss-aware mcp-tools import. Native values are preserved; compatibility and execution authorization are not established.",
+  "extensions": {
+    "https://github.com/Amarel-Taylor-Scott/aidevobserver-capability-fabric/tree/main/spec/open-capability-graph/v0.1/extensions/native-import-report": {
+      "contract_profile_claimed": false,
+      "execution_authorization": "not_established",
+      "format_reference": "https://modelcontextprotocol.io/specification/2025-06-18/server/tools",
+      "normalized_payload_uri": "data:application/json;base64,eyJwcm90b2NvbCI6Im1jcCIsInByb3RvY29sX3ZlcnNpb24iOiIyMDI1LTA2LTE4Iiwic2VydmVyX2lkIjoidXJuOmV4YW1wbGU6aW50ZXJvcDptY3A6Y3VzdG9tZXItdG9vbHMiLCJ0b29scyI6W3siYW5ub3RhdGlvbnMiOnsiZGVzdHJ1Y3RpdmVIaW50IjpmYWxzZSwiaWRlbXBvdGVudEhpbnQiOnRydWUsIm9wZW5Xb3JsZEhpbnQiOmZhbHNlLCJyZWFkT25seUhpbnQiOnRydWV9LCJkZXNjcmlwdGlvbiI6Ik5vcm1hbGl6ZSBhIGN1c3RvbWVyIG5hbWUgYW5kIGVtYWlsIGFkZHJlc3Mgd2l0aG91dCBjaGFuZ2luZyBhZGRyZXNzIHNlbWFudGljcy4iLCJpbnB1dFNjaGVtYSI6eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidHlwZSI6Im9iamVjdCJ9LCJuYW1lIjoibm9ybWFsaXplX2N1c3RvbWVyIiwib3V0cHV0U2NoZW1hIjp7IiRzY2hlbWEiOiJodHRwczovL2pzb24tc2NoZW1hLm9yZy9kcmFmdC8yMDIwLTEyL3NjaGVtYSIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicHJvcGVydGllcyI6eyJlbWFpbCI6eyJtaW5MZW5ndGgiOjMsInR5cGUiOiJzdHJpbmcifSwibmFtZSI6eyJtaW5MZW5ndGgiOjEsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJlbWFpbCJdLCJ0eXBlIjoib2JqZWN0In0sInRpdGxlIjoiTm9ybWFsaXplIGN1c3RvbWVyIn0seyJhbm5vdGF0aW9ucyI6eyJkZXN0cnVjdGl2ZUhpbnQiOmZhbHNlLCJpZGVtcG90ZW50SGludCI6dHJ1ZSwib3BlbldvcmxkSGludCI6ZmFsc2UsInJlYWRPbmx5SGludCI6dHJ1ZX0sImRlc2NyaXB0aW9uIjoiU2VyaWFsaXplIGFuIGV4cG9ydC1zaGFwZWQgY3VzdG9tZXIgcmVjb3JkIGFzIGRldGVybWluaXN0aWMgSlNPTi4iLCJpbnB1dFNjaGVtYSI6eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWxfYWRkcmVzcyI6eyJtaW5MZW5ndGgiOjMsInR5cGUiOiJzdHJpbmcifSwibmFtZSI6eyJtaW5MZW5ndGgiOjEsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJlbWFpbF9hZGRyZXNzIl0sInR5cGUiOiJvYmplY3QifSwibmFtZSI6ImVtaXRfY3VzdG9tZXJfanNvbiIsIm91dHB1dFNjaGVtYSI6eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsianNvbiI6eyJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJqc29uIl0sInR5cGUiOiJvYmplY3QifSwidGl0bGUiOiJFbWl0IGN1c3RvbWVyIEpTT04ifV19",
+      "planning_eligibility": "unknown",
+      "source_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+      "source_format": "mcp-tools",
+      "source_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+      "warnings": [
+        {
+          "code": "mcp_annotations_not_guarantees",
+          "message": "MCP ToolAnnotations are preserved as source hints but do not establish effects or idempotency.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0/annotations"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/0"
+        },
+        {
+          "code": "mcp_annotations_not_guarantees",
+          "message": "MCP ToolAnnotations are preserved as source hints but do not establish effects or idempotency.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/1/annotations"
+        },
+        {
+          "code": "behavior_semantics_unknown",
+          "message": "Effects, preconditions, postconditions, and execution authorization were not inferred.",
+          "outcome": "unknown",
+          "source_pointer": "/tools/1"
+        }
+      ]
+    }
+  },
+  "graph_id": "urn:uuid:949fe813-1795-5a68-8005-0ae5fb4fd309",
+  "nodes": [
+    {
+      "description": "Normalize a customer name and email address without changing address semantics.",
+      "id": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2",
+      "kind": "capability",
+      "label": "Normalize customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "semantic_status": "candidate",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:a18f2c1e-ac7a-5cca-b789-1aaf6050ba89",
+      "kind": "implementation",
+      "label": "Native mcp-tools binding for Normalize customer",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "kind": "mcp-tool",
+          "name": "normalize_customer",
+          "protocol_version": "2025-06-18"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+        "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/0"
+      }
+    },
+    {
+      "id": "urn:uuid:7dde9441-9826-5e5f-ba24-73ed95ec18b8",
+      "kind": "contract",
+      "label": "Normalize customer input",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:312d2e32e2d5abb001e3e255eca9e91318af6acf6d57ac6669611bca8e947d74",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/0/inputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidHlwZSI6Im9iamVjdCJ9"
+      }
+    },
+    {
+      "id": "urn:uuid:b7f933e5-7006-58ec-a713-9eb715a5cc6c",
+      "kind": "contract",
+      "label": "Normalize customer structured output",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:312d2e32e2d5abb001e3e255eca9e91318af6acf6d57ac6669611bca8e947d74",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/0/outputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "email": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWwiOnsibWluTGVuZ3RoIjozLCJ0eXBlIjoic3RyaW5nIn0sIm5hbWUiOnsibWluTGVuZ3RoIjoxLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiZW1haWwiXSwidHlwZSI6Im9iamVjdCJ9"
+      }
+    },
+    {
+      "description": "Serialize an export-shaped customer record as deterministic JSON.",
+      "id": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c",
+      "kind": "capability",
+      "label": "Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "semantic_status": "candidate",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/1"
+      }
+    },
+    {
+      "id": "urn:uuid:7431aa8f-a5d5-5473-a309-dd46e52bee42",
+      "kind": "implementation",
+      "label": "Native mcp-tools binding for Emit customer JSON",
+      "lifecycle": "candidate",
+      "metadata": {
+        "binding": {
+          "kind": "mcp-tool",
+          "name": "emit_customer_json",
+          "protocol_version": "2025-06-18"
+        },
+        "execution_authorization": "not_established",
+        "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+        "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+        "source_format": "mcp-tools",
+        "source_pointer": "/tools/1"
+      }
+    },
+    {
+      "id": "urn:uuid:a6ff34fd-7c17-5028-b8fe-02dd5b2e318a",
+      "kind": "contract",
+      "label": "Emit customer JSON input",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:49fcfc428508d31b4f00ff59a9f6cb55bf2d9cdf0fb601eb7be1d1768dad9e7f",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "input",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/1/inputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "email_address": {
+              "minLength": 3,
+              "type": "string"
+            },
+            "name": {
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "email_address"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiZW1haWxfYWRkcmVzcyI6eyJtaW5MZW5ndGgiOjMsInR5cGUiOiJzdHJpbmcifSwibmFtZSI6eyJtaW5MZW5ndGgiOjEsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJlbWFpbF9hZGRyZXNzIl0sInR5cGUiOiJvYmplY3QifQ=="
+      }
+    },
+    {
+      "id": "urn:uuid:85215dcf-8746-581f-ae7a-8ee32d3b45b9",
+      "kind": "contract",
+      "label": "Emit customer JSON structured output",
+      "lifecycle": "candidate",
+      "native_contract": {
+        "dialect": "https://json-schema.org/draft/2020-12/schema",
+        "digest": "sha256:9e28ea119e432e7421b4ac7a1f874de852c83d682a668761ed0800713cc74ac5",
+        "encoding": "utf-8",
+        "media_type": "application/json",
+        "metadata": {
+          "preservation": "deterministic-json-projection",
+          "projection_kind": "native-value",
+          "role": "output",
+          "serialization": "stdlib-json-sort-keys-v1-not-rfc8785",
+          "source_document_digest": "sha256:5a9806683355c798a8928bd1b7bcf0db4fc3e1901559bd352bc4d2222b73247d",
+          "source_document_uri": "urn:example:ocg:interop-fixture:mcp-tools.json",
+          "source_format": "mcp-tools",
+          "source_pointer": "/tools/1/outputSchema"
+        },
+        "schema": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "additionalProperties": false,
+          "properties": {
+            "json": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "json"
+          ],
+          "type": "object"
+        },
+        "schema_uri": "data:application/json;base64,eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsianNvbiI6eyJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJqc29uIl0sInR5cGUiOiJvYmplY3QifQ=="
+      }
+    }
+  ],
+  "profiles": [
+    "core"
+  ],
+  "relations": [
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:aea59369-f298-5db4-ad1a-be60320e5f0e",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:a18f2c1e-ac7a-5cca-b789-1aaf6050ba89"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:75371564-6df2-5dad-9db6-580372e37fb2"
+      }
+    },
+    {
+      "direction": "source_to_target",
+      "id": "urn:uuid:dfd6e0ff-8945-5043-ba93-3f80947abb02",
+      "kind": "implements",
+      "metadata": {
+        "planning_eligibility": "unknown",
+        "reason": "native declaration is unverified OCG candidate inventory"
+      },
+      "source": {
+        "subject_ref": "urn:uuid:7431aa8f-a5d5-5473-a309-dd46e52bee42"
+      },
+      "status": "candidate",
+      "target": {
+        "subject_ref": "urn:uuid:a9371b19-a615-58c1-9a12-81101488146c"
+      }
+    }
+  ],
+  "spec_version": "0.1.0-draft",
+  "status": "candidate",
+  "title": "MCP tool candidate import"
+}

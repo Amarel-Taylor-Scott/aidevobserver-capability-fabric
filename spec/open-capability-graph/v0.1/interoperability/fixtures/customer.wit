@@ -1,0 +1,15 @@
+package example:customer@0.1.0;
+
+interface customer-normalization {
+    record raw-customer {
+        name: string,
+        email: string,
+    }
+
+    record normalized-customer {
+        name: string,
+        email: string,
+    }
+
+    normalize-customer: func(customer: raw-customer) -> result<normalized-customer, string>;
+}
